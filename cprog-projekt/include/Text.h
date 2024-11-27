@@ -1,12 +1,13 @@
 #ifndef TEXT_H
 #define TEXT_H
 
+#include "Sprite.h"
+
 namespace gameEngine
 {
-    class Text
+    class Text : public Sprite
     {
 
     };
 }
-
 #endif

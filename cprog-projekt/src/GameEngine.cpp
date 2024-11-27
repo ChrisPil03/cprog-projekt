@@ -48,7 +48,7 @@ namespace gameEngine
                     }
                 case SDL_KEYUP:{
                     for (Sprite* s : sprites){
-                        s->keyUP(eve);
+                        s->keyUp(eve);
                     }
                 }
                 case SDL_MOUSEBUTTONDOWN:
