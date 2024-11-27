@@ -1,6 +1,6 @@
 #include "Button.h"
 
-namespace GameEngine
+namespace gameEngine
 {
     
 }

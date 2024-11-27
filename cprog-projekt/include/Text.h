@@ -1,7 +1,7 @@
 #ifndef TEXT_H
 #define TEXT_H
 
-namespace GameEngine
+namespace gameEngine
 {
     class Text
     {

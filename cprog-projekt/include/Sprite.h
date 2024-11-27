@@ -1,7 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-namespace Engine
+namespace gameEngine
 {
     class Sprite
     {

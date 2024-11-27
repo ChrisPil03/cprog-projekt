@@ -1,6 +1,6 @@
 #include "Text.h"
 
-namespace GameEngine
+namespace gameEngine
 {
 
 }
