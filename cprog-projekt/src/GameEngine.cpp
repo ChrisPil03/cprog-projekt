@@ -37,6 +37,7 @@ namespace gameEngine
         bool quit = false;
         Uint32 tickInterval = 1000 / fps;
         while (!quit){
+            Uint32 nextTick = SDL_GetTicks() + tickInterval;
             SDL_Event eve;
             while (SDL_PollEvent(&eve)){
                 switch (eve.type){
@@ -74,7 +75,7 @@ namespace gameEngine
                 for (std::vector<Sprite*>::iterator iter = sprites.begin(); iter != sprites.end();){
                     if (*iter == s){
                         delete *iter;
-                        iter = sprites.erase(s);
+                        iter = sprites.erase(iter);
                     }
                     else{
                         iter++;
@@ -82,6 +83,18 @@ namespace gameEngine
                 }
             }
             removed.clear();
+
+            SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+            SDL_RenderClear(ren);
+            for (Sprite* s : sprites){
+                s->draw();
+            }
+            SDL_RenderPresent(ren);
+
+            int delay = nextTick - SDL_GetTicks();
+		    if (delay > 0){
+			    SDL_Delay(delay);
+            }
 
         } // yttre while
     }
