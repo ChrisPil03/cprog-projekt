@@ -6,6 +6,8 @@
 
 namespace engine{
 
+Session::Session(){}
+
 void Session::addComponent(Component* c){
     added.push_back(c);
 }
@@ -15,8 +17,19 @@ void Session::removeComponent(Component* c) {
 }
 
 void Session::run() {
-	bool quit = false;
 }
+
+void Session::setFps(int newFps){
+
+fps= newFps;
+}
+
+Session::~Session(){
+
+}
+
+Session session;
+
 
 }
 

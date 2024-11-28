@@ -19,7 +19,7 @@ namespace engine
         Sprite(int x, int y, int w, int h);
     private:
         SDL_Rect rect;
-        //SDL_Texture* texture;
+        SDL_Texture* texture;
         Sprite(const Sprite&) = delete;
         const Sprite& operator=(const Sprite&) = delete;
     };

@@ -15,11 +15,13 @@ namespace engine{
         void setFps(const int newFps);
 		void run();
 		~Session();
+        
 	private:
 		std::vector<Component*> comps;
         //vector with scenes instead of component?
         std::vector<Component*> added, removed;
         int fps = 60;
+        
 	};
 
     extern Session session;
