@@ -2,24 +2,24 @@
 #define SPRITE_H
 
 #include <SDL2/SDL.h>
+#include "Component.h"
 
-namespace gameEngine
+namespace engine
 {
-    class Sprite
+    class Sprite : public Component
     {
     public:
-        virtual ~Sprite();
-        virtual void keyDown(const SDL_Event&) {}
-        virtual void keyUp(const SDL_Event&) {}
-        virtual void mouseDown(const SDL_Event&) {}
-        virtual void mouseUp(const SDL_Event&) {}
-        virtual void draw() const = 0;
-        virtual void update();
-        const SDL_Rect& getRect() const { return rect; }
+        ~Sprite();
+        static Sprite* getInstance(int x, int y, int w, int h); 
+
+        void render() const;
+        void update();
+
     protected:
         Sprite(int x, int y, int w, int h);
     private:
         SDL_Rect rect;
+        //SDL_Texture* texture;
         Sprite(const Sprite&) = delete;
         const Sprite& operator=(const Sprite&) = delete;
     };

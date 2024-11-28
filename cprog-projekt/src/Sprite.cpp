@@ -1,6 +1,6 @@
 #include "Sprite.h"
 
-namespace gameEngine
+namespace engine
 {
     Sprite::Sprite(int x, int y, int w, int h) : rect { x,y,w,h }{}
 
