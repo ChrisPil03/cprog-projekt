@@ -9,6 +9,9 @@ namespace engine{
         virtual void render() const {}
         virtual void update(){}
 
+    protected:
+        Component(){}
+
     private:
         Component(const Component&) = delete;            
         const Component* operator=(const Component&) = delete;

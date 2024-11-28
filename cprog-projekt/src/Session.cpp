@@ -6,7 +6,9 @@
 
 namespace engine{
 
-void Session::addComponent(Component* c){added.push_back(c);}
+void Session::addComponent(Component* c){
+    added.push_back(c);
+}
 
 void Session::removeComponent(Component* c) {
 	removed.push_back(c);

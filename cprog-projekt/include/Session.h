@@ -22,6 +22,6 @@ namespace engine{
         int fps = 60;
 	};
 
-    extern Session ses;
+    extern Session session;
 }
 #endif
