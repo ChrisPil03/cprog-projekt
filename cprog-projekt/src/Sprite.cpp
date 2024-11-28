@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "Constants.h"
 #include "System.h"
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
 namespace engine
