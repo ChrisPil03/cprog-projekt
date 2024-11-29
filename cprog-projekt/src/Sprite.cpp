@@ -16,7 +16,7 @@ namespace engine
     }
 
     void Sprite::update(){
-
+        
     }
 
     void Sprite::moveRight(){

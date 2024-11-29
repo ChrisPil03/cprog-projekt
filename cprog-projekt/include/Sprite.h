@@ -15,6 +15,11 @@ namespace engine
         void render() const;
         void update();
 
+        void moveRight();
+        void moveLeft();
+        void moveUp();
+        void moveDown();
+
     protected:
         Sprite(int x, int y, int w, int h);
     private:
