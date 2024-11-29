@@ -4,6 +4,7 @@
 #include <vector>
 #include "Component.h"
 #include <SDL2/SDL.h>
+#include <set>
 
 namespace engine{
 
@@ -14,7 +15,8 @@ namespace engine{
 		void addComponent(Component* c);
         void removeComponent(Component* c); // boolean?
         void setFps(const int newFps);
-		const SDL_Keycode& getKeyDown() const;
+		//const SDL_Keycode& getKeyDown() const;
+		const bool keyDown(const SDL_Keycode& key) const;
 		void run();
 		~Session();
         
@@ -24,7 +26,8 @@ namespace engine{
         std::vector<Component*> added, removed;
         int fps = 60;
 		const int tickInterval = 1000 / fps;
-		SDL_Keycode keyDown;    
+		//SDL_Keycode keyDown;
+		std::set<SDL_Keycode> keysDown; 
 	};
 
     extern Session session;

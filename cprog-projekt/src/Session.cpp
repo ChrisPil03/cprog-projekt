@@ -6,84 +6,90 @@
 
 namespace engine{
 
-Session::Session(){}
+    Session::Session(){}
 
-void Session::addComponent(Component* c){
-    added.push_back(c);
-}
+    void Session::addComponent(Component* c){
+        added.push_back(c);
+    }
 
-void Session::removeComponent(Component* c) {
-	removed.push_back(c);
-}
+    void Session::removeComponent(Component* c) {
+        removed.push_back(c);
+    }
 
-const SDL_Keycode& Session::getKeyDown() const {
-    return keyDown;
-}
+    /*
+    const SDL_Keycode& Session::getKeyDown() const {
+        return keyDown;
+    }    
+    */
 
-void Session::run() {
-    bool quit = false;
-    while(!quit){
-        Uint32 nextTick = SDL_GetTicks() + tickInterval;
-        SDL_Event event;
-        while (SDL_PollEvent(&event)){
-            switch(event.type){
-                case SDL_QUIT: quit = true; break;
-                case SDL_KEYDOWN:
-                    keyDown = event.key.keysym.sym;
-                    break;
-                case SDL_KEYUP:
-                    keyDown = false;
-            } // yttre switch
-        } // inre while
+    const bool Session::keyDown(const SDL_Keycode& key) const{
+        return keysDown.find(key) != keysDown.end();
+    }
 
-        for (Component* c : components){
-                c->update();
-            }
+    void Session::run() {
+        bool quit = false;
+        while(!quit){
+            Uint32 nextTick = SDL_GetTicks() + tickInterval;
+            SDL_Event event;
+            while (SDL_PollEvent(&event)){
+                switch(event.type){
+                    case SDL_QUIT: quit = true; break;
+                    case SDL_KEYDOWN:
+                        keysDown.insert(event.key.keysym.sym);
+                        //keyDown = event.key.keysym.sym;
+                        break;
+                    case SDL_KEYUP:
+                        keysDown.erase(event.key.keysym.sym);
+                        //keyDown = false;
+                } // yttre switch
+            } // inre while
 
-        for (Component* c : added){
-                components.push_back(c);
-            }
-            added.clear();
-        
-        for (Component* c : removed){
-            for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
-                if (*iter == c){
-                    delete *iter;
-                    iter = components.erase(iter);
+            for (Component* c : components){
+                    c->update();
                 }
-                else{
-                    iter++;
+
+            for (Component* c : added){
+                    components.push_back(c);
+                }
+                added.clear();
+            
+            for (Component* c : removed){
+                for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
+                    if (*iter == c){
+                        delete *iter;
+                        iter = components.erase(iter);
+                    }
+                    else{
+                        iter++;
+                    }
                 }
             }
-        }
-        removed.clear();
+            removed.clear();
 
-        SDL_SetRenderDrawColor(system.getRen(), 255, 255, 255, 255);
-        SDL_RenderClear(system.getRen());
-        for (Component* c : components){
-            c->render();
-        }
-        SDL_RenderPresent(system.getRen());
+            SDL_SetRenderDrawColor(system.getRen(), 255, 255, 255, 255);
+            SDL_RenderClear(system.getRen());
+            for (Component* c : components){
+                c->render();
+            }
+            SDL_RenderPresent(system.getRen());
 
-        int delay = nextTick - SDL_GetTicks();
-        if (delay > 0){
-            SDL_Delay(delay);
-        }
+            int delay = nextTick - SDL_GetTicks();
+            if (delay > 0){
+                SDL_Delay(delay);
+            }
 
-    } // yttre while
-} // run
+        } // yttre while
+    } // run
 
-void Session::setFps(int newFps){
+    void Session::setFps(int newFps){
 
-fps= newFps;
-}
+    fps= newFps;
+    }
 
-Session::~Session(){
+    Session::~Session(){
 
-}
+    }
 
-Session session;
-
-
+    Session session;
 }
 

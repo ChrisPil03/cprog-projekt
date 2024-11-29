@@ -10,16 +10,16 @@ class Player : public Sprite{
 public:
     Player(int x, int y, int w, int h, std::string txt) : Sprite(x, y, w, h, txt){}
     void update(){
-        if (session.getKeyDown() == SDLK_w){
+        if (session.keyDown(SDLK_w)){
             getRect()->y--;
         }
-        if (session.getKeyDown() == SDLK_a){
+        if (session.keyDown(SDLK_a)){
             getRect()->x--;
         }
-        if (session.getKeyDown() == SDLK_s){
+        if (session.keyDown(SDLK_s)){
             getRect()->y++;
         }
-        if (session.getKeyDown() == SDLK_d){
+        if (session.keyDown(SDLK_d)){
             getRect()->x++;
         }
     }
