@@ -16,6 +16,10 @@ void Session::removeComponent(Component* c) {
 	removed.push_back(c);
 }
 
+const SDL_Keycode& Session::getKeyDown() const {
+    return keyDown;
+}
+
 void Session::run() {
     bool quit = false;
     while(!quit){
@@ -25,6 +29,9 @@ void Session::run() {
             switch(event.type){
                 case SDL_QUIT: quit = true; break;
                 case SDL_KEYDOWN:
+                    keyDown = event.key.keysym.sym;
+                    break;
+                    /*
                     switch (event.key.keysym.sym){
                         case SDLK_RIGHT:
                             for (Component* c : components){
@@ -47,7 +54,7 @@ void Session::run() {
                             }
                             break;
                     } // inre switch
-                    break;
+                    */
             } // yttre switch
         } // inre while
 

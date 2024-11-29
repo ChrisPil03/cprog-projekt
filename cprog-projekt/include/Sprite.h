@@ -14,11 +14,7 @@ namespace engine
 
         void render() const;
         void update();
-
-        void moveRight();
-        void moveLeft();
-        void moveUp();
-        void moveDown();
+        SDL_Rect* getRect() { return &rect;}
 
     protected:
         Sprite(int x, int y, int w, int h);
