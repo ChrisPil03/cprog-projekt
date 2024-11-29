@@ -8,6 +8,10 @@ namespace engine{
         virtual ~Component(){}
         virtual void render() const {}
         virtual void update(){}
+        virtual void moveRight(){}
+        virtual void moveLeft(){}
+        virtual void moveUp(){}
+        virtual void moveDown(){}
 
     protected:
         Component(){}

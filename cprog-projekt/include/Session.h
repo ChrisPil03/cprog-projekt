@@ -17,10 +17,11 @@ namespace engine{
 		~Session();
         
 	private:
-		std::vector<Component*> comps;
+		std::vector<Component*> components;
         //vector with scenes instead of component?
         std::vector<Component*> added, removed;
         int fps = 60;
+		const int tickInterval = 1000 / fps;
         
 	};
 

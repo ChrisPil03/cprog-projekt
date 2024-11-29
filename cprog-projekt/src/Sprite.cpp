@@ -11,10 +11,29 @@ namespace engine
 
     }
 
+    Sprite* Sprite::getInstance(int x, int y, int w, int h){
+        return new Sprite(x,y,w,h);
+    }
+
     void Sprite::update(){
 
     }
 
+    void Sprite::moveRight(){
+        rect.x++;
+    }
+
+    void Sprite::moveLeft(){
+        rect.x--;
+    }
+
+    void Sprite::moveUp(){
+        rect.y--;
+    }
+
+    void Sprite::moveDown(){
+        rect.y++;
+    }
 
     Sprite::~Sprite(){
         SDL_DestroyTexture(texture);
