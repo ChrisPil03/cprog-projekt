@@ -20,10 +20,6 @@ const SDL_Keycode& Session::getKeyDown() const {
     return keyDown;
 }
 
-const SDL_Keycode& Session::getKeyUp() const {
-    return keyUp;
-}
-
 void Session::run() {
     bool quit = false;
     while(!quit){
@@ -36,7 +32,7 @@ void Session::run() {
                     keyDown = event.key.keysym.sym;
                     break;
                 case SDL_KEYUP:
-                    keyUp = event.key.keysym.sym;
+                    keyDown = false;
             } // yttre switch
         } // inre while
 
