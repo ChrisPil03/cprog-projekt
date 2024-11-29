@@ -15,6 +15,7 @@ namespace engine{
         void removeComponent(Component* c); // boolean?
         void setFps(const int newFps);
 		const SDL_Keycode& getKeyDown() const;
+		const SDL_Keycode& getKeyUp() const;
 		void run();
 		~Session();
         
@@ -25,7 +26,7 @@ namespace engine{
         int fps = 60;
 		const int tickInterval = 1000 / fps;
 		SDL_Keycode keyDown;
-        
+		SDL_Keycode keyUp;       
 	};
 
     extern Session session;

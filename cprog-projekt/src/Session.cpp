@@ -20,6 +20,10 @@ const SDL_Keycode& Session::getKeyDown() const {
     return keyDown;
 }
 
+const SDL_Keycode& Session::getKeyUp() const {
+    return keyUp;
+}
+
 void Session::run() {
     bool quit = false;
     while(!quit){
@@ -31,30 +35,8 @@ void Session::run() {
                 case SDL_KEYDOWN:
                     keyDown = event.key.keysym.sym;
                     break;
-                    /*
-                    switch (event.key.keysym.sym){
-                        case SDLK_RIGHT:
-                            for (Component* c : components){
-                                c->moveRight();
-                            }
-                            break;
-                        case SDLK_LEFT:
-                            for (Component* c : components){
-                                c->moveLeft();
-                            }
-                            break;
-                        case SDLK_UP:
-                            for (Component* c : components){
-                                c->moveUp();
-                            }
-                            break;
-                        case SDLK_DOWN:
-                            for (Component* c : components){
-                                c->moveDown();
-                            }
-                            break;
-                    } // inre switch
-                    */
+                case SDL_KEYUP:
+                    keyUp = event.key.keysym.sym;
             } // yttre switch
         } // inre while
 

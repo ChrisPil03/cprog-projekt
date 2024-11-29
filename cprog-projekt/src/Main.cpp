@@ -1,13 +1,14 @@
 #include "Session.h"
 #include "Sprite.h"
 #include "Component.h"
+#include <string>
 //#include <SDL2/SDL.h>
 
 using namespace engine;
 
 class Player : public Sprite{
 public:
-    Player(int x, int y, int w, int h) : Sprite(x, y, w, h){}
+    Player(int x, int y, int w, int h, std::string txt) : Sprite(x, y, w, h, txt){}
     void update(){
         if (session.getKeyDown() == SDLK_w){
             getRect()->y--;
@@ -26,10 +27,8 @@ public:
 
 int main (int argc, char** argv){
 
-   //Sprite* testSprite = Sprite::getInstance(100, 100, 100, 100);
-   Player* player = new Player(100,100,100,100);
+   Player* player = new Player(100,100,100,100, "/images/bg.jpg");
    session.addComponent(player);
-   //session.addComponent(testSprite);
    session.run();
 
     return 0;

@@ -3,16 +3,16 @@
 #include "System.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <string>
 
 namespace engine
 {
-    Sprite::Sprite(int x, int y, int w, int h) : rect { x,y,w,h }{
-        texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + "images/bg.jpg").c_str());
-
+    Sprite::Sprite(int x, int y, int w, int h, std::string txt) : rect { x,y,w,h }{
+        texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
     }
 
-    Sprite* Sprite::getInstance(int x, int y, int w, int h){
-        return new Sprite(x,y,w,h);
+    Sprite* Sprite::getInstance(int x, int y, int w, int h, std::string txt){
+        return new Sprite(x,y,w,h, txt);
     }
 
     void Sprite::update(){
