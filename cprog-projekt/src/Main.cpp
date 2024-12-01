@@ -27,7 +27,7 @@ public:
 
 int main (int argc, char** argv){
 
-   Player* player = new Player(100,100,64,64, "/images/Idle.png", 6, 32);
+   Player* player = new Player(100,100,128,128, "/images/Idle.png", 6, 32);
    session.addComponent(player);
    session.run();
 

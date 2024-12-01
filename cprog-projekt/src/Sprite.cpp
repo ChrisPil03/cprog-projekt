@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <iostream>
 
 namespace engine
 {
@@ -11,7 +12,7 @@ namespace engine
         texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
     }
 
-    Sprite::Sprite(int x, int y, int w, int h, std::string txt, int frameCount, int xFrame) : rect {x,y,w,h}, frameRect {0,0,xFrame,xFrame} ,frames(frameCount){
+    Sprite::Sprite(int x, int y, int w, int h, std::string txt, int frameCount, int xF) : rect {x,y,w,h}, frameRect {0,0,xF,xF} ,frames(frameCount), xFrame(xF){
         texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
         isAnimated = true;
     }
@@ -34,13 +35,16 @@ namespace engine
 
     void Sprite::render(){
         if (isAnimated){
-            int frame = 0;
-            if (frame <= frames){
+            static int counter = 0;
+            counter++;
+            if (counter % 10 == 0){
+                static int frame = 0;
+                frameRect.x = xFrame * frame;
                 frame++;
-            } else{
-                frame = 1;
+                if (frame >= frames){
+                    frame = 0;
+                }
             }
-            frameRect.x = xFrame * frame;
             SDL_RenderCopy(system.getRen(), texture, &frameRect, &rect);
         }
         else{

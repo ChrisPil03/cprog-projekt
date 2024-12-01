@@ -26,8 +26,8 @@ namespace engine
         SDL_Rect frameRect;
         SDL_Texture* texture;
         bool isAnimated = false;
-        int frames = 0;
-        int xFrame = 0;
+        int frames;
+        int xFrame;
         Sprite(const Sprite&) = delete;
         const Sprite& operator=(const Sprite&) = delete;
     };
