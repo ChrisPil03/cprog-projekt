@@ -8,7 +8,7 @@ using namespace engine;
 
 class Player : public Sprite{
 public:
-    Player(int x, int y, int w, int h, std::string txt) : Sprite(x, y, w, h, txt){}
+    Player(int x, int y, int w, int h, std::string txt, int frames, int xFrame) : Sprite(x, y, w, h, txt, frames, xFrame){}
     void update(){
         if (session.keyDown(SDLK_w)){
             getRect()->y--;
@@ -27,7 +27,7 @@ public:
 
 int main (int argc, char** argv){
 
-   Player* player = new Player(100,100,100,100, "/images/bg.jpg");
+   Player* player = new Player(100,100,64,64, "/images/Idle.png", 6, 32);
    session.addComponent(player);
    session.run();
 

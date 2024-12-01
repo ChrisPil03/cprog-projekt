@@ -6,7 +6,7 @@ namespace engine{
     {
     public:
         virtual ~Component(){}
-        virtual void render() const {}
+        virtual void render(){}
         virtual void update(){}
         virtual void moveRight(){}
         virtual void moveLeft(){}

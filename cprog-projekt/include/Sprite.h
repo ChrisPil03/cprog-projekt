@@ -11,17 +11,23 @@ namespace engine
     {
     public:
         ~Sprite();
-        static Sprite* getInstance(int x, int y, int w, int h, std::string texture); 
+        static Sprite* getInstance(int x, int y, int w, int h, std::string texture);
+        static Sprite* getInstance(int x, int y, int w, int h, std::string texture, int frames, int xFrame);
 
-        void render() const;
+        void render();
         void update();
         SDL_Rect* getRect() { return &rect;}
 
     protected:
         Sprite(int x, int y, int w, int h, std::string texture);
+        Sprite(int x, int y, int w, int h, std::string texture, int frames, int xFrame);
     private:
         SDL_Rect rect;
+        SDL_Rect frameRect;
         SDL_Texture* texture;
+        bool isAnimated = false;
+        int frames = 0;
+        int xFrame = 0;
         Sprite(const Sprite&) = delete;
         const Sprite& operator=(const Sprite&) = delete;
     };
