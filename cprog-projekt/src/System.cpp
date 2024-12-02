@@ -8,7 +8,7 @@ namespace engine{
     System::System(){
         SDL_Init(SDL_INIT_EVERYTHING);
         window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED, 600, 400, 0);
+        SDL_WINDOWPOS_CENTERED, 960, 640, 0);
         renderer = SDL_CreateRenderer(window, -1, 0);
         TTF_Init();
         font = TTF_OpenFont((constants::gResPath + "fonts/arial.ttf").c_str(), 36);

@@ -14,7 +14,7 @@ namespace engine{
             const std::string& getTag() const {return tag; }
             const SDL_Rect* getColliderRect() const { return &collider; }            
             void update();
-            void updateCollider(int x, int y); //ny
+            void updateCollider(); //ny
 
         private:
             SDL_Rect collider;
