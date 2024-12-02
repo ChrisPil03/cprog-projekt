@@ -1,6 +1,9 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include <string>
+#include <SDL2/SDL.h>
+
 namespace engine{
     class Component
     {
@@ -8,10 +11,8 @@ namespace engine{
         virtual ~Component(){}
         virtual void render(){}
         virtual void update(){}
-        virtual void moveRight(){}
-        virtual void moveLeft(){}
-        virtual void moveUp(){}
-        virtual void moveDown(){}
+        virtual const std::string& getTag() const{ return NULL;}
+        virtual const SDL_Rect* getColliderRect() const{ return nullptr;}
 
     protected:
         Component(){}

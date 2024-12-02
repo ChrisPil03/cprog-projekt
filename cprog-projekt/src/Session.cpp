@@ -82,9 +82,10 @@ namespace engine{
     } // run
 
     void Session::setFps(int newFps){
-
-    fps= newFps;
+        fps= newFps;
     }
+
+    const std::vector<Component*>& Session::getComponents() const { return components;}
 
     Session::~Session(){
 

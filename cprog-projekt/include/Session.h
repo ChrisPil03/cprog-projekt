@@ -15,8 +15,8 @@ namespace engine{
 		void addComponent(Component* c);
         void removeComponent(Component* c); // boolean?
         void setFps(const int newFps);
-		//const SDL_Keycode& getKeyDown() const;
 		const bool keyDown(const SDL_Keycode& key) const;
+		const std::vector<Component*>& getComponents() const;
 		void run();
 		~Session();
         
