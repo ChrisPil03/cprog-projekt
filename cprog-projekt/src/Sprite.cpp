@@ -8,11 +8,13 @@
 
 namespace engine
 {
-    Sprite::Sprite(int x, int y, int w, int h, std::string txt) : rect { x,y,w,h }{
+    Sprite::Sprite(int x, int y, int w, int h, std::string txt) 
+        : rect { x,y,w,h }{
         texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
     }
 
-    Sprite::Sprite(int x, int y, int w, int h, std::string txt, int frameCount, int xF) : rect {x,y,w,h}, frameRect {0,0,xF,xF} ,frames(frameCount), xFrame(xF){
+    Sprite::Sprite(int x, int y, int w, int h, std::string txt, int frameCount, int xF) 
+        : rect {x,y,w,h}, frameRect {0,0,xF,xF} ,frames(frameCount), xFrame(xF){
         texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
         isAnimated = true;
     }

@@ -3,7 +3,8 @@
 #include <string>
 
 namespace engine{
-    Collider2D::Collider2D(int x, int y, int w, int h, Sprite* sprite, std::string tagName) : collider {x,y,w,h}, tag(tagName), belongsTo(sprite){ session.addComponent(this); }
+    Collider2D::Collider2D(int x, int y, int w, int h, Sprite* sprite, std::string tagName) 
+        : collider {x,y,w,h}, tag(tagName), belongsTo(sprite){ session.addComponent(this); }
 
     bool Collider2D::hasCollided(std::string tagName){
         for (Component* c : session.getComponents()){
@@ -18,5 +19,11 @@ namespace engine{
     void Collider2D::update(){
         collider.x = belongsTo->getRect()->x + ((belongsTo->getRect()->w - collider.w) / 2);
         collider.y = belongsTo->getRect()->y + (belongsTo->getRect()->h - collider.h);
+    }
+
+    void Collider2D::updateCollider(int x, int y){ // ny
+        collider.x = x+((belongsTo-> getRect()->w - collider.w)/2);
+        collider.y = y + (belongsTo->getRect()->h - collider.h);
+
     }
 }
