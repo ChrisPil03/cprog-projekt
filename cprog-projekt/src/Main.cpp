@@ -18,7 +18,7 @@ public:
 // nya collisionstestet
         if (session.keyDown(SDLK_w)){
             getRect()->y--;
-            collider-> updateCollider (getRect()->y, getRect()->x);
+            collider-> updateCollider (getRect()->x, getRect()->y);
             if(collider-> hasCollided("Ground")){
                 getRect()->y++;
             }
@@ -26,7 +26,7 @@ public:
 
         if (session.keyDown(SDLK_a)){
             getRect()->x--;
-            collider-> updateCollider (getRect()->y, getRect()->x);
+            collider-> updateCollider (getRect()->x, getRect()->y);
             if(collider-> hasCollided("Ground")){
                 getRect()->x++;
             }
@@ -34,14 +34,14 @@ public:
 
            if (session.keyDown(SDLK_s)){
             getRect()->y++;
-            collider-> updateCollider (getRect()->y, getRect()->x);
+            collider-> updateCollider (getRect()->x, getRect()->y);
             if(collider-> hasCollided("Ground")){
                 getRect()->y--;
             }
         }
              if (session.keyDown(SDLK_d)){
             getRect()->x++;
-            collider-> updateCollider (getRect()->y, getRect()->x);
+            collider-> updateCollider (getRect()->x, getRect()->y);
             if(collider-> hasCollided("Ground")){
                 getRect()->x--;
             }
