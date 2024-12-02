@@ -1,6 +1,7 @@
 #include "Collider2D.h"
 #include "session.h"
 #include <string>
+#include <iostream>
 
 namespace engine{
     Collider2D::Collider2D(int x, int y, int w, int h, Sprite* sprite, std::string tagName) 
@@ -11,7 +12,9 @@ namespace engine{
         for (Component* c : session.getComponents()){
             std::string cTag = c->getTag();
             if (cTag == tagName && c != belongsTo){ // funkar c != belongsTo?
-                return SDL_HasIntersection(&collider, c->getColliderRect());
+                if(SDL_HasIntersection(&collider, c->getColliderRect())){
+                    return true;
+                }
             }
         }
         return false;
@@ -19,7 +22,7 @@ namespace engine{
 
     void Collider2D::update(){}
 
-    void Collider2D::updateCollider(){ // ny
+    void Collider2D::updateCollider(){
         collider.x = belongsTo->getRect()->x + ((belongsTo-> getRect()->w - collider.w)/2);
         collider.y = belongsTo->getRect()->y + (belongsTo->getRect()->h - collider.h);
     }

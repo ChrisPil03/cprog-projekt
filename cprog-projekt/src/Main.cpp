@@ -56,13 +56,13 @@ class Ground : public Sprite{
 
 int main (int argc, char** argv){
 
-   Player* player = new Player(300,100,128,128, "/images/Idle.png", 6, 32);
-   Ground* ground = new Ground(150,400,660,50, "/images/bg.jpg");
-   Ground* obstacle = new Ground(500,350,50,50,"/images/bg.jpg");
-   session.addComponent(obstacle);
-   session.addComponent(ground);
-   session.addComponent(player);
-   session.run();
+    Player* player = new Player(300,100,128,128, "/images/Idle.png", 6, 32);
+    Ground* obstacle = new Ground(500,350,50,50,"/images/bg.jpg");
+    Ground* ground = new Ground(150,400,660,50, "/images/bg.jpg");
+    session.addComponent(obstacle);
+    session.addComponent(ground);
+    session.addComponent(player);
+    session.run();
 
     return 0;
 }

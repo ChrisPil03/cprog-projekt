@@ -11,7 +11,7 @@ namespace engine{
         virtual ~Component(){}
         virtual void render(){}
         virtual void update(){}
-        virtual const std::string& getTag() const{ return NULL;}
+        virtual const std::string getTag() const{ return "";}
         virtual const SDL_Rect* getColliderRect() const{ return nullptr;}
 
     protected:
@@ -20,10 +20,7 @@ namespace engine{
     private:
         Component(const Component&) = delete;            
         const Component* operator=(const Component&) = delete;
-
-
     };
-        
 }
 
 #endif

@@ -11,7 +11,7 @@ namespace engine{
         public:
             Collider2D(int x, int y, int w, int h, Sprite* sprite, std::string tag);
             bool hasCollided(std::string tagName);
-            const std::string& getTag() const {return tag; }
+            const std::string getTag() const {return tag; }
             const SDL_Rect* getColliderRect() const { return &collider; }            
             void update();
             void updateCollider(); //ny
