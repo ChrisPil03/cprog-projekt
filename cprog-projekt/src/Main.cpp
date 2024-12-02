@@ -13,22 +13,10 @@ public:
         : Sprite(x, y, w, h, txt, frames, xFrame), collider(new Collider2D(x,y,75,55,this,"Player")){}
  
     void update(){
-        if (session.keyDown(SDLK_w)){
-            getRect()->y--;
-            if(collider-> hasCollided("Ground")){
-                getRect()->y++;
-            }
-        }
         if (session.keyDown(SDLK_a)){
             getRect()->x--;
             if(collider-> hasCollided("Ground")){
                 getRect()->x++;
-            }
-        }
-        if (session.keyDown(SDLK_s)){
-            getRect()->y++;
-            if(collider-> hasCollided("Ground")){
-                getRect()->y--;
             }
         }
         if (session.keyDown(SDLK_d)){
@@ -36,6 +24,11 @@ public:
             if(collider-> hasCollided("Ground")){
                 getRect()->x--;
             }
+        }
+        // gravity
+        getRect()->y++;
+        if(collider-> hasCollided("Ground")){
+            getRect()->y--;
         }
     }
     ~Player(){ delete collider; }
