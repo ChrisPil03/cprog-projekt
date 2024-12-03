@@ -16,7 +16,7 @@ namespace engine
 
     Sprite::Sprite(int x, int y, int w, int h, Component* animation) 
         : rect {x,y,w,h}{
-        children.push_back(animation);
+        addChild(animation);
         isAnimated = true;
     }
 
@@ -35,8 +35,6 @@ namespace engine
     void Sprite::addChild(Component* c){
         children.push_back(c);
         c->addParent(this);
-
-
     }
 
     Sprite::~Sprite(){
@@ -49,11 +47,11 @@ namespace engine
     }
 
   
-  void Sprite::render(){
-    if(!isAnimated){
-        SDL_RenderCopy(system.getRen(), texture, NULL, &rect);
+    void Sprite::render(){
+        if(!isAnimated){
+            SDL_RenderCopy(system.getRen(), texture, NULL, &rect);
+        }
     }
-}
    
 	
 }
