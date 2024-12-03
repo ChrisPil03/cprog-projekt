@@ -14,22 +14,10 @@ public:
         : Sprite(x, y, w, h, new Animation("/images/Idle.png", 6, 32)), collider(new Collider2D(x,y,75,55,this,"Player")){}
  
     void update(){
-        if (session.keyDown(SDLK_w)){
-            getRect()->y--;
-            if(collider-> hasCollided("Ground")){
-                getRect()->y++;
-            }
-        }
         if (session.keyDown(SDLK_a)){
             getRect()->x--;
             if(collider-> hasCollided("Ground")){
                 getRect()->x++;
-            }
-        }
-        if (session.keyDown(SDLK_s)){
-            getRect()->y++;
-            if(collider-> hasCollided("Ground")){
-                getRect()->y--;
             }
         }
         if (session.keyDown(SDLK_d)){
@@ -37,6 +25,10 @@ public:
             if(collider-> hasCollided("Ground")){
                 getRect()->x--;
             }
+        }
+        getRect()->y++;
+        if(collider -> hasCollided("Ground")){
+            getRect()->y--;
         }
     }
     ~Player(){ delete collider; }
