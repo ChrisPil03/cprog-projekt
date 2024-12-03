@@ -1,6 +1,7 @@
 #include "Session.h"
 #include "Sprite.h"
 #include "Component.h"
+#include "Animation.h"
 #include <string>
 #include <Collider2D.h>
 //#include <SDL2/SDL.h>
@@ -9,8 +10,8 @@ using namespace engine;
 
 class Player : public Sprite{
 public:
-    Player(int x, int y, int w, int h, std::string txt, int frames, int xFrame) 
-        : Sprite(x, y, w, h, txt, frames, xFrame), collider(new Collider2D(x,y,75,55,this,"Player")){}
+    Player(int x, int y, int w, int h) 
+        : Sprite(x, y, w, h, new Animation("/images/Idle.png", 6, 32)), collider(new Collider2D(x,y,75,55,this,"Player")){}
  
     void update(){
         if (session.keyDown(SDLK_w)){
@@ -56,7 +57,7 @@ class Ground : public Sprite{
 
 int main (int argc, char** argv){
 
-    Player* player = new Player(300,100,128,128, "/images/Idle.png", 6, 32);
+    Player* player = new Player(300,100,128,128);
     Ground* obstacle = new Ground(500,350,50,50,"/images/bg.jpg");
     Ground* ground = new Ground(150,400,660,50, "/images/bg.jpg");
     session.addComponent(obstacle);
