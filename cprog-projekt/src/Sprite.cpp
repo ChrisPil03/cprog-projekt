@@ -1,6 +1,7 @@
 #include "Sprite.h"
 #include "Constants.h"
 #include "System.h"
+#include "Animation.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
@@ -13,9 +14,9 @@ namespace engine
         texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
     }
 
-    Sprite::Sprite(int x, int y, int w, int h, std::string txt, int frameCount, int xF) 
-        : rect {x,y,w,h}, frameRect {0,0,xF,xF} ,frames(frameCount), xFrame(xF){
-        texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
+    Sprite::Sprite(int x, int y, int w, int h, Component* animation) 
+        : rect {x,y,w,h}{
+        addChild(animation);
         isAnimated = true;
     }
 
@@ -23,34 +24,34 @@ namespace engine
         return new Sprite(x,y,w,h, txt);
     }
 
-    Sprite* Sprite::getInstance(int x, int y, int w, int h, std::string txt, int frames, int xFrame){
-        return new Sprite(x,y,w,h,txt,frames,xFrame);
+    Sprite* Sprite::getInstance(int x, int y, int w, int h, Component* animation){
+        return new Sprite(x,y,w,h, animation);
     }
 
     void Sprite::update(){
         
     }
 
-    Sprite::~Sprite(){
-        SDL_DestroyTexture(texture);
+    void Sprite::addChild(Component* c){
+        children.push_back(c);
+        c->addParent(this);
     }
 
+    Sprite::~Sprite(){
+        SDL_DestroyTexture(texture);
+        
+        for (std::vector<Component*>::iterator iter = children.begin(); iter != children.end();){
+            delete *iter;
+            iter = children.erase(iter);
+        }
+    }
+
+  
     void Sprite::render(){
-        if (isAnimated){
-            static int counter = 0;
-            counter++;
-            if (counter % 10 == 0){
-                static int frame = 0;
-                frameRect.x = xFrame * frame;
-                frame++;
-                if (frame >= frames){
-                    frame = 0;
-                }
-            }
-            SDL_RenderCopy(system.getRen(), texture, &frameRect, &rect);
+        if(!isAnimated){
+            SDL_RenderCopy(system.getRen(), texture, NULL, &rect);
         }
-        else{
-		    SDL_RenderCopy(system.getRen(), texture, NULL, &rect);
-        }
-	}
+    }
+   
+	
 }
