@@ -13,13 +13,16 @@ namespace engine{
         virtual void update(){}
         virtual const std::string getTag() const{ return "";}
         virtual const SDL_Rect* getColliderRect() const{ return nullptr;}
-        virtual void addParent(Component* c){}
         virtual SDL_Rect* getRect(){return nullptr;}
+
+        void setParent(Component* parent) { this->parent = parent; }
+        Component* getParent() { return parent; }
 
     protected:
         Component(){}
 
     private:
+        Component* parent;
         Component(const Component&) = delete;            
         const Component* operator=(const Component&) = delete;
     };

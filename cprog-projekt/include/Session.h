@@ -7,7 +7,6 @@
 #include <set>
 
 namespace engine{
-
 	class Session
 	{
 	public:
@@ -19,15 +18,13 @@ namespace engine{
 		const std::vector<Component*>& getComponents() const;
 		void run();
 		~Session();
-        
 	private:
 		std::vector<Component*> components;
         //vector with scenes instead of component?
         std::vector<Component*> added, removed;
         int fps = 60;
 		const int tickInterval = 1000 / fps;
-		//SDL_Keycode keyDown;
-		std::set<SDL_Keycode> keysDown; 
+		std::set<SDL_Keycode> keysDown;
 	};
 
     extern Session session;

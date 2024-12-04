@@ -2,32 +2,28 @@
 #define ANIMATION_H
 
 #include "Component.h"
-#include "Sprite.h"
 #include <string>
 
-
 namespace engine{
-    class Animation : public Component{
-
+    class Animation : public Component
+    {
     public:
-        Animation(std::string spriteSheet, int frames, int frameWidth);
+        static Animation* getInstance(std::string spriteSheet, int frameWidth, int frameHeigth, int frameCount, int animationSpeed);
         ~Animation();
-        void addParent(Component* c);
         void render();
-
-
-
+        void flipX();
+        //void play();
     private:
         SDL_Texture* spriteSheet;
+        int frameW;
+        int frameH;
         int frames;
-        int frameWidth;
+        int speed; // Higher speed = slower animation
         SDL_Rect frameRect;
-        Component* parent;
+        SDL_RendererFlip directionX = SDL_FLIP_NONE;
 
+        Animation(std::string spriteSheet, int frameWidth, int frameHeigth, int frameCount, int animationSpeed);
     };
-
-
 }
-
 
 #endif

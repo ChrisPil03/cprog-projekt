@@ -3,21 +3,30 @@
 #include "Component.h"
 #include "Animation.h"
 #include <string>
-#include <Collider2D.h>
-//#include <SDL2/SDL.h>
+#include "Collider2D.h"
+#include "RigidBody.h"
 
 using namespace engine;
 
 class Player : public Sprite{
 public:
-    Player(int x, int y, int w, int h) 
-        : Sprite(x, y, w, h, new Animation("/images/BlueSlimeIdle.png", 6, 32)), collider(new Collider2D(x,y,75,55,this,"Player")){}
- 
+    Player(int x, int y, int w, int h):
+        Sprite(x, y, w, h, Animation::getInstance("/images/BlueSlimeIdle.png", 32, 32, 6, 10)),
+        collider(new Collider2D(x,y,75,55,"Player")),
+        rgdb(new RigidBody(this, collider))
+    {
+        collider->setParent(this);
+    }
+
     void update(){
         if (session.keyDown(SDLK_a)){
             getRect()->x--;
             if(collider-> hasCollided("Ground")){
                 getRect()->x++;
+            }
+            if (!hasFlipped){
+                hasFlipped = true;
+                flipX();
             }
         }
         if (session.keyDown(SDLK_d)){
@@ -25,21 +34,31 @@ public:
             if(collider-> hasCollided("Ground")){
                 getRect()->x--;
             }
-        }
-        getRect()->y++;
-        if(collider -> hasCollided("Ground")){
-            getRect()->y--;
+            if (hasFlipped){
+                hasFlipped = false;
+                flipX();
+            }
         }
     }
-    ~Player(){ delete collider; }
+
+    ~Player()
+    {
+        delete collider;
+        delete rgdb; 
+    }
 private: 
     Collider2D* collider;
+    RigidBody* rgdb;
+
+    bool hasFlipped = false;
 };
 
 class Ground : public Sprite{
     public:
         Ground(int x, int y, int w, int h, std::string txt) 
-            : Sprite(x,y,w,h,txt), collider(new Collider2D(x,y,w,h,this,"Ground")){}
+            : Sprite(x,y,w,h,txt), collider(new Collider2D(x,y,w,h,"Ground")){
+                collider->setParent(this);
+            }
 
         ~Ground(){ delete collider; }
     private:

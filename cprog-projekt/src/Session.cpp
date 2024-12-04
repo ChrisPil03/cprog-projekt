@@ -16,12 +16,6 @@ namespace engine{
         removed.push_back(c);
     }
 
-    /*
-    const SDL_Keycode& Session::getKeyDown() const {
-        return keyDown;
-    }    
-    */
-
     const bool Session::keyDown(const SDL_Keycode& key) const{
         return keysDown.find(key) != keysDown.end();
     }
@@ -36,22 +30,20 @@ namespace engine{
                     case SDL_QUIT: quit = true; break;
                     case SDL_KEYDOWN:
                         keysDown.insert(event.key.keysym.sym);
-                        //keyDown = event.key.keysym.sym;
                         break;
                     case SDL_KEYUP:
                         keysDown.erase(event.key.keysym.sym);
-                        //keyDown = false;
                 } // yttre switch
             } // inre while
 
             for (Component* c : components){
-                    c->update();
-                }
+                c->update();
+            }
 
             for (Component* c : added){
-                    components.push_back(c);
-                }
-                added.clear();
+                components.push_back(c);
+            }
+            added.clear();
             
             for (Component* c : removed){
                 for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){

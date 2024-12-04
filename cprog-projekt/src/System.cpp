@@ -14,16 +14,6 @@ namespace engine{
         font = TTF_OpenFont((constants::gResPath + "fonts/arial.ttf").c_str(), 36);
     }
 
-    SDL_Renderer* System::getRen() const{
-
-        return renderer;
-    }
-
-	TTF_Font* System::getFont() const{
-
-        return font;
-    }
-
     System::~System(){
         TTF_CloseFont(font);
         TTF_Quit();
@@ -31,5 +21,6 @@ namespace engine{
 		SDL_DestroyRenderer(renderer);
 		SDL_Quit();
     }
+
     System system;
 }
