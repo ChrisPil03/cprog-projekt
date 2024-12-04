@@ -11,7 +11,7 @@ using namespace engine;
 class Player : public Sprite{
 public:
     Player(int x, int y, int w, int h) 
-        : Sprite(x, y, w, h, new Animation("/images/Idle.png", 6, 32)), collider(new Collider2D(x,y,75,55,this,"Player")){}
+        : Sprite(x, y, w, h, new Animation("/images/BlueSlimeIdle.png", 6, 32)), collider(new Collider2D(x,y,75,55,this,"Player")){}
  
     void update(){
         if (session.keyDown(SDLK_a)){
