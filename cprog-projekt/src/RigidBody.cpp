@@ -1,5 +1,6 @@
 #include "RigidBody.h"
 #include "Session.h"
+#include <iostream>
 
 namespace engine
 {
@@ -17,9 +18,15 @@ namespace engine
     }
 
     void RigidBody::update(){
-        getParent()->getRect()->y += gravity;
+        updateVelocity();
+        velocityY = gravity;
         if (collider->hasCollided("Ground")){
-            getParent()->getRect()->y -= gravity;
-        }
+            velocityY = 0;
+        }       
+    }
+
+    void RigidBody::updateVelocity(){
+        getParent()->getRect()->y += velocityY;
+        getParent()->getRect()->x += velocityX;
     }
 }

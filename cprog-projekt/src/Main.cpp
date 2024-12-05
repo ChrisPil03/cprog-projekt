@@ -20,9 +20,9 @@ public:
 
     void update(){
         if (session.keyDown(SDLK_a)){
-            getRect()->x--;
+            rgdb->velocityX= 2;
             if(collider-> hasCollided("Ground")){
-                getRect()->x++;
+                rgdb->velocityX = 0;
             }
             if (!hasFlipped){
                 hasFlipped = true;
@@ -49,6 +49,7 @@ public:
 private: 
     Collider2D* collider;
     RigidBody* rgdb;
+    
 
     bool hasFlipped = false;
 };

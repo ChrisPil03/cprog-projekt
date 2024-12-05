@@ -12,9 +12,13 @@ namespace engine{
         void addForce(float xForce, float yForce);
         void setGravity(float gravity);
         void update();
+
+        float velocityY = 0;
+        float velocityX = 0;
     private:
+        void updateVelocity();
+
         float gravity;
-        float velocity;
         float mass;
         float friction;
         float elasticity;
