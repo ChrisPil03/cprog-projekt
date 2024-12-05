@@ -36,7 +36,7 @@ public:
             }
         }
         if (session.keyDown(SDLK_w) && rgdb->isGrounded()){
-            rgdb->targetVelocityY = -8;
+            rgdb->targetVelocityY = -7;
         }
     }
 
