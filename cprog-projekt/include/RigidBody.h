@@ -23,7 +23,7 @@ namespace engine{
 
         double velocityY = 0;
         double velocityX = 0;
-        int gravity = 5;
+        int gravity = 3;
         int mass;
         int friction;
         int elasticity;
