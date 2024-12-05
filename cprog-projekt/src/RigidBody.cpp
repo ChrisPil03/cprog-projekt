@@ -5,18 +5,14 @@
 
 namespace engine
 {
+
+    RigidBody* RigidBody::getInstance(Component* parent, Collider2D* collider, std::string groundTag){
+        return new RigidBody(parent,collider,groundTag);
+    }
+
     RigidBody::RigidBody(Component* parent, Collider2D* collider, std::string groundTag) : collider(collider), groundTag(groundTag){
         session.addComponent(this);
         setParent(parent);
-    }
-
-    void RigidBody::addForce(int xForce, int yForce){
-        targetVelocityX += xForce;
-        targetVelocityY += yForce * -1;
-    }
-
-    void RigidBody::setGravity(int gravity){
-        this->gravity = gravity;
     }
 
     void RigidBody::update(){
@@ -25,37 +21,40 @@ namespace engine
         updateVelocity();
         setParentPosition();
         if (collider->hasCollided(groundTag)){
+            getParent()->getRect()->x = lastXPos;
+        }
+        if (collider->hasCollided(groundTag)){
             getParent()->getRect()->y = lastYPos;
+            bounce();
             grounded = true;
         }
         else{
             grounded = false;
         }
-        if (collider->hasCollided(groundTag)){
-            getParent()->getRect()->x = lastXPos;
-        }
     }
 
     void RigidBody::updateVelocity(){
         if (velocityX < targetVelocityX){
-            velocityX += 0.5;
+            velocityX += 0.2f;
         }
-        else if (velocityX > targetVelocityX){
-            velocityX -= 0.5;
+        else if (std::round(velocityX) > targetVelocityX){
+            velocityX -= 0.2f;
         }
-        if (velocityY < targetVelocityY){
-            velocityY += 0.5;
-        }
-        else if (velocityY > targetVelocityY){
-            velocityY -= 0.5;
-        }
-        else{
-            targetVelocityY = gravity;
+        if (velocityY < gravity && !grounded){
+            velocityY += 0.2f;
         }
     }
 
     void RigidBody::setParentPosition(){
         getParent()->getRect()->y += velocityY;
         getParent()->getRect()->x += velocityX;
+    }
+
+    void RigidBody::bounce(){
+        if (velocityY > gravity/2){
+            velocityY = -velocityY/elasticity;
+        }else{
+            velocityY = 0;
+        }
     }
 }
