@@ -10,19 +10,24 @@ namespace engine{
     {
     public:
         RigidBody(Component* parent, Collider2D* collider, std::string groundTag);
-        void addForce(float xForce, float yForce);
-        void setGravity(float gravity);
+        void addForce(int xForce, int yForce);
+        void setGravity(int gravity);
         void update();
+        bool isGrounded(){ return grounded; }
 
-        float velocityY = 2.0f;
-        float velocityX = 0;
+        int targetVelocityY = 2;
+        int targetVelocityX = 0;
     private:
         void updateVelocity();
+        void setParentPosition();
 
-        float gravity = 2.0f;
-        float mass;
-        float friction;
-        float elasticity;
+        double velocityY = 0;
+        double velocityX = 0;
+        int gravity = 5;
+        int mass;
+        int friction;
+        int elasticity;
+        bool grounded;
         Collider2D* collider;
         std::string groundTag;
     };

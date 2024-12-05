@@ -20,25 +20,23 @@ public:
     }
 
     void update(){
-        rgdb->velocityX = 0;
-        rgdb->velocityY = 2.0f;
+        rgdb->targetVelocityX = 0;
         if (session.keyDown(SDLK_a)){
-            rgdb->velocityX = -2;
+            rgdb->targetVelocityX = -2;
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
             }
         }
         if (session.keyDown(SDLK_d)){
-            rgdb->velocityX = 2;
+            rgdb->targetVelocityX = 2;
             if (hasFlipped){
                 hasFlipped = false;
                 flipX();
             }
         }
-        if (session.keyDown(SDLK_w)){
-            rgdb->addForce(0,20);
-            std::cout<< "Upp " << rgdb->velocityY << std::endl;
+        if (session.keyDown(SDLK_w) && rgdb->isGrounded()){
+            rgdb->targetVelocityY = -8;
         }
     }
 
@@ -51,8 +49,8 @@ private:
     Collider2D* collider;
     RigidBody* rgdb;
     
-
     bool hasFlipped = false;
+    bool isGrounded = true;
 };
 
 class Ground : public Sprite{
