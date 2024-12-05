@@ -1,16 +1,18 @@
 #include "RigidBody.h"
 #include "Session.h"
 #include <iostream>
+#include <string>
 
 namespace engine
 {
-    RigidBody::RigidBody(Component* parent, Collider2D* collider) : gravity(2.0f), collider(collider){
+    RigidBody::RigidBody(Component* parent, Collider2D* collider, std::string groundTag) : collider(collider), groundTag(groundTag){
         session.addComponent(this);
         setParent(parent);
     }
 
     void RigidBody::addForce(float xForce, float yForce){
-
+        velocityX += xForce;
+        velocityY += yForce * -1;
     }
 
     void RigidBody::setGravity(float gravity){
@@ -18,11 +20,15 @@ namespace engine
     }
 
     void RigidBody::update(){
+        int lastYPos = getParent()->getRect()->y;
+        int lastXPos = getParent()->getRect()->x;
         updateVelocity();
-        velocityY = gravity;
-        if (collider->hasCollided("Ground")){
-            velocityY = 0;
-        }       
+        if (collider->hasCollided(groundTag) && lastYPos < getParent()->getRect()->y){
+            getParent()->getRect()->y = lastYPos;
+        }
+        if (collider->hasCollided(groundTag) && lastXPos != getParent()->getRect()->x){
+            getParent()->getRect()->x = lastXPos;
+        }
     }
 
     void RigidBody::updateVelocity(){

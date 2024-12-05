@@ -5,6 +5,7 @@
 #include <string>
 #include "Collider2D.h"
 #include "RigidBody.h"
+#include <iostream>
 
 using namespace engine;
 
@@ -13,31 +14,31 @@ public:
     Player(int x, int y, int w, int h):
         Sprite(x, y, w, h, Animation::getInstance("/images/BlueSlimeIdle.png", 32, 32, 6, 10)),
         collider(new Collider2D(x,y,75,55,"Player")),
-        rgdb(new RigidBody(this, collider))
+        rgdb(new RigidBody(this, collider, "Ground"))
     {
         collider->setParent(this);
     }
 
     void update(){
+        rgdb->velocityX = 0;
+        rgdb->velocityY = 2.0f;
         if (session.keyDown(SDLK_a)){
-            rgdb->velocityX= 2;
-            if(collider-> hasCollided("Ground")){
-                rgdb->velocityX = 0;
-            }
+            rgdb->velocityX = -2;
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
             }
         }
         if (session.keyDown(SDLK_d)){
-            getRect()->x++;
-            if(collider-> hasCollided("Ground")){
-                getRect()->x--;
-            }
+            rgdb->velocityX = 2;
             if (hasFlipped){
                 hasFlipped = false;
                 flipX();
             }
+        }
+        if (session.keyDown(SDLK_w)){
+            rgdb->addForce(0,20);
+            std::cout<< "Upp " << rgdb->velocityY << std::endl;
         }
     }
 

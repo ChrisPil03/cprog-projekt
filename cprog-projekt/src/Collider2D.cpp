@@ -22,6 +22,33 @@ namespace engine{
         }
         return false;
     }
+
+    void Collider2D::collisionXAxis(std::string tagName){
+        int lastXPos = getParent()->getRect()->x;
+        updateCollider();
+        for (Component* c : session.getComponents()){
+            std::string cTag = c->getTag();
+            if (cTag == tagName && c != this){
+                if(SDL_HasIntersection(&collider, c->getColliderRect())){
+                    getParent()->getRect()->x = lastXPos;
+                }
+            }
+        }        
+    }
+
+    void Collider2D::collisionYAxis(std::string tagName){
+        int lastYPos = getParent()->getRect()->y;
+        updateCollider();
+        for (Component* c : session.getComponents()){
+            std::string cTag = c->getTag();
+            if (cTag == tagName && c != this){
+                if(SDL_HasIntersection(&collider, c->getColliderRect())){
+                    getParent()->getRect()->y = lastYPos;
+                }
+            }
+        }   
+    }
+
     
     void Collider2D::updateCollider(){
         collider.x = getParent()->getRect()->x + ((getParent()-> getRect()->w - collider.w)/2);
