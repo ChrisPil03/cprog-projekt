@@ -12,15 +12,17 @@ using namespace engine;
 class Player : public Sprite{
 public:
     Player(int x, int y, int w, int h):
-        Sprite(x, y, w, h, Animation::getInstance("/images/BlueSlimeIdle.png", 32, 32, 6, 10)),
+        Sprite(x, y, w, h, Animation::getInstance("Idle","/images/BlueSlimeIdle.png", 32, 32, 6, 10)),
         collider(Collider2D::getInstance(x,y,75,55,"Player")),
         rgdb(RigidBody::getInstance(this, collider, "Ground"))
     {
         collider->setParent(this);
         rgdb->setElasticity(3);
+        addAnimation(Animation::getInstance("Jump","/images/BlueSlimeJump.png", 32, 32, 6, 10));
     }
 
     void update(){
+        playAnimation("Idle");
         rgdb->targetVelocityX = 0;
         if (session.keyDown(SDLK_a)){
             rgdb->targetVelocityX = -speed;
@@ -38,6 +40,7 @@ public:
         }
         if (session.keyDown(SDLK_w) && rgdb->isGrounded()){
             rgdb->velocityY = jumpForce;
+            playAnimation("Jump");
         }
     }
 

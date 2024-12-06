@@ -13,8 +13,9 @@ namespace engine
     }
 
     Sprite::Sprite(int x, int y, int w, int h, Animation* animation) 
-        : rect {x,y,w,h}, animation(animation){
+        : rect {x,y,w,h}{
         animation->setParent(this);
+        animationList.push_back(animation);
         isAnimated = true;
     }
 
@@ -26,6 +27,7 @@ namespace engine
         return new Sprite(x,y,w,h, animation);
     }
 
+// flips sprite to opposite direction.
     void Sprite::flipX(){
         if(!isAnimated)
             if (directionX == SDL_FLIP_NONE)
@@ -33,7 +35,18 @@ namespace engine
             else
                 directionX = SDL_FLIP_NONE;
         else
-            animation->flipX();
+        for(Animation* a : animationList){
+            a->flipX();
+        }
+            
+    }
+
+    void Sprite::playAnimation(std::string animationName){
+        for(Animation* a : animationList){
+            if(a->getName() == animationName){
+                a-> play();
+            }
+        }
     }
 
     Sprite::~Sprite(){

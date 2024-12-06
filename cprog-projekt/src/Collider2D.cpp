@@ -14,9 +14,10 @@ namespace engine{
         session.addComponent(this);
     }
 
+//looks through component list after a matching tag to the parameter, if a component has a matching tag and is not the same instance, hasCollided will return true.
     bool Collider2D::hasCollided(std::string tagName){
         updateCollider();
-        for (Component* c : session.getComponents()){
+        for (Component* c : session.getComponents()){ // only colliders, not comps
             std::string cTag = c->getTag();
             if (cTag == tagName && c != this){
                 if(SDL_HasIntersection(&collider, c->getColliderRect())){
@@ -26,7 +27,7 @@ namespace engine{
         }
         return false;
     }
-
+//updates collider position to the same as the parent bottom center.
     void Collider2D::updateCollider(){
         collider.x = getParent()->getRect()->x + ((getParent()-> getRect()->w - collider.w)/2);
         collider.y = getParent()->getRect()->y + (getParent()->getRect()->h - collider.h);

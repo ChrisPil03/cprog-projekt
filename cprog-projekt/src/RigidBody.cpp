@@ -15,6 +15,7 @@ namespace engine
         setParent(parent);
     }
 
+//saves last position of parent, if collision is detected, parent is moved back, checks collision with ground.
     void RigidBody::update(){
         int lastYPos = getParent()->getRect()->y;
         int lastXPos = getParent()->getRect()->x;
@@ -33,18 +34,20 @@ namespace engine
         }
     }
 
+//increases/deacreases lineary to target velocity.
     void RigidBody::updateVelocity(){
         if (velocityX < targetVelocityX){
             velocityX += 0.2f;
         }
-        else if (std::round(velocityX) > targetVelocityX){
+        else if (std::round(velocityX) > targetVelocityX){ //gotta have round
             velocityX -= 0.2f;
         }
-        if (velocityY < gravity && !grounded){
+        if (velocityY < gravity){
             velocityY += 0.2f;
         }
     }
 
+// sets the position of the parent(sprite)
     void RigidBody::setParentPosition(){
         getParent()->getRect()->y += velocityY;
         getParent()->getRect()->x += velocityX;
@@ -54,7 +57,7 @@ namespace engine
         if (velocityY > gravity/2){
             velocityY = -velocityY/elasticity;
         }else{
-            velocityY = 0;
+            velocityY = 0; // HUH
         }
     }
 }

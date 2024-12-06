@@ -12,6 +12,7 @@ namespace engine{
         renderer = SDL_CreateRenderer(window, -1, 0);
         TTF_Init();
         font = TTF_OpenFont((constants::gResPath + "fonts/arial.ttf").c_str(), 36);
+        SDL_SetRenderDrawColor(system.getRen(), 255, 255, 255, 255);
     }
 
     System::~System(){

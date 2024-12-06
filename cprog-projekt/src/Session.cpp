@@ -20,6 +20,7 @@ namespace engine{
         return keysDown.find(key) != keysDown.end();
     }
 
+// main loop, checks for events and updates components
     void Session::run() {
         bool quit = false;
         while(!quit){
@@ -58,7 +59,8 @@ namespace engine{
             }
             removed.clear();
 
-            SDL_SetRenderDrawColor(system.getRen(), 255, 255, 255, 255);
+            
+
             SDL_RenderClear(system.getRen());
             for (Component* c : components){
                 c->render();
