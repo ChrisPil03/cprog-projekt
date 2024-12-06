@@ -14,7 +14,7 @@ namespace engine
 
     Sprite::Sprite(int x, int y, int w, int h, Animation* animation) 
         : rect {x,y,w,h}{
-        animation->setParent(this);
+        addAnimation(animation);
         animationList.push_back(animation);
         isAnimated = true;
     }

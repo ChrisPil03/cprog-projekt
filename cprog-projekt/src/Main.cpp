@@ -22,7 +22,10 @@ public:
     }
 
     void update(){
-        playAnimation("Idle");
+        if(rgdb->isGrounded()){
+            playAnimation("Idle");
+        }
+
         rgdb->targetVelocityX = 0;
         if (session.keyDown(SDLK_a)){
             rgdb->targetVelocityX = -speed;
