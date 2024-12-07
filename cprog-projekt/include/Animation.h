@@ -8,24 +8,25 @@ namespace engine{
     class Animation : public Component
     {
     public:
-        static Animation* getInstance(std::string animationName, std::string spriteSheet, int frameWidth, int frameHeigth, int frameCount, int animationSpeed);
+        static Animation* getInstance(std::string animationName, std::string spriteSheet, int frameWidth, int frameHeigth, int frameCount, int animationSpeed, bool loop);
         ~Animation();
         void render();
         void flipX();
-        std::string getName(){return animationName;} // const!!!!
-        void play(bool play){playAnimation =  play;}
+        const std::string getName() { return animationName; } // const!!!!
+        void play(bool play) { playAnimation =  play; }
     private:
         std::string animationName;
         SDL_Texture* spriteSheet;
-        int frameW;
-        int frameH;
+        SDL_Rect frameRect;
         int frames;
         int speed; // Higher speed = slower animation
-        SDL_Rect frameRect;
+        bool loop;
         bool playAnimation = false;
+        int currentFrame = 0;
+        int counter = 0;
         SDL_RendererFlip directionX = SDL_FLIP_NONE;
 
-        Animation(std::string animationName, std::string spriteSheet, int frameWidth, int frameHeigth, int frameCount, int animationSpeed);
+        Animation(std::string animationName, std::string spriteSheet, int frameWidth, int frameHeigth, int frameCount, int animationSpeed, bool loop);
     };
 }
 

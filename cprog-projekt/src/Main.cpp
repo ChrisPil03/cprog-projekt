@@ -12,14 +12,14 @@ using namespace engine;
 class Player : public Sprite{
 public:
     Player(int x, int y, int w, int h):
-        Sprite(x, y, w, h, Animation::getInstance("Idle","/images/BlueSlimeIdle.png", 32, 32, 6, 10)),
+        Sprite(x, y, w, h, Animation::getInstance("Idle", "/images/BlueSlimeIdle.png", 32, 32, 6, 10, true)),
         collider(Collider2D::getInstance(x,y,75,55,"Player")),
         rgdb(RigidBody::getInstance(this, collider, "Ground"))
     {
         collider->setParent(this);
         rgdb->setElasticity(3);
-        addAnimation(Animation::getInstance("Jump","/images/BlueSlimeJump.png", 32, 32, 6, 10));
-        playAnimation("Idle");
+        addAnimation(Animation::getInstance("Jump", "/images/BlueSlimeJump.png", 32, 32, 3, 1, false));
+        addAnimation(Animation::getInstance("Fall", "/images/BlueSlimeFall.png", 32, 32, 3, 1, false));
     }
 
     void update(){
@@ -40,10 +40,14 @@ public:
         }
         if(rgdb->isGrounded()){
             playAnimation("Idle");
+            
+            if (session.keyDown(SDLK_w)){
+                playAnimation("Jump");
+                rgdb->velocityY = jumpForce;
+            }
         }
-        if (session.keyDown(SDLK_w) && rgdb->isGrounded()){
-            playAnimation("Jump");
-            rgdb->velocityY = jumpForce;
+        if (!rgdb->isGrounded() && rgdb->velocityY > 5){
+            playAnimation("Fall");
         }
     }
 
@@ -56,7 +60,7 @@ private:
     RigidBody* rgdb;
 
     int speed = 3;
-    int jumpForce = -6;
+    int jumpForce = -7;
 
     bool hasFlipped = false;
     bool isGrounded = true;

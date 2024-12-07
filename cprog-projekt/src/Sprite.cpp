@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <unordered_map>
 #include <iostream>
 
 namespace engine
@@ -17,6 +18,7 @@ namespace engine
         : rect {x,y,w,h}{
         addAnimation(animation);
         currentAnimation = animation;
+        currentAnimation->play(true);
         isAnimated = true;
     }
 
@@ -35,11 +37,11 @@ namespace engine
                 directionX = SDL_FLIP_HORIZONTAL;
             else
                 directionX = SDL_FLIP_NONE;
-        else
-        for(Animation* a : animationList){
-            a->flipX();
+        else{
+            for(Animation* a : animationList){
+                a->flipX();
+            }
         }
-            
     }
 
     void Sprite::addAnimation(Animation* animation){
@@ -48,11 +50,14 @@ namespace engine
     }
 
     void Sprite::playAnimation(std::string animationName){
-        currentAnimation->play(false);
-        for(Animation* a : animationList){
-            if(a->getName() == animationName){
-                a-> play(true);
-            }
+        if (currentAnimation->getName() != animationName){
+            currentAnimation->play(false);
+            for(Animation* animation : animationList){
+                if(animation->getName() == animationName){
+                    currentAnimation = animation;
+                    animation-> play(true);
+                }
+            }  
         }
     }
 

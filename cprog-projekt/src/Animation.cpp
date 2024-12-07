@@ -8,13 +8,13 @@
  
 namespace engine{
 
-    Animation* Animation::getInstance(std::string animationName, std::string spriteSheetPath, int frameWidth, int frameHeigth, int frameCount, int animationSpeed){
-        return new Animation(animationName, spriteSheetPath, frameWidth, frameHeigth, frameCount, animationSpeed);
+    Animation* Animation::getInstance(std::string animationName, std::string spriteSheetPath, int frameWidth, int frameHeigth, int frameCount, int animationSpeed, bool loop){
+        return new Animation(animationName, spriteSheetPath, frameWidth, frameHeigth, frameCount, animationSpeed, loop);
     }
 
-    Animation::Animation(std::string animationName, std::string spriteSheetPath, int frameWidth, int frameHeigth, int frameCount, int animationSpeed):
+    Animation::Animation(std::string animationName, std::string spriteSheetPath, int frameWidth, int frameHeigth, int frameCount, int animationSpeed, bool loop):
         animationName(animationName), spriteSheet(IMG_LoadTexture(system.getRen(), (constants::gResPath + spriteSheetPath).c_str())), 
-        frameW(frameWidth), frameH(frameHeigth), frames(frameCount), speed(animationSpeed), frameRect{0,0, frameWidth, frameHeigth}
+        frameRect{0,0, frameWidth, frameHeigth}, frames(frameCount), speed(animationSpeed), loop(loop)
     {
         session.addComponent(this);  
     }
@@ -22,26 +22,30 @@ namespace engine{
     //moves sourcerect, when counter is evenly divisible by speed the rendered part of the spritesheet is moved to the next, if you are at the end of the spritesheet it will reset to 0.
     void Animation::render(){
         if (playAnimation){
-            static int counter = 0;
             counter++;
             if (counter % speed == 0){ 
-                static int frame = 0;
-                frameRect.x = frameW * frame;
-                frame++;
-                if (frame == frames){
-                    frame = 0;
-                }          
+                frameRect.x = frameRect.w * currentFrame;
+                currentFrame++;
+                if (currentFrame == frames){
+                    loop ? currentFrame = 0 : currentFrame = frames - 1;
+                }      
             }
             SDL_RenderCopyEx(system.getRen(), spriteSheet, &frameRect, getParent()->getRect(), 0, nullptr, directionX);
+        } else{
+            if (currentFrame != 0){
+                currentFrame = 0;
+                counter = 0;
+            }
         }
     }
 
-// flips the sprite to face the opposit direction
+// flips the sprite to face the opposite direction
     void Animation::flipX(){
-        if (directionX == SDL_FLIP_NONE)
+        if (directionX == SDL_FLIP_NONE){
             directionX = SDL_FLIP_HORIZONTAL;
-        else
+        } else{
             directionX = SDL_FLIP_NONE;
+        }
     }
 
     Animation::~Animation(){

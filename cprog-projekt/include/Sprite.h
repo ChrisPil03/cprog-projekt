@@ -6,6 +6,8 @@
 #include "Animation.h"
 #include <vector>
 #include <string>
+#include <map>
+#include <unordered_map>
 
 namespace engine{
     class Sprite : public Component
