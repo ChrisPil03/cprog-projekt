@@ -19,13 +19,10 @@ public:
         collider->setParent(this);
         rgdb->setElasticity(3);
         addAnimation(Animation::getInstance("Jump","/images/BlueSlimeJump.png", 32, 32, 6, 10));
+        playAnimation("Idle");
     }
 
     void update(){
-        if(rgdb->isGrounded()){
-            playAnimation("Idle");
-        }
-
         rgdb->targetVelocityX = 0;
         if (session.keyDown(SDLK_a)){
             rgdb->targetVelocityX = -speed;
@@ -41,9 +38,12 @@ public:
                 flipX();
             }
         }
+        if(rgdb->isGrounded()){
+            playAnimation("Idle");
+        }
         if (session.keyDown(SDLK_w) && rgdb->isGrounded()){
-            rgdb->velocityY = jumpForce;
             playAnimation("Jump");
+            rgdb->velocityY = jumpForce;
         }
     }
 

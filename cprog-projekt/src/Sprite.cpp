@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <iostream>
 
 namespace engine
 {
@@ -15,7 +16,7 @@ namespace engine
     Sprite::Sprite(int x, int y, int w, int h, Animation* animation) 
         : rect {x,y,w,h}{
         addAnimation(animation);
-        animationList.push_back(animation);
+        currentAnimation = animation;
         isAnimated = true;
     }
 
@@ -41,10 +42,16 @@ namespace engine
             
     }
 
+    void Sprite::addAnimation(Animation* animation){
+        animationList.push_back(animation);
+        animation->setParent(this);
+    }
+
     void Sprite::playAnimation(std::string animationName){
+        currentAnimation->play(false);
         for(Animation* a : animationList){
             if(a->getName() == animationName){
-                a-> play();
+                a-> play(true);
             }
         }
     }

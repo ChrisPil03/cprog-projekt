@@ -20,18 +20,20 @@ namespace engine{
     }
 
     //moves sourcerect, when counter is evenly divisible by speed the rendered part of the spritesheet is moved to the next, if you are at the end of the spritesheet it will reset to 0.
-    void Animation::play(){ 
-        static int counter = 0;
-        counter++;
-        if (counter % speed == 0){ 
-            static int frame = 0;
-            frameRect.x = frameW * frame;
-            frame++;
-            if (frame >= frames){
-                frame = 0;
-            }             
+    void Animation::render(){
+        if (playAnimation){
+            static int counter = 0;
+            counter++;
+            if (counter % speed == 0){ 
+                static int frame = 0;
+                frameRect.x = frameW * frame;
+                frame++;
+                if (frame == frames){
+                    frame = 0;
+                }          
+            }
+            SDL_RenderCopyEx(system.getRen(), spriteSheet, &frameRect, getParent()->getRect(), 0, nullptr, directionX);
         }
-        SDL_RenderCopyEx(system.getRen(), spriteSheet, &frameRect, getParent()->getRect(), 0, nullptr, directionX);
     }
 
 // flips the sprite to face the opposit direction

@@ -18,7 +18,7 @@ namespace engine{
         void flipX();
         void playAnimation(std::string animationName);
         SDL_Rect* getRect() { return &rect;}
-        void addAnimation(Animation* a){  a->setParent(this); animationList.push_back(a);}
+        void addAnimation(Animation* animation);
         protected:
         Sprite(int x, int y, int w, int h, std::string texture);
         Sprite(int x, int y, int w, int h, Animation* animation);
@@ -27,7 +27,7 @@ namespace engine{
         SDL_Texture* texture;
         SDL_RendererFlip directionX = SDL_FLIP_NONE;
         bool isAnimated = false;
-        //Animation* animation;
+        Animation* currentAnimation;
         std::vector<Animation*> animationList;
     };
 }
