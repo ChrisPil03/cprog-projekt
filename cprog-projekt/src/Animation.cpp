@@ -32,6 +32,7 @@ namespace engine{
             }
             SDL_RenderCopyEx(system.getRen(), spriteSheet, &frameRect, getParent()->getRect(), 0, nullptr, directionX);
         } else{
+            // when animation stops playing the counters are reset, next time the animation plays it will start fresh 
             if (currentFrame != 0){
                 currentFrame = 0;
                 counter = 0;
