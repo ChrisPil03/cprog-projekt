@@ -14,7 +14,7 @@ class Player : public Sprite{
 public:
     Player(int x, int y, int w, int h):
         Sprite(x, y, w, h, Animation::getInstance("Idle", "/images/BlueSlimeIdle.png", 32, 32, 6, 10, true)),
-        collider(Collider2D::getInstance(x,y,75,55,"Player")),
+        collider(Collider2D::getInstance(x,y,40,32,"Player")),
         rgdb(RigidBody::getInstance(this, collider, "Ground"))
     {
         collider->setParent(this);
@@ -53,28 +53,31 @@ public:
     }
 
     ~Player(){
-        delete collider;
-        delete rgdb; 
+        session.removeComponent(collider);
+        session.removeComponent(rgdb);
     }
 private: 
     Collider2D* collider;
     RigidBody* rgdb;
 
     int speed = 3;
-    int jumpForce = -7;
+    int jumpForce = -5;
 
     bool hasFlipped = false;
     bool isGrounded = true;
 };
 
-class Ground : public Sprite{
+class Pickup : public Sprite{
     public:
-        Ground(int x, int y, int w, int h, std::string txt) 
-            : Sprite(x,y,w,h,txt), collider(Collider2D::getInstance(x,y,w,h,"Ground")){
-                collider->setParent(this);
-            }
-
-        ~Ground(){ delete collider; }
+        Pickup(int x, int y, int w, int h, std::string imagePath, std::string tag) :
+            Sprite(x,y,w,h,imagePath), collider(Collider2D::getInstance(x,y,w,h,tag))
+        {
+            collider->setParent(this);
+        }
+        
+        ~Pickup(){
+            session.removeComponent(collider);
+        }
     private:
         Collider2D* collider;
 };
@@ -92,27 +95,26 @@ int main (int argc, char** argv){
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3}
     };
 
+    Sprite* coin = new Pickup(300,512,16,16,"/images/GoldCoin.png","Coin");
     Player* player = new Player(300,100,64,64);
-    Ground* obstacle = new Ground(500,336,64,64,"/images/bg.jpg");
-    Ground* ground = new Ground(150,400,660,50, "/images/bg.jpg");
-    Map* map = Map::getInstance(tileMap, "/images/TileMap.png",16,65,2);
-    session.addComponent(player);
+    Map* map = Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
+
     session.addComponent(map);
-    session.addComponent(obstacle);
-    session.addComponent(ground);
+    session.addComponent(coin);
+    session.addComponent(player);
     session.run();
 
     return 0;

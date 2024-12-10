@@ -5,7 +5,6 @@
 
 namespace engine
 {
-
     RigidBody* RigidBody::getInstance(Component* parent, Collider2D* collider, std::string groundTag){
         return new RigidBody(parent,collider,groundTag);
     }
@@ -25,9 +24,11 @@ namespace engine
             getParent()->getRect()->x = lastXPos;
         }
         if (collider->hasCollided(groundTag)){
+            if (lastYPos < getParent()->getRect()->y){
+                grounded = true;
+            }
             getParent()->getRect()->y = lastYPos;
             bounce();
-            grounded = true;
         }
         else{
             grounded = false;
