@@ -108,7 +108,7 @@ int main (int argc, char** argv){
         {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3}
     };
 
-    Sprite* coin = new Pickup(300,512,16,16,"/images/GoldCoin.png","Coin");
+    Pickup* coin = new Pickup(300,512,16,16,"/images/GoldCoin.png","Coin");
     Player* player = new Player(300,100,64,64);
     Map* map = Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
 
