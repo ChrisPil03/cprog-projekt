@@ -9,7 +9,7 @@
 #include <iostream>
 
 using namespace engine;
-
+//spelklass
 class Player : public Sprite{
 public:
     Player(int x, int y, int w, int h):
@@ -25,7 +25,7 @@ public:
 
     void update(){
         rgdb->targetVelocityX = 0;
-        if (session.keyDown(SDLK_a)){
+        if (session.keyDown(SDLK_a)){//flytta till spelmotor
             rgdb->targetVelocityX = -speed;
             if (!hasFlipped){
                 hasFlipped = true;
@@ -66,7 +66,7 @@ private:
     bool hasFlipped = false;
     bool isGrounded = true;
 };
-
+//spelklass
 class Pickup : public Sprite{
     public:
         Pickup(int x, int y, int w, int h, std::string imagePath, std::string tag) :
