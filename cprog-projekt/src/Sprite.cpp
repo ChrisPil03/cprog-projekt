@@ -63,6 +63,7 @@ namespace engine
 
     Sprite::~Sprite(){
         SDL_DestroyTexture(texture);
+        // ta bort animations
     }
 
     void Sprite::render(){

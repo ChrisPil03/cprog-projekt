@@ -14,6 +14,8 @@ namespace engine{
         virtual const std::string getTag() const{ return "";}
         virtual const SDL_Rect* getColliderRect() const{ return nullptr;}
         virtual SDL_Rect* getRect(){return nullptr;}
+        virtual void onCollision(Component* other){}
+        //virtual void remove(Component* c){}
 
         void setParent(Component* parent) { this->parent = parent; }
         Component* getParent() { return parent; }

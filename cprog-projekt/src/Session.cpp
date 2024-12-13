@@ -39,7 +39,6 @@ namespace engine{
                     case SDL_QUIT: quit = true; break;
                     case SDL_KEYDOWN:
                         keysDown.insert(SDL_GetKeyName(event.key.keysym.sym));
-                        std::cout<<SDL_GetKeyName(event.key.keysym.sym)<<std::endl;
                         break;
                     case SDL_KEYUP:
                         keysDown.erase(SDL_GetKeyName(event.key.keysym.sym));
@@ -54,12 +53,14 @@ namespace engine{
                 components.push_back(c);
             }
             added.clear();
-            
+            //std::cout << components.size()<<std::endl;
             for (Component* c : removed){
+                
                 for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
                     if (*iter == c){
                         delete *iter;
                         iter = components.erase(iter);
+                        std::cout<<"component removed"<< std::endl;
                     }
                     else{
                         iter++;
@@ -67,7 +68,7 @@ namespace engine{
                 }
             }
             removed.clear();
-
+            //std::cout << components.size()<<std::endl;
             
 
             SDL_RenderClear(system.getRen());

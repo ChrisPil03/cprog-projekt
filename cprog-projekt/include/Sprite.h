@@ -24,6 +24,9 @@ namespace engine{
         protected:
         Sprite(int x, int y, int w, int h, std::string texture);
         Sprite(int x, int y, int w, int h, Animation* animation);
+        void onCollision(Component* other){}
+        //void remove(Component* c);
+
     private:
         SDL_Rect rect;
         SDL_Texture* texture;

@@ -25,7 +25,7 @@ public:
 
     void update(){
         rgdb->targetVelocityX = 0;
-        if (session.keyDown("A")){//flytta till spelmotor
+        if (session.keyDown("A")){
             rgdb->targetVelocityX = -speed;
             if (!hasFlipped){
                 hasFlipped = true;
@@ -49,6 +49,18 @@ public:
         }
         if (!rgdb->isGrounded() && rgdb->velocityY > 5){
             playAnimation("Fall");
+        }
+
+    }
+
+    void onCollision(Component* other){
+        if(other->getTag() == "Coin"){
+            std::cout<<"collision with coin"<<std::endl;
+            if(other->getParent()){
+                  session.removeComponent(other->getParent()); 
+                  session.removeComponent(other);
+            }
+          
         }
     }
 
@@ -76,7 +88,9 @@ class Pickup : public Sprite{
         }
         
         ~Pickup(){
-            session.removeComponent(collider);
+            std::cout<< "remove pickup collider"<< std::endl;
+            //session.removeComponent(collider);
+            //delete collider;
         }
     private:
         Collider2D* collider;
@@ -96,12 +110,12 @@ int main (int argc, char** argv){
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,1},
+        {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},

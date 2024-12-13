@@ -15,6 +15,11 @@ namespace engine{
         const std::string getTag() const { return tag; }
         const SDL_Rect* getColliderRect() const { return &collider; }
         void updateCollider();
+        void update();
+        Component* getCollision();
+
+        ~Collider2D(){}
+
     private:
         Collider2D(int x, int y, int w, int h, std::string tag);
 
