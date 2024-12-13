@@ -55,12 +55,8 @@ public:
 
     void onCollision(Component* other){
         if(other->getTag() == "Coin"){
-            std::cout<<"collision with coin"<<std::endl;
-            if(other->getParent()){
-                  session.removeComponent(other->getParent()); 
-                  session.removeComponent(other);
-            }
-          
+            session.removeComponent(other->getParent());
+            session.removeComponent(other);
         }
     }
 
@@ -78,6 +74,7 @@ private:
     bool hasFlipped = false;
     bool isGrounded = true;
 };
+
 //spelklass
 class Pickup : public Sprite{
     public:
@@ -88,14 +85,13 @@ class Pickup : public Sprite{
         }
         
         ~Pickup(){
-            std::cout<< "remove pickup collider"<< std::endl;
-            //session.removeComponent(collider);
-            //delete collider;
+            // std::cout<< "remove pickup collider"<< std::endl;
+            // session.removeComponent(collider);
+            // Why does it not work to remove collider here?
         }
     private:
         Collider2D* collider;
 };
-
 
 int main (int argc, char** argv){
 

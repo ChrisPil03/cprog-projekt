@@ -18,12 +18,6 @@ namespace engine{
         removed.push_back(c);
     }
 
-/*
-    const bool Session::keyDown(const SDL_Keycode& key) const{
-        return keysDown.find(key) != keysDown.end();
-    }
-*/
-
     const bool Session::keyDown(std::string key) const{
         return keysDown.find(key) != keysDown.end();
     }
@@ -53,9 +47,8 @@ namespace engine{
                 components.push_back(c);
             }
             added.clear();
-            //std::cout << components.size()<<std::endl;
+
             for (Component* c : removed){
-                
                 for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
                     if (*iter == c){
                         delete *iter;
@@ -68,8 +61,6 @@ namespace engine{
                 }
             }
             removed.clear();
-            //std::cout << components.size()<<std::endl;
-            
 
             SDL_RenderClear(system.getRen());
             for (Component* c : components){

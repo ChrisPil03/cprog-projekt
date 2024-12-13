@@ -20,7 +20,7 @@ namespace engine
         int lastXPos = getParent()->getRect()->x;
         updateVelocity();
         setParentPosition();
-             if (collider->hasCollided(groundTag)){
+        if (collider->hasCollided(groundTag)){
             getParent()->getRect()->x = lastXPos;
         }
         if (collider->hasCollided(groundTag)){
