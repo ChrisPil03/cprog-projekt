@@ -3,6 +3,8 @@
 #include "Component.h"
 #include "System.h"
 #include <SDL2/SDL.h>
+#include <string>
+#include <iostream>
 
 namespace engine{
 
@@ -16,7 +18,13 @@ namespace engine{
         removed.push_back(c);
     }
 
+/*
     const bool Session::keyDown(const SDL_Keycode& key) const{
+        return keysDown.find(key) != keysDown.end();
+    }
+*/
+
+    const bool Session::keyDown(std::string key) const{
         return keysDown.find(key) != keysDown.end();
     }
 
@@ -30,10 +38,11 @@ namespace engine{
                 switch(event.type){
                     case SDL_QUIT: quit = true; break;
                     case SDL_KEYDOWN:
-                        keysDown.insert(event.key.keysym.sym);
+                        keysDown.insert(SDL_GetKeyName(event.key.keysym.sym));
+                        std::cout<<SDL_GetKeyName(event.key.keysym.sym)<<std::endl;
                         break;
                     case SDL_KEYUP:
-                        keysDown.erase(event.key.keysym.sym);
+                        keysDown.erase(SDL_GetKeyName(event.key.keysym.sym));
                 } // yttre switch
             } // inre while
 

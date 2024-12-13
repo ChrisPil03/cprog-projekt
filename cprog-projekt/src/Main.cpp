@@ -25,14 +25,14 @@ public:
 
     void update(){
         rgdb->targetVelocityX = 0;
-        if (session.keyDown(SDLK_a)){//flytta till spelmotor
+        if (session.keyDown("A")){//flytta till spelmotor
             rgdb->targetVelocityX = -speed;
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
             }
         }
-        if (session.keyDown(SDLK_d)){
+        if (session.keyDown("D")){
             rgdb->targetVelocityX = speed;
             if (hasFlipped){
                 hasFlipped = false;
@@ -42,7 +42,7 @@ public:
         if(rgdb->isGrounded()){
             playAnimation("Idle");
             
-            if (session.keyDown(SDLK_w)){
+            if (session.keyDown("W")){
                 playAnimation("Jump");
                 rgdb->velocityY = jumpForce;
             }
