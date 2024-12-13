@@ -29,7 +29,7 @@ namespace engine{
     }
 //updates collider position to the same as the parent bottom center.
     void Collider2D::updateCollider(){
-        if(getParent()!=nullptr){
+        if(getParent()){
             collider.x = getParent()->getRect()->x + ((getParent()-> getRect()->w - collider.w)/2);
             collider.y = getParent()->getRect()->y + (getParent()->getRect()->h - collider.h);
         }
@@ -37,11 +37,8 @@ namespace engine{
     }
 
     void Collider2D::update(){
-        if(tag == "Player"){
-            if(getParent()!=nullptr && getCollision() !=nullptr){
-            getParent()->onCollision(getCollision()); //!
-            }
-            std::cout<< "Update"<< std::endl;
+        if(getParent() && getCollision()){
+            getParent()->onCollision(getCollision());
         }
     }
 
@@ -49,7 +46,7 @@ namespace engine{
         for (Component* c : session.getComponents()){ 
             if (c != this && c-> getColliderRect()){
                 if(SDL_HasIntersection(&collider, c->getColliderRect())){
-                        return c;
+                    return c;
                 }
             }
         }
