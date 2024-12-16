@@ -27,7 +27,9 @@ namespace engine{
                 if (tileID > 0 && tileID <= tiles){
                     SDL_RenderCopy(system.getRen(), tileMap, tileSourceRects[tileID], &destionationRect);
                     if(!collidersCreated){
-                        tileColliders.push_back(Collider2D::getInstance(destionationRect.x,destionationRect.y,tileSideLength*scale,tileSideLength*scale,tag));
+                        Collider2D* temp = Collider2D::getInstance(destionationRect.x,destionationRect.y,tileSideLength*scale,tileSideLength*scale,tag);
+                        tileColliders.push_back(temp);
+                        temp-> setStatic(true);
                     }
                 }
                 destionationRect.x += (tileSideLength*scale);

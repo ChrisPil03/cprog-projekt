@@ -9,21 +9,24 @@ namespace engine{
     }
 
     Collider2D::Collider2D(int x, int y, int w, int h, std::string tagName):
-        collider {x,y,w,h}, tag(tagName)
+        collider {x,y,w,h}, tag(tagName), isStatic(false)
     {
         session.addComponent(this);
     }
 
 //looks through component list after a matching tag to the parameter, if a component has a matching tag and is not the same instance, hasCollided will return true.
-    Component* Collider2D::hasCollided(std::string tagName){
+    Collider2D* Collider2D::hasCollided(std::string tagName){
         updateCollider();
         for (Component* c : session.getComponents()){ // only colliders, not comps
-            std::string cTag = c->getTag();
-            if (cTag == tagName && c != this){
-                if(SDL_HasIntersection(&collider, c->getColliderRect())){
-                    return c;
+            if(Collider2D* col = static_cast<Collider2D*>(c)){
+                std::string cTag = col->getTag();
+                if (cTag == tagName && col != this){
+                    if(SDL_HasIntersection(&collider, col->getColliderRect())){
+                        return col;
+                    }
                 }
             }
+           // Collider2D* col = static_cast<Collider2D*>(c);
         }
         return nullptr;
     }

@@ -11,12 +11,14 @@ namespace engine{
     public:
         static Collider2D* getInstance(int x, int y, int w, int h, std::string tag);
 
-        Component* hasCollided(std::string tagName);
+        Collider2D* hasCollided(std::string tagName);
         const std::string getTag() const { return tag; }
         const SDL_Rect* getColliderRect() const { return &collider; }
         void updateCollider();
         void update();
         Component* getCollision();
+        void setStatic(bool isStatic){this->isStatic = isStatic;}
+        bool getIsStatic(){ return isStatic; }
 
         ~Collider2D(){}
 
@@ -25,6 +27,7 @@ namespace engine{
 
         SDL_Rect collider;
         std::string tag;
+        bool isStatic;
     };
 }
 
