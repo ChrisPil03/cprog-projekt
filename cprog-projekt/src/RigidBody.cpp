@@ -25,23 +25,27 @@ namespace engine
         Collider2D* col = collider->hasCollided(groundTag);
         if (col){
            
-           if(col->getIsStatic()||collider->getColliderRect()->y + collider->getColliderRect()->h < col->getColliderRect()->y  || 
-                col->getColliderRect()->y + col->getColliderRect()->h < collider->getColliderRect()->y){
+           if(col->getIsStatic()||lastYPos + getParent()->getRect()->h < col->getColliderRect()->y  || 
+                col->getColliderRect()->y + col->getColliderRect()->h < lastYPos + getParent()->getRect() ->h - collider->getColliderRect()->h){
+
+                    std::cout<< lastYPos + getParent()->getRect()->h << std::endl;
                 getParent()->getRect()->x = lastXPos;
+
+                std::cout<< "x = lastXpos"<< std::endl;
            }
            else{
                 if(collider->getColliderRect()->x > col->getColliderRect()->x){
 
-                //  std::cout<< "expected: " << comp->getColliderRect()->x + comp->getColliderRect()->w << std::endl;
-
                     getParent()->getRect()->x = col->getColliderRect()->x + col->getColliderRect()->w -((getParent()-> getRect()->w -collider->getColliderRect()->w)/2);
+
                     
-                //    std::cout<< "actual: "<< getParent()->getRect()->x << std::endl;
                 }
                 else{
                     getParent()->getRect()->x = col -> getColliderRect()->x - getParent()->getRect()->w +((getParent()-> getRect()->w -collider->getColliderRect()->w)/2);
                 }   
+                std::cout<< "Second if "<<std::endl;
            }
+
         }
         col = collider->hasCollided(groundTag);
         if (col){

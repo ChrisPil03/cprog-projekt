@@ -98,8 +98,8 @@ class Platform : public Sprite{
     public:
         Platform(int x, int y, int w, int h, std::string imagePath, std::string tag) : 
             Sprite(x,y,w,h,imagePath), collider(Collider2D::getInstance(x,y,w,h,tag)),
-                target1(Collider2D::getInstance(x+50+w,y,1, 10, "Target")),
-                target2(Collider2D::getInstance(x-50,y,1, 10, "Target"))
+                target1(Collider2D::getInstance(x+60+w,y,1, 10, "Target")),
+                target2(Collider2D::getInstance(x-60,y,1, 10, "Target"))
         {
             collider->setParent(this);
         }
