@@ -2,6 +2,7 @@
 #include "Session.h"
 #include <iostream>
 #include <string>
+#include "Component.h"
 
 namespace engine
 {
@@ -20,10 +21,12 @@ namespace engine
         int lastXPos = getParent()->getRect()->x;
         updateVelocity();
         setParentPosition();
-        if (collider->hasCollided(groundTag)){
+        Component* comp = collider->hasCollided(groundTag);
+        if (comp){
             getParent()->getRect()->x = lastXPos;
         }
-        if (collider->hasCollided(groundTag)){
+        comp = collider->hasCollided(groundTag);
+        if (comp){
             if (lastYPos < getParent()->getRect()->y){
                 grounded = true;
             }

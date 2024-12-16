@@ -11,7 +11,7 @@ namespace engine{
     public:
         static Collider2D* getInstance(int x, int y, int w, int h, std::string tag);
 
-        bool hasCollided(std::string tagName);
+        Component* hasCollided(std::string tagName);
         const std::string getTag() const { return tag; }
         const SDL_Rect* getColliderRect() const { return &collider; }
         void updateCollider();
