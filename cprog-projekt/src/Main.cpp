@@ -93,6 +93,38 @@ class Pickup : public Sprite{
         Collider2D* collider;
 };
 
+
+class Platform : public Sprite{
+    public:
+        Platform(int x, int y, int w, int h, std::string imagePath, std::string tag) : 
+            Sprite(x,y,w,h,imagePath), collider(Collider2D::getInstance(x,y,w,h,tag)),
+                target1(Collider2D::getInstance(x,y+h+50,1, 10, "Target")),
+                target2(Collider2D::getInstance(x,y-50,1, 10, "Target"))
+        {
+            collider->setParent(this);
+        }
+
+        void update(){        
+           getRect()->y += speed;
+
+           if(collider->hasCollided("Target")){
+                speed *= -1;
+           }
+        }
+
+        ~Platform(){
+            session.removeComponent(collider);
+            session.removeComponent(target1);
+            session.removeComponent(target2);
+        }
+
+    private:
+        Collider2D* collider;
+        Collider2D* target1;
+        Collider2D* target2;
+        int speed = 1;
+};
+
 int main (int argc, char** argv){
 
     std::vector<std::vector<int>> tileMap = {
@@ -106,7 +138,7 @@ int main (int argc, char** argv){
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,1},
-        {1,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,1},
+        {1,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,0,0,1},
         {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -120,11 +152,13 @@ int main (int argc, char** argv){
 
     Pickup* coin = new Pickup(300,512,16,16,"/images/GoldCoin.png","Coin");
     Player* player = new Player(300,100,64,64);
+    Platform* platform = new Platform(250, 400, 64, 64, "/images/bg.jpg", "Ground");
     Map* map = Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
 
     session.addComponent(map);
     session.addComponent(coin);
     session.addComponent(player);
+    session.addComponent(platform);
     session.run();
 
     return 0;
