@@ -30,12 +30,33 @@ namespace engine
             if (lastYPos < getParent()->getRect()->y){
                 grounded = true;
             }
-            getParent()->getRect()->y = lastYPos;
+            if(collider->getColliderRect()->y > comp->getColliderRect()->y){
+                //getParent()->getRect()->y = comp->getColliderRect()->y + comp->getColliderRect()->h;
+                getParent()->getRect()->y = lastYPos;
+            } else{
+                getParent()->getRect()->y = comp -> getColliderRect()->y - getParent()->getRect()->h;
+            }
+    
             bounce();
         }
         else{
             grounded = false;
         }
+
+        comp = collider->hasCollided(groundTag);
+            if(comp){
+                if(collider->getColliderRect()->x > comp->getColliderRect()->x){
+
+                    std::cout<< "expected: " << comp->getColliderRect()->x + comp->getColliderRect()->w << std::endl;
+
+                    getParent()->getRect()->x = comp->getColliderRect()->x + comp->getColliderRect()->w -12;
+                    
+                    std::cout<< "actual: "<< getParent()->getRect()->x << std::endl;
+                }
+                else{
+                    getParent()->getRect()->x = comp -> getColliderRect()->x - getParent()->getRect()->w +12;
+                }
+            }
     }
 
 //increases/deacreases lineary to target velocity.
