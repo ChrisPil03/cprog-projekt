@@ -23,7 +23,7 @@ namespace engine
         setParentPosition();
         Component* comp = collider->hasCollided(groundTag);
         if (comp){
-            getParent()->getRect()->x = lastXPos;
+           getParent()->getRect()->x = lastXPos;
         }
         comp = collider->hasCollided(groundTag);
         if (comp){
@@ -47,14 +47,14 @@ namespace engine
             if(comp){
                 if(collider->getColliderRect()->x > comp->getColliderRect()->x){
 
-                    std::cout<< "expected: " << comp->getColliderRect()->x + comp->getColliderRect()->w << std::endl;
+                  //  std::cout<< "expected: " << comp->getColliderRect()->x + comp->getColliderRect()->w << std::endl;
 
-                    getParent()->getRect()->x = comp->getColliderRect()->x + comp->getColliderRect()->w -12;
+                    getParent()->getRect()->x = comp->getColliderRect()->x + comp->getColliderRect()->w -((getParent()-> getRect()->w -collider->getColliderRect()->w)/2);
                     
-                    std::cout<< "actual: "<< getParent()->getRect()->x << std::endl;
+                //    std::cout<< "actual: "<< getParent()->getRect()->x << std::endl;
                 }
                 else{
-                    getParent()->getRect()->x = comp -> getColliderRect()->x - getParent()->getRect()->w +12;
+                    getParent()->getRect()->x = comp -> getColliderRect()->x - getParent()->getRect()->w +((getParent()-> getRect()->w -collider->getColliderRect()->w)/2);
                 }
             }
     }

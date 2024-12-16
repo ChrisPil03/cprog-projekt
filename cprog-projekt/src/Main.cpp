@@ -122,7 +122,7 @@ class Platform : public Sprite{
         Collider2D* collider;
         Collider2D* target1;
         Collider2D* target2;
-        int speed = 1;
+        int speed = 2;
 };
 
 int main (int argc, char** argv){
