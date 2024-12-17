@@ -26,7 +26,6 @@ namespace engine{
                     }
                 }
             }
-           // Collider2D* col = static_cast<Collider2D*>(c);
         }
         return nullptr;
     }
@@ -34,10 +33,8 @@ namespace engine{
     void Collider2D::updateCollider(){
         if(getParent()){
             collider.x = getParent()->getRect()->x + ((getParent()-> getRect()->w - collider.w)/2);
-           // std::cout<< ((getParent()-> getRect()->w - collider.w)/2)<< std::endl;
             collider.y = getParent()->getRect()->y + (getParent()->getRect()->h - collider.h);
         }
- 
     }
 
     void Collider2D::update(){
@@ -56,5 +53,4 @@ namespace engine{
         }
         return nullptr;
     }
-
 }

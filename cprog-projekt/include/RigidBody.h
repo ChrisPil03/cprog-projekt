@@ -13,6 +13,7 @@ namespace engine{
         
         void setGravity(int gravity) { this->gravity = gravity; }
         void setElasticity(int elasticity) { this->elasticity = elasticity; }
+        void setAccelerateX(bool accelerate) { accelerateX = accelerate; }
         void update();
         bool isGrounded(){ return grounded; }
 
@@ -30,6 +31,7 @@ namespace engine{
         int mass;
         int friction;
         int elasticity = 0;
+        bool accelerateX;
         bool grounded;
         Collider2D* collider;
         std::string groundTag;
