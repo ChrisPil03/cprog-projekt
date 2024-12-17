@@ -63,12 +63,11 @@ namespace engine
             velocityX = targetVelocityX;
         }
         else{
-        if (velocityX < targetVelocityX){
-        velocityX += 0.2f;
-        }
-        else if (std::round(velocityX) > targetVelocityX){ //gotta have round
-            velocityX -= 0.2f;
-        }
+            if (velocityX < targetVelocityX){
+                velocityX += 0.2f;
+            }else if (std::round(velocityX) > targetVelocityX){ //gotta have round
+                velocityX -= 0.2f;
+            }
     }     
         if (velocityY < gravity){
             velocityY += 0.2f;

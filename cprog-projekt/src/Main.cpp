@@ -92,7 +92,7 @@ public:
         }
         if (Platform* platform = static_cast<Platform*>(other->getParent())){
             groundSpeed = platform->getSpeed();
-            rgdb->targetVelocityX = groundSpeed;
+            rgdb->targetVelocityX += groundSpeed;
             rgdb-> setIsOnPlatform(true);
         }else{
             groundSpeed = 0;
