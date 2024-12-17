@@ -17,6 +17,7 @@ namespace engine{
         bool isGrounded(){ return grounded; }
 
         float velocityY = 0;
+        float velocityX = 0;
         int targetVelocityX = 0;
     private:
         RigidBody(Component* parent, Collider2D* collider, std::string groundTag);
@@ -26,7 +27,6 @@ namespace engine{
         void bounce();
 
         int gravity = 9;
-        float velocityX = 0;
         int mass;
         int friction;
         int elasticity = 0;

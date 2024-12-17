@@ -23,29 +23,20 @@ namespace engine
         updateVelocity();
         setParentPosition();
         Collider2D* col = collider->hasCollided(groundTag);
-        if (col){
-           
-           if(col->getIsStatic()||lastYPos + getParent()->getRect()->h < col->getColliderRect()->y  || 
+        if (col){ 
+            if(col->getIsStatic() || lastYPos + getParent()->getRect()->h <= col->getColliderRect()->y || 
                 col->getColliderRect()->y + col->getColliderRect()->h < lastYPos + getParent()->getRect() ->h - collider->getColliderRect()->h){
 
-                    std::cout<< lastYPos + getParent()->getRect()->h << std::endl;
                 getParent()->getRect()->x = lastXPos;
-
-                std::cout<< "x = lastXpos"<< std::endl;
-           }
-           else{
+            }
+            else{
                 if(collider->getColliderRect()->x > col->getColliderRect()->x){
-
                     getParent()->getRect()->x = col->getColliderRect()->x + col->getColliderRect()->w -((getParent()-> getRect()->w -collider->getColliderRect()->w)/2);
-
-                    
                 }
                 else{
                     getParent()->getRect()->x = col -> getColliderRect()->x - getParent()->getRect()->w +((getParent()-> getRect()->w -collider->getColliderRect()->w)/2);
                 }   
-                std::cout<< "Second if "<<std::endl;
-           }
-
+            }
         }
         col = collider->hasCollided(groundTag);
         if (col){
@@ -53,7 +44,6 @@ namespace engine
                 grounded = true;
             }
             if(collider->getColliderRect()->y > col->getColliderRect()->y){
-                //getParent()->getRect()->y = comp->getColliderRect()->y + comp->getColliderRect()->h;
                 getParent()->getRect()->y = lastYPos;
             } else{
                 getParent()->getRect()->y = col -> getColliderRect()->y - getParent()->getRect()->h;
@@ -64,8 +54,6 @@ namespace engine
         else{
             grounded = false;
         }
-
-        
     }
 
 //increases/deacreases lineary to target velocity.

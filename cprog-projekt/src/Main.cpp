@@ -10,6 +10,39 @@
 
 using namespace engine;
 //spelklass
+class Platform : public Sprite{
+    public:
+        Platform(int x, int y, int w, int h, std::string imagePath, std::string tag) : 
+            Sprite(x,y,w,h,imagePath), collider(Collider2D::getInstance(x,y,w,h,tag)),
+                target1(Collider2D::getInstance(x+60+w,y,1, 10, "Target")),
+                target2(Collider2D::getInstance(x-60,y,1, 10, "Target"))
+        {
+            collider->setParent(this);
+        }
+
+        void update(){        
+           getRect()->x += speed;
+
+           if(collider->hasCollided("Target")){
+                speed *= -1;
+           }
+        }
+
+        int getSpeed(){ return speed; }
+
+        ~Platform(){
+            session.removeComponent(collider);
+            session.removeComponent(target1);
+            session.removeComponent(target2);
+        }
+
+    private:
+        Collider2D* collider;
+        Collider2D* target1;
+        Collider2D* target2;
+        int speed = 2;
+};
+
 class Player : public Sprite{
 public:
     Player(int x, int y, int w, int h):
@@ -24,16 +57,16 @@ public:
     }
 
     void update(){
-        rgdb->targetVelocityX = 0;
+        rgdb->targetVelocityX = groundSpeed;
         if (session.keyDown("A")){
-            rgdb->targetVelocityX = -speed;
+            rgdb->targetVelocityX = -speed + groundSpeed;
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
             }
         }
         if (session.keyDown("D")){
-            rgdb->targetVelocityX = speed;
+            rgdb->targetVelocityX = speed + groundSpeed;
             if (hasFlipped){
                 hasFlipped = false;
                 flipX();
@@ -58,6 +91,12 @@ public:
             session.removeComponent(other->getParent());
             session.removeComponent(other);
         }
+        if (Platform* platform = static_cast<Platform*>(other->getParent())){
+            groundSpeed = platform->getSpeed();
+            rgdb->velocityX = groundSpeed;
+        }else{
+            groundSpeed = 0;
+        }
     }
 
     ~Player(){
@@ -69,6 +108,7 @@ private:
     RigidBody* rgdb;
 
     int speed = 3;
+    int groundSpeed = 0;
     int jumpForce = -5;
 
     bool hasFlipped = false;
@@ -91,38 +131,6 @@ class Pickup : public Sprite{
         }
     private:
         Collider2D* collider;
-};
-
-
-class Platform : public Sprite{
-    public:
-        Platform(int x, int y, int w, int h, std::string imagePath, std::string tag) : 
-            Sprite(x,y,w,h,imagePath), collider(Collider2D::getInstance(x,y,w,h,tag)),
-                target1(Collider2D::getInstance(x+60+w,y,1, 10, "Target")),
-                target2(Collider2D::getInstance(x-60,y,1, 10, "Target"))
-        {
-            collider->setParent(this);
-        }
-
-        void update(){        
-           getRect()->x += speed;
-
-           if(collider->hasCollided("Target")){
-                speed *= -1;
-           }
-        }
-
-        ~Platform(){
-            session.removeComponent(collider);
-            session.removeComponent(target1);
-            session.removeComponent(target2);
-        }
-
-    private:
-        Collider2D* collider;
-        Collider2D* target1;
-        Collider2D* target2;
-        int speed = 2;
 };
 
 int main (int argc, char** argv){
