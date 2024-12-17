@@ -20,15 +20,15 @@ class Platform : public Sprite{
             collider->setParent(this);
         }
 
-        void update(){        
-           getRect()->x += speed;
+        void update(){      
+            getRect()->x += speed;
 
-           if(collider->hasCollided("Target")){
+            if(collider->hasCollided("Target")){
                 speed *= -1;
-           }
+            }
         }
 
-        int getSpeed(){ return speed; }
+        const int getSpeed(){ return speed; }
 
         ~Platform(){
             session.removeComponent(collider);
@@ -40,7 +40,7 @@ class Platform : public Sprite{
         Collider2D* collider;
         Collider2D* target1;
         Collider2D* target2;
-        int speed = 2;
+        int speed = 1;
 };
 
 class Player : public Sprite{
@@ -57,16 +57,19 @@ public:
     }
 
     void update(){
-        rgdb->targetVelocityX = groundSpeed;
+        rgdb->targetVelocityX = 0;
+        if (onPlatform){
+            getRect()->x += groundSpeed;
+        }
         if (session.keyDown("A")){
-            rgdb->targetVelocityX = -speed + groundSpeed;
+            rgdb->targetVelocityX = -speed;
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
             }
         }
         if (session.keyDown("D")){
-            rgdb->targetVelocityX = speed + groundSpeed;
+            rgdb->targetVelocityX = speed;
             if (hasFlipped){
                 hasFlipped = false;
                 flipX();
@@ -90,13 +93,14 @@ public:
             session.removeComponent(other->getParent());
             session.removeComponent(other);
         }
-        if (Platform* platform = static_cast<Platform*>(other->getParent())){
-            groundSpeed = platform->getSpeed();
-            rgdb->targetVelocityX += groundSpeed;
-            rgdb-> setIsOnPlatform(true);
-        }else{
-            groundSpeed = 0;
-            rgdb-> setIsOnPlatform(false);
+        if (other->getTag() == "Ground"){
+            if (Platform* platform = static_cast<Platform*>(other->getParent())){
+                onPlatform = true;
+                groundSpeed = platform->getSpeed();
+            }else{
+                onPlatform = false;
+                groundSpeed = 0;
+            }
         }
     }
 
@@ -114,6 +118,7 @@ private:
 
     bool hasFlipped = false;
     bool isGrounded = true;
+    bool onPlatform = false;
 };
 
 //spelklass
