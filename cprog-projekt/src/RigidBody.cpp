@@ -14,6 +14,7 @@ namespace engine
     RigidBody::RigidBody(Component* parent, Collider2D* collider, std::string groundTag) : collider(collider), groundTag(groundTag){
         session.addComponent(this);
         setParent(parent);
+        
     }
 
 //saves last position of parent, if collision is detected, parent is moved back, checks collision with ground.
@@ -58,12 +59,17 @@ namespace engine
 
 //increases/deacreases lineary to target velocity.
     void RigidBody::updateVelocity(){
+    if(isOnPlatform){
+            velocityX = targetVelocityX;
+        }
+        else{
         if (velocityX < targetVelocityX){
-            velocityX += 0.2f;
+        velocityX += 0.2f;
         }
         else if (std::round(velocityX) > targetVelocityX){ //gotta have round
             velocityX -= 0.2f;
         }
+    }     
         if (velocityY < gravity){
             velocityY += 0.2f;
         }

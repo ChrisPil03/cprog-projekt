@@ -15,6 +15,7 @@ namespace engine{
         void setElasticity(int elasticity) { this->elasticity = elasticity; }
         void update();
         bool isGrounded(){ return grounded; }
+        void setIsOnPlatform(bool value){ isOnPlatform = value;}
 
         float velocityY = 0;
         float velocityX = 0;
@@ -31,6 +32,7 @@ namespace engine{
         int friction;
         int elasticity = 0;
         bool grounded;
+        bool isOnPlatform = false;
         Collider2D* collider;
         std::string groundTag;
     };
