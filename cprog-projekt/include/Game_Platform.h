@@ -10,12 +10,13 @@ namespace game
     class Platform : public engine::Sprite
     {
     public:
-        Platform(int x, int y, int w, int h, std::string imagePath, std::string tag);
+        static Platform* getInstance(int x, int y, int w, int h, std::string imagePath, std::string tag);
         ~Platform();
         void update();
         const int getSpeed(){ return speed; }
 
     private:
+        Platform(int x, int y, int w, int h, std::string imagePath, std::string tag);
         engine::Collider2D* collider;
         engine::Collider2D* target1;
         engine::Collider2D* target2;

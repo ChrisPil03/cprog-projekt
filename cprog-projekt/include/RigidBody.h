@@ -19,6 +19,7 @@ namespace engine{
         bool isGrounded(){ return grounded; }
         void setIsOnPlatform(bool value){ isOnPlatform = value;}
 
+        // Make get and set functions
         float velocityY = 0;
         float velocityX = 0;
         int targetVelocityX = 0;
