@@ -53,7 +53,7 @@ namespace engine
             return;
         }
         grounded = false;
-        // Check if last position was below the collider collided with
+        // Check if last position was below the collider collided with and not to the left or right
         if (lastYPos + (getParent()->getRect()->h - collider->getColliderRect()->h) >= col->getColliderRect()->y + col->getColliderRect()->h &&
             !(lastXPos + ((getParent()-> getRect()->w -collider->getColliderRect()->w)/2) >= col->getColliderRect()->x + col->getColliderRect()->w) &&
             !(lastXPos + (getParent()->getRect()->w - (getParent()-> getRect()->w -collider->getColliderRect()->w)/2) <= col->getColliderRect()->x))
