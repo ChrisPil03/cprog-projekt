@@ -11,8 +11,15 @@
 
 namespace game
 {
-    Player::Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey):
-        Sprite(x, y, Witdh, Height, engine::Animation::getInstance("Idle", "/images/BlueSlimeIdle.png", 32, 32, 6, 10, true)),
+    Player* Player::getInstance(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,
+        std::string idleAnimPath, std::string jumpAnimPath, std::string fallAnimPath)
+    {
+        return new Player(x,y,moveLeftKey,moveRightKey,jumpKey,idleAnimPath,jumpAnimPath,fallAnimPath);
+    }
+
+    Player::Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,
+    std::string idleAnimPath, std::string jumpAnimPath, std::string fallAnimPath):
+        Sprite(x, y, Witdh, Height, engine::Animation::getInstance("Idle", idleAnimPath, 32, 32, 6, 10, true)),
         collider(engine::Collider2D::getInstance(x,y,40,32,"Player")),
         rgdb(engine::RigidBody::getInstance(this, collider, "Ground")),
         moveLeftKey(moveLeftKey), moveRightKey(moveRightKey), jumpKey(jumpKey)
@@ -20,8 +27,8 @@ namespace game
         collider->setParent(this);
         rgdb->setElasticity(2);
         rgdb->setAccelerateX(true);
-        addAnimation(engine::Animation::getInstance("Jump", "/images/BlueSlimeJump.png", 32, 32, 3, 1, false));
-        addAnimation(engine::Animation::getInstance("Fall", "/images/BlueSlimeFall.png", 32, 32, 3, 1, false));
+        addAnimation(engine::Animation::getInstance("Jump", jumpAnimPath, 32, 32, 3, 1, false));
+        addAnimation(engine::Animation::getInstance("Fall", fallAnimPath, 32, 32, 3, 1, false));
     }
 
     void Player::update(){

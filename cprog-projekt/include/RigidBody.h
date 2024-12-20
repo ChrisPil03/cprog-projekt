@@ -18,6 +18,7 @@ namespace engine{
         void update();
         bool isGrounded(){ return grounded; }
 
+        // Make get and set functions
         float velocityY = 0;
         float velocityX = 0;
         int targetVelocityX = 0;

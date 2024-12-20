@@ -12,13 +12,17 @@ namespace game
     class Player : public engine::Sprite
     {
     public:
-        Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey);
-        ~Player();
+        static Player* getInstance(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,
+            std::string idleAnimPath, std::string jumpAnimPath, std::string fallAnimPath);
         void update();
         void handleInputs();
         void onCollision(Component* other);
-
+        ~Player();
+    
     private: 
+        Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,
+            std::string IdleAnimPath, std::string JumpAnimPath, std::string FallAnimPath);
+    
         engine::Collider2D* collider;
         engine::RigidBody* rgdb;
 
