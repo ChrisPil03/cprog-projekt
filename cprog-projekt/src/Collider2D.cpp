@@ -45,9 +45,11 @@ namespace engine{
 
     Component* Collider2D::getCollision(){
         for (Component* c : session.getComponents()){ 
-            if (c != this && c-> getColliderRect()){
-                if(SDL_HasIntersection(&collider, c->getColliderRect())){
-                    return c;
+            if (Collider2D* col = static_cast<Collider2D*>(c)){
+                if (col != this && tag != c->getTag()){
+                    if(SDL_HasIntersection(&collider, c->getColliderRect())){
+                        return c;
+                    }
                 }
             }
         }

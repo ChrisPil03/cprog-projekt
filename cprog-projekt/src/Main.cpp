@@ -51,16 +51,14 @@ public:
         rgdb(RigidBody::getInstance(this, collider, "Ground"))
     {
         collider->setParent(this);
-        rgdb->setElasticity(3);
+        rgdb->setElasticity(2);
+        rgdb->setAccelerateX(true);
         addAnimation(Animation::getInstance("Jump", "/images/BlueSlimeJump.png", 32, 32, 3, 1, false));
         addAnimation(Animation::getInstance("Fall", "/images/BlueSlimeFall.png", 32, 32, 3, 1, false));
     }
 
     void update(){
         rgdb->targetVelocityX = 0;
-        if (onPlatform){
-            getRect()->x += groundSpeed;
-        }
         if (session.keyDown("A")){
             rgdb->targetVelocityX = -speed;
             if (!hasFlipped){
@@ -82,6 +80,11 @@ public:
                 playAnimation("Jump");
                 rgdb->velocityY = jumpForce;
             }
+        }else if (onPlatform){
+            onPlatform = false;
+        }
+        if (onPlatform){
+            getRect()->x += groundSpeed;
         }
         if (!rgdb->isGrounded() && rgdb->velocityY > 5){
             playAnimation("Fall");
@@ -95,8 +98,12 @@ public:
         }
         if (other->getTag() == "Ground"){
             if (Platform* platform = static_cast<Platform*>(other->getParent())){
-                onPlatform = true;
-                groundSpeed = platform->getSpeed();
+                // Needed to not get onPlatform = true when under the platform
+                // Not guaranteed that collider is on top of platform with this check
+                if (collider->getColliderRect()->y < other->getColliderRect()->y && rgdb->isGrounded()){
+                    onPlatform = true;
+                    groundSpeed = platform->getSpeed();
+                }
             }else{
                 onPlatform = false;
                 groundSpeed = 0;
@@ -114,7 +121,7 @@ private:
 
     int speed = 3;
     int groundSpeed = 0;
-    int jumpForce = -5;
+    int jumpForce = -6;
 
     bool hasFlipped = false;
     bool isGrounded = true;
