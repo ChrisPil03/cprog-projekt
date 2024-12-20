@@ -25,21 +25,25 @@ namespace engine
         Collider2D* col = collider->hasCollided(groundTag);
         if (col){
             // Need to call onCollision on the parent to be able to use onCollision to find collision with ground
-            // There is probably a better way to do it
-            // Becasue this update function makes it so that the collider never outside this function collides with ground
-            // getCollision() in collider will never get a collision with ground when collider parent has a RigidBody
+            // Becasue verticalCollision() / horizontalCollision() might update the position and then hasCollided is called again which
+            // updates the collider's position to not collide if there was a collision
+            // getCollision() in collider will not get a collision with ground when collider parent has a RigidBody
+            // without getParent()->onCollision(col);
             getParent()->onCollision(col);
             verticalCollision(col,lastYPos,lastXPos);
-        }else{
-            grounded = false;
-        }
-        col = collider->hasCollided(groundTag);
-        if (col){
-            horizontalCollision(col,lastXPos);
+
             col = collider->hasCollided(groundTag);
             if (col){
-                verticalCollision(col,lastYPos,lastXPos);
+                getParent()->onCollision(col);
+                horizontalCollision(col,lastXPos);
+                col = collider->hasCollided(groundTag);
+                if (col){
+                    // getParent()->onCollision(col); is not needed beacuse hasCollider() is not called again
+                    verticalCollision(col,lastYPos,lastXPos);
+                }
             }
+        }else{
+            grounded = false;
         }
     }
 
