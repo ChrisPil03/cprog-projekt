@@ -14,6 +14,7 @@ namespace engine{
         void setGravity(int gravity) { this->gravity = gravity; }
         void setElasticity(int elasticity) { this->elasticity = elasticity; }
         void setAccelerateX(bool accelerate) { accelerateX = accelerate; }
+        void setAccelerationX(float acceleration) { accelerationX = acceleration; }
         void update();
         bool isGrounded(){ return grounded; }
 
@@ -26,11 +27,14 @@ namespace engine{
         void updateVelocity();
         void setParentPosition();
         void bounce();
+        void horizontalCollision(Collider2D* other, int lastXPos);
+        void verticalCollision(Collider2D* other, int lastYPos, int lastXPos);
 
         int gravity = 9;
         int mass;
         int friction;
         int elasticity = 0;
+        float accelerationX;
         bool accelerateX;
         bool grounded;
         Collider2D* collider;

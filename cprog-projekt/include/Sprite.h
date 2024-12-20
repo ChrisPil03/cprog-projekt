@@ -6,8 +6,6 @@
 #include "Animation.h"
 #include <vector>
 #include <string>
-#include <map>
-#include <unordered_map>
 
 namespace engine{
     class Sprite : public Component
@@ -25,7 +23,6 @@ namespace engine{
         Sprite(int x, int y, int w, int h, std::string texture);
         Sprite(int x, int y, int w, int h, Animation* animation);
         void onCollision(Component* other){}
-        //void remove(Component* c);
 
     private:
         SDL_Rect rect;
