@@ -31,7 +31,7 @@ int main (int argc, char** argv){
     };
 
     game::Pickup* coin = new game::Pickup(300,512,16,16,"/images/GoldCoin.png","Coin");
-    game::Player* player = new game::Player(300,100,64,64);
+    game::Player* player = new game::Player(300,100, "A", "D", "W");
     game::Platform* platform = new game::Platform(250, 500, 64, 64, "/images/bg.jpg", "Ground");
     engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
 
