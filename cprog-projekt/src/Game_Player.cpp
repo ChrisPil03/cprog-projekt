@@ -6,12 +6,16 @@
 #include "Session.h"
 #include "Game_Platform.h"
 
+#define Witdh {64}
+#define Height {64}
+
 namespace game
 {
-    Player::Player(int x, int y, int w, int h):
-        Sprite(x, y, w, h, engine::Animation::getInstance("Idle", "/images/BlueSlimeIdle.png", 32, 32, 6, 10, true)),
+    Player::Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey):
+        Sprite(x, y, Witdh, Height, engine::Animation::getInstance("Idle", "/images/BlueSlimeIdle.png", 32, 32, 6, 10, true)),
         collider(engine::Collider2D::getInstance(x,y,40,32,"Player")),
-        rgdb(engine::RigidBody::getInstance(this, collider, "Ground"))
+        rgdb(engine::RigidBody::getInstance(this, collider, "Ground")),
+        moveLeftKey(moveLeftKey), moveRightKey(moveRightKey), jumpKey(jumpKey)
     {
         collider->setParent(this);
         rgdb->setElasticity(2);
@@ -22,35 +26,43 @@ namespace game
 
     void Player::update(){
         rgdb->targetVelocityX = 0;
-        if (engine::session.keyDown("A")){
+
+        if(rgdb->isGrounded()){
+            playAnimation("Idle");
+        }else if (onPlatform){
+            onPlatform = false;
+        }
+
+        handleInputs();
+        
+        if (onPlatform){
+            getRect()->x += groundSpeed;
+        }
+        if (!rgdb->isGrounded() && rgdb->velocityY > 5){
+            playAnimation("Fall");
+        }
+    }
+
+    void Player::handleInputs(){
+        if (engine::session.keyDown(moveLeftKey)){
             rgdb->targetVelocityX = -speed;
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
             }
         }
-        if (engine::session.keyDown("D")){
+        if (engine::session.keyDown(moveRightKey)){
             rgdb->targetVelocityX = speed;
             if (hasFlipped){
                 hasFlipped = false;
                 flipX();
             }
         }
-        if(rgdb->isGrounded()){
-            playAnimation("Idle");
-            
-            if (engine::session.keyDown("W")){
-                playAnimation("Jump");
+        if (rgdb->isGrounded()){
+            if (engine::session.keyDown(jumpKey)){
                 rgdb->velocityY = jumpForce;
+                playAnimation("Jump");
             }
-        }else if (onPlatform){
-            onPlatform = false;
-        }
-        if (onPlatform){
-            getRect()->x += groundSpeed;
-        }
-        if (!rgdb->isGrounded() && rgdb->velocityY > 5){
-            playAnimation("Fall");
         }
     }
 

@@ -5,15 +5,17 @@
 #include "Component.h"
 #include "Collider2D.h"
 #include "RigidBody.h"
+#include <string>
 
 namespace game
 {
     class Player : public engine::Sprite
     {
     public:
-        Player(int x, int y, int w, int h);
+        Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey);
         ~Player();
         void update();
+        void handleInputs();
         void onCollision(Component* other);
 
     private: 
@@ -27,6 +29,10 @@ namespace game
         bool hasFlipped = false;
         bool isGrounded = true;
         bool onPlatform = false;
+
+        std::string moveLeftKey;
+        std::string moveRightKey;
+        std::string jumpKey;
     };
 }
 
