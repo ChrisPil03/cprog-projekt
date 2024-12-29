@@ -15,10 +15,10 @@ int main (int argc, char** argv){
         {17,3,3,3,3,3,3,3,3,3,50,0,0,0,49,3,3,3,3,3,31,0,0,0,0,0,0,0,0,15},
         {12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,21,40,3,3,3,50,0,0,0,49,14},
         {12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
-        {12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-1,-1,-1,0,0,0,0,0,0,0,10},
-        {12,0,0,0,51,5,5,5,5,5,5,5,5,7,3,31,0,0,0,0,0,0,0,0,0,0,0,0,0,15},
-        {12,0,0,0,0,0,0,0,0,0,0,0,0,43,45,32,7,3,3,3,6,5,5,5,5,5,5,7,3,14},
-        {12,0,0,0,0,0,0,0,0,0,0,0,0,0,10,18,2,2,11,0,0,0,0,0,43,44,45,2,2,16},
+        {12,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
+        {12,0,-1,0,51,5,5,5,5,5,5,5,5,7,3,31,0,0,0,0,0,0,0,0,0,0,0,0,0,15},
+        {12,0,-1,0,0,0,0,0,0,0,0,0,0,43,45,32,7,3,3,3,6,5,5,5,5,5,5,7,3,14},
+        {12,0,-1,0,0,0,0,0,0,0,0,0,0,0,10,18,2,2,11,0,0,0,0,0,43,44,45,2,2,16},
         {24,0,0,0,0,0,0,0,0,0,0,0,0,0,36,21,21,21,35,0,0,0,0,0,0,0,36,21,21,26},
         {25,5,5,5,5,5,5,5,5,5,5,41,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
         {12,0,0,0,0,0,0,0,0,0,36,60,5,5,57,0,56,5,5,5,5,7,3,50,0,0,0,0,0,10},
@@ -31,12 +31,14 @@ int main (int argc, char** argv){
     };
 
     engine::Sprite* background = engine::Sprite::getInstance(0,0,960,640,"/images/BG.png");
+    engine::Sprite* clouds = engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png");
     engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
     game::Platform* platform1 = game::Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
     game::Platform* platform2 = game::Platform::getInstance(800, 160, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
     game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
 
     engine::session.addComponent(background);
+    engine::session.addComponent(clouds);
     engine::session.addComponent(map);
     engine::session.addComponent(platform1);
     engine::session.addComponent(platform2);
