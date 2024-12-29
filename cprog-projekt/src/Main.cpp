@@ -32,12 +32,14 @@ int main (int argc, char** argv){
 
     engine::Sprite* background = engine::Sprite::getInstance(0,0,960,640,"/images/BG.png");
     engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
-    game::Platform* platform = game::Platform::getInstance(250, 500, 64, 64, "/images/bg.jpg", "Ground");
+    game::Platform* platform1 = game::Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
+    game::Platform* platform2 = game::Platform::getInstance(800, 160, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
     game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
 
     engine::session.addComponent(background);
     engine::session.addComponent(map);
-    engine::session.addComponent(platform);
+    engine::session.addComponent(platform1);
+    engine::session.addComponent(platform2);
     engine::session.addComponent(coin);
 
     game::Player* bluePlayer = game::Player::getInstance(300,100, "A", "D", "W", "/images/BlueSlimeIdle.png", "/images/BlueSlimeJump.png", "/images/BlueSlimeFall.png");
