@@ -27,9 +27,10 @@ namespace engine
         int scale;
         std::string tag;
         std::map<int,SDL_Rect*> tileSourceRects;
-        SDL_Rect destionationRect;
+        SDL_Rect destinationRect;
         std::vector<Collider2D*> tileColliders;
         bool collidersCreated = false;
+        bool pickupsCreated = false;
     };
 }
 

@@ -6,13 +6,14 @@
 #include <vector>
 #include <string>
 #include "Collider2D.h"
+#include "Game_Pickup.h"
 #include <iostream>
 
 
 namespace engine{
     Map::Map(std::vector<std::vector<int>> map, std::string tileMap, int sideLength, int tileCount, int scale, std::string tag) :
         map(map), tileMap(IMG_LoadTexture(system.getRen(),(constants::gResPath + tileMap).c_str())),
-        tileSideLength(sideLength), tiles(tileCount), scale(scale), tag(tag), destionationRect{0,0,tileSideLength*scale,tileSideLength*scale}
+        tileSideLength(sideLength), tiles(tileCount), scale(scale), tag(tag), destinationRect{0,0,tileSideLength*scale,tileSideLength*scale}
     {
         //session.addComponent(this);
 
@@ -20,25 +21,29 @@ namespace engine{
             tileSourceRects[i+1] = new SDL_Rect {i*sideLength, 0, sideLength, sideLength};
         }
     }
-
     void Map::render(){
         for (std::vector vec : map){
             for (int tileID : vec){
                 if (tileID > 0 && tileID <= tiles){
-                    SDL_RenderCopy(system.getRen(), tileMap, tileSourceRects[tileID], &destionationRect);
+                    SDL_RenderCopy(system.getRen(), tileMap, tileSourceRects[tileID], &destinationRect);
                     if(!collidersCreated){
-                        Collider2D* temp = Collider2D::getInstance(destionationRect.x,destionationRect.y,tileSideLength*scale,tileSideLength*scale,tag);
+                        Collider2D* temp = Collider2D::getInstance(destinationRect.x,destinationRect.y,tileSideLength*scale,tileSideLength*scale,tag);
                         tileColliders.push_back(temp);
                         temp-> setStatic(true);
                     }
                 }
-                destionationRect.x += (tileSideLength*scale);
+                if(tileID == -1 && !pickupsCreated){
+                    game::Pickup* coin = game::Pickup::getInstance(destinationRect.x,destinationRect.y,16,16,"/images/GoldCoin.png","Coin");
+                    engine::session.addComponent(coin);
+                }
+                destinationRect.x += (tileSideLength*scale);
             }
-            destionationRect.x = 0;
-            destionationRect.y += (tileSideLength*scale);
+            destinationRect.x = 0;
+            destinationRect.y += (tileSideLength*scale);
         }
-        destionationRect.y = 0;
+        destinationRect.y = 0;
         collidersCreated = true;
+        pickupsCreated = true;
     }
 
     Map::~Map(){
