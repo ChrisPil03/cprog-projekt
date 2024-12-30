@@ -15,6 +15,8 @@ namespace engine{
         virtual const SDL_Rect* getColliderRect() const{ return nullptr;}
         virtual SDL_Rect* getRect(){return nullptr;}
         virtual void onCollision(Component* other){}
+        virtual void mouseDown(const SDL_Event&) {}
+		virtual void mouseUp(const SDL_Event&) {}
 
         void setParent(Component* parent) { this->parent = parent; }
         Component* getParent() { return parent; }

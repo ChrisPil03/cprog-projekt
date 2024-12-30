@@ -31,6 +31,14 @@ namespace engine{
             while (SDL_PollEvent(&event)){
                 switch(event.type){
                     case SDL_QUIT: quit = true; break;
+                    case SDL_MOUSEBUTTONDOWN:
+					    for (Component* c : components)
+						    c->mouseDown(event);
+					    break;
+				    case SDL_MOUSEBUTTONUP:
+					    for (Component* c : components)
+						    c->mouseUp(event);
+					    break;
                     case SDL_KEYDOWN:
                         keysDown.insert(SDL_GetKeyName(event.key.keysym.sym));
                         break;

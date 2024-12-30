@@ -19,7 +19,10 @@ namespace engine{
         void playAnimation(std::string animationName);
         SDL_Rect* getRect() { return &rect;}
         void addAnimation(Animation* animation);
-        protected:
+        void mouseDown(const SDL_Event&) {}
+		void mouseUp(const SDL_Event&) {}
+
+    protected:
         Sprite(int x, int y, int w, int h, std::string texture);
         Sprite(int x, int y, int w, int h, Animation* animation);
         void onCollision(Component* other){}

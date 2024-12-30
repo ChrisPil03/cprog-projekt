@@ -3,6 +3,7 @@
 #include "Game_Platform.h"
 #include "Game_Player.h"
 #include "Map.h"
+#include "Button.h"
 #include <iostream>
 
 int main (int argc, char** argv){
@@ -11,6 +12,7 @@ int main (int argc, char** argv){
     engine::Collider2D* boxCol = engine::Collider2D::getInstance(574,384,30,31,"Box");
     engine::RigidBody* boxRgbd = engine::RigidBody::getInstance(box, boxCol, "Ground");
     boxCol->setParent(box);
+
 
     std::vector<std::vector<int>> tileMap = {
         {27,35,0,0,0,0,0,0,0,36,21,21,21,21,21,21,21,21,35,0,0,0,0,0,36,21,21,21,21,26},
@@ -42,6 +44,8 @@ int main (int argc, char** argv){
     game::Platform* platform2 = game::Platform::getInstance(800, 160, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
     game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
 
+    engine::Button* button = engine::Button:: getInstance(50,50,50,50,"/images/Button_Play.png");
+    
     platform1->setSpeedY(1);
     platform2->setSpeedY(1);
 
@@ -53,11 +57,13 @@ int main (int argc, char** argv){
     engine::session.addComponent(platform2);
     engine::session.addComponent(box);
 
+
     game::Player* bluePlayer = game::Player::getInstance(64,400, "A", "D", "W", "/images/BlueSlimeIdle.png", "/images/BlueSlimeJump.png", "/images/BlueSlimeFall.png");
     game::Player* redPlayer = game::Player::getInstance(64,480, "Left", "Right", "Up", "/images/RedSlimeIdle.png", "/images/RedSlimeJump.png", "/images/RedSlimeFall.png");
 
     engine::session.addComponent(bluePlayer);
     engine::session.addComponent(redPlayer);
+    engine::session.addComponent(button);
     
     engine::session.run();
 

@@ -3,6 +3,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #include "System.h"
+#include "Sprite.h"
 
 namespace engine{
 
@@ -11,10 +12,13 @@ namespace engine{
         SDL_Surface* surf = TTF_RenderText_Solid(system.getFont(), txt.c_str(), { 0,0,0 });
 		txtTexture = SDL_CreateTextureFromSurface(system.getRen(), surf);
 		SDL_FreeSurface(surf);
+        
     }
 
     Button::Button (int x, int y, int w, int h,std::string imagePath)
-    : Sprite(x,y,w,h,imagePath){}
+    : Sprite(x,y,w,h,imagePath), txtTexture(nullptr){
+
+    }
 
     Button::~Button(){
         SDL_DestroyTexture(txtTexture);
