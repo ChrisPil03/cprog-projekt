@@ -7,12 +7,17 @@
 
 int main (int argc, char** argv){
 
+    engine::Sprite* box = engine::Sprite::getInstance(574,384,30,31,"/images/Box.png");
+    engine::Collider2D* boxCol = engine::Collider2D::getInstance(574,384,30,31,"Box");
+    engine::RigidBody* boxRgbd = engine::RigidBody::getInstance(box, boxCol, "Ground");
+    boxCol->setParent(box);
+
     std::vector<std::vector<int>> tileMap = {
         {27,35,0,0,0,0,0,0,0,36,21,21,21,21,21,21,21,21,35,0,0,0,0,0,36,21,21,21,21,26},
         {12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
         {12,0,0,5,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
         {19,0,0,5,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
-        {17,3,3,3,3,3,3,3,3,3,50,0,0,0,49,3,3,3,3,3,31,0,0,0,0,0,0,0,0,15},
+        {17,3,3,3,3,3,3,3,3,3,50,0,0,0,49,3,3,3,3,3,31,0,0,0,0,0,0,0,-1,15},
         {12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,36,21,40,3,3,3,50,0,0,0,49,14},
         {12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
         {12,0,0,0,0,0,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10},
@@ -46,6 +51,7 @@ int main (int argc, char** argv){
     engine::session.addComponent(coin);
     engine::session.addComponent(platform1);
     engine::session.addComponent(platform2);
+    engine::session.addComponent(box);
 
     game::Player* bluePlayer = game::Player::getInstance(64,400, "A", "D", "W", "/images/BlueSlimeIdle.png", "/images/BlueSlimeJump.png", "/images/BlueSlimeFall.png");
     game::Player* redPlayer = game::Player::getInstance(64,480, "Left", "Right", "Up", "/images/RedSlimeIdle.png", "/images/RedSlimeJump.png", "/images/RedSlimeFall.png");

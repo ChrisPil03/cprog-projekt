@@ -29,6 +29,7 @@ namespace game
         int speed = 3;
         int groundSpeedX = 0;
         int jumpForce = -6;
+        int relSpeed = speed;
 
         bool hasFlipped = false;
         bool isGrounded = true;

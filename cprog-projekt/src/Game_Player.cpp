@@ -52,14 +52,16 @@ namespace game
 
     void Player::handleInputs(){
         if (engine::session.keyDown(moveLeftKey)){
-            rgdb->targetVelocityX = -speed;
+            relSpeed = -speed;
+            rgdb->targetVelocityX = relSpeed;
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
             }
         }
         if (engine::session.keyDown(moveRightKey)){
-            rgdb->targetVelocityX = speed;
+            relSpeed = speed;
+            rgdb->targetVelocityX = relSpeed;
             if (hasFlipped){
                 hasFlipped = false;
                 flipX();
@@ -90,6 +92,9 @@ namespace game
                 onPlatform = false;
                 groundSpeedX = 0;
             }
+        }
+        if(other-> getTag() == "Box"){
+            other->getParent()->getRect()->x += relSpeed;
         }
     }
 
