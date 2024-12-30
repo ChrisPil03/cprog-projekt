@@ -19,6 +19,8 @@ namespace engine{
         Component* getCollision();
         void setStatic(bool isStatic){this->isStatic = isStatic;}
         bool getIsStatic(){ return isStatic; }
+        void setJumpThrought(bool jumpThrough){ this->jumpThrough = jumpThrough; }
+        const bool getJumpThrough(){ return jumpThrough; }
 
         ~Collider2D(){}
 
@@ -28,6 +30,7 @@ namespace engine{
         SDL_Rect collider;
         std::string tag;
         bool isStatic;
+        bool jumpThrough;
     };
 }
 

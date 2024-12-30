@@ -37,12 +37,15 @@ int main (int argc, char** argv){
     game::Platform* platform2 = game::Platform::getInstance(800, 160, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
     game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
 
+    platform1->setSpeedY(1);
+    platform2->setSpeedY(1);
+
     engine::session.addComponent(background);
     engine::session.addComponent(clouds);
     engine::session.addComponent(map);
+    engine::session.addComponent(coin);
     engine::session.addComponent(platform1);
     engine::session.addComponent(platform2);
-    engine::session.addComponent(coin);
 
     game::Player* bluePlayer = game::Player::getInstance(64,400, "A", "D", "W", "/images/BlueSlimeIdle.png", "/images/BlueSlimeJump.png", "/images/BlueSlimeFall.png");
     game::Player* redPlayer = game::Player::getInstance(64,480, "Left", "Right", "Up", "/images/RedSlimeIdle.png", "/images/RedSlimeJump.png", "/images/RedSlimeFall.png");

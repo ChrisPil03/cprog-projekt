@@ -49,22 +49,34 @@ namespace engine
 
     void RigidBody::verticalCollision(Collider2D* col, int lastYPos, int lastXPos){
         // Check if last position was above the collider collided with
-        if (lastYPos + getParent()->getRect()->h <= col->getColliderRect()->y){
-            //std::cout<<"Vertical collision above"<<std::endl;
-            getParent()->getRect()->y = col->getColliderRect()->y - getParent()->getRect()->h;
-            grounded = true;
-            bounce();
-            return;
+        if(col->getIsStatic()){
+            if (lastYPos + getParent()->getRect()->h <= col->getColliderRect()->y){
+                //std::cout<<"Vertical collision above"<<std::endl;
+                getParent()->getRect()->y = col->getColliderRect()->y - getParent()->getRect()->h;
+                grounded = true;
+                bounce();
+                return;
+            }
+        }else{
+            if (collider->getColliderRect()->y < col->getColliderRect()->y){
+                getParent()->getRect()->y = col->getColliderRect()->y - getParent()->getRect()->h;
+                grounded = true;
+                bounce();
+                return;
+            }
         }
+
         grounded = false;
-        // Check if last position was below the collider collided with and not to the left or right
-        if (lastYPos + (getParent()->getRect()->h - collider->getColliderRect()->h) >= col->getColliderRect()->y + col->getColliderRect()->h &&
-            !(lastXPos + ((getParent()-> getRect()->w -collider->getColliderRect()->w)/2) >= col->getColliderRect()->x + col->getColliderRect()->w) &&
-            !(lastXPos + (getParent()->getRect()->w - (getParent()-> getRect()->w -collider->getColliderRect()->w)/2) <= col->getColliderRect()->x))
-        {
-            //std::cout<<"Vertical collision below"<<std::endl;
-            getParent()->getRect()->y = col->getColliderRect()->y + col->getColliderRect()->w - (getParent()->getRect()->h - collider->getColliderRect()->h);
-            velocityY = 0;
+        if(!col->getJumpThrough()){
+            // Check if last position was below the collider collided with and not to the left or right
+            if (lastYPos + (getParent()->getRect()->h - collider->getColliderRect()->h) >= col->getColliderRect()->y + col->getColliderRect()->h &&
+                !(lastXPos + ((getParent()-> getRect()->w -collider->getColliderRect()->w)/2) >= col->getColliderRect()->x + col->getColliderRect()->w) &&
+                !(lastXPos + (getParent()->getRect()->w - (getParent()-> getRect()->w -collider->getColliderRect()->w)/2) <= col->getColliderRect()->x))
+            {
+                //std::cout<<"Vertical collision below"<<std::endl;
+                getParent()->getRect()->y = lastYPos;
+                velocityY = 0;
+            }
         }
     }
 

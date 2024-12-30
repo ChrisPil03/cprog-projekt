@@ -13,14 +13,18 @@ namespace game
         static Platform* getInstance(int x, int y, int w, int h, std::string imagePath, std::string tag, bool horizontal, int colPos1, int colPos2);
         ~Platform();
         void update();
-        const int getSpeed(){ return speed; }
+        const int getSpeedX(){ return speedX; }
+        const int getSpeedY(){ return speedY; }
+        void setSpeedX(int speed){ speedX = speed; }
+        void setSpeedY(int speed){ speedY = speed; }
 
     private:
         Platform(int x, int y, int w, int h, std::string imagePath, std::string tag, bool horizontal, int colPos1, int colPos2);
         engine::Collider2D* collider;
         engine::Collider2D* target1;
         engine::Collider2D* target2;
-        int speed = 1;
+        int speedX = 0;
+        int speedY = 0;
         bool horizontalMovement;
     };
 }

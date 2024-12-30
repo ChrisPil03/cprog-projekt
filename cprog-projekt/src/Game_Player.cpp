@@ -43,7 +43,7 @@ namespace game
         handleInputs();
         
         if (onPlatform){
-            getRect()->x += groundSpeed;
+            getRect()->x += groundSpeedX;
         }
         if (!rgdb->isGrounded() && rgdb->velocityY > 5){
             playAnimation("Fall");
@@ -84,11 +84,11 @@ namespace game
                 // Not guaranteed that collider is on top of platform with this check
                 if (collider->getColliderRect()->y < other->getColliderRect()->y && rgdb->isGrounded()){
                     onPlatform = true;
-                    groundSpeed = platform->getSpeed();
+                    groundSpeedX = platform->getSpeedX();
                 }
             }else{
                 onPlatform = false;
-                groundSpeed = 0;
+                groundSpeedX = 0;
             }
         }
     }

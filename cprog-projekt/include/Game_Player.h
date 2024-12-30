@@ -27,7 +27,7 @@ namespace game
         engine::RigidBody* rgdb;
 
         int speed = 3;
-        int groundSpeed = 0;
+        int groundSpeedX = 0;
         int jumpForce = -6;
 
         bool hasFlipped = false;

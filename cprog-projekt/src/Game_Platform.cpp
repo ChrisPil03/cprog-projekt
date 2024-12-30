@@ -17,17 +17,19 @@ namespace game
             target2 = engine::Collider2D::getInstance(x,y+h+colPos2,1, 1, "Target");
         }
         collider->setParent(this);
+        collider->setJumpThrought(true);
     }
 
     void Platform::update(){  
         if (horizontalMovement){
-            getRect()->x += speed;
+            getRect()->x += speedX;
         }else{
-            getRect()->y += speed;
+            getRect()->y += speedY;
         }    
 
         if(collider->hasCollided("Target")){
-            speed *= -1;
+            speedX *= -1;
+            speedY *= -1;
         }
     }
 

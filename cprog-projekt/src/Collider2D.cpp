@@ -9,7 +9,7 @@ namespace engine{
     }
 
     Collider2D::Collider2D(int x, int y, int w, int h, std::string tagName):
-        collider {x,y,w,h}, tag(tagName), isStatic(false)
+        collider {x,y,w,h}, tag(tagName), isStatic(false), jumpThrough(false)
     {
         session.addComponent(this);
     }
