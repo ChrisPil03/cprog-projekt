@@ -81,6 +81,12 @@ namespace engine
     }
 
     void RigidBody::horizontalCollision(Collider2D* col, int lastXPos){
+        if (col->getJumpThrough() && 
+            !(lastXPos + ((getParent()-> getRect()->w -collider->getColliderRect()->w)/2) >= col->getColliderRect()->x + col->getColliderRect()->w) &&
+            !(lastXPos + (getParent()->getRect()->w - (getParent()-> getRect()->w -collider->getColliderRect()->w)/2) <= col->getColliderRect()->x))
+        {
+            return;
+        }
         // Check if collider is to the right of the collider collided with
         if(collider->getColliderRect()->x > col->getColliderRect()->x){
             //std::cout<<"Horizontal collision right"<<std::endl;
