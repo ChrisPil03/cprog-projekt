@@ -7,26 +7,13 @@
 
 namespace engine{
 
-    Button::Button (int x, int y, int w, int h, std::string txt, std::string imagePath)
-    : Sprite(x,y,w,h,imagePath){
-        SDL_Surface* surf = TTF_RenderText_Solid(system.getFont(), txt.c_str(), { 0,0,0 });
-		txtTexture = SDL_CreateTextureFromSurface(system.getRen(), surf);
-		SDL_FreeSurface(surf);
-        
-    }
-
     Button::Button (int x, int y, int w, int h,std::string imagePath)
-    : Sprite(x,y,w,h,imagePath), txtTexture(nullptr){
-
-    }
+    : Sprite(x,y,w,h,imagePath){}
 
     Button::~Button(){
         SDL_DestroyTexture(txtTexture);
     }
 
-    Button* Button::getInstance(int x, int y, int w, int h, std::string txt, std::string imagePath){
-        return new Button(x,y,w,h,txt,imagePath);
-    }
     Button* Button::getInstance(int x, int y, int w, int h, std::string imagePath){
         return new Button(x,y,w,h,imagePath);
     }
@@ -43,12 +30,4 @@ namespace engine{
 
 		isDown = false;
 	}
-
-    void Button::render() {
-
-        if(txtTexture){
-            SDL_RenderCopy(system.getRen(), txtTexture, NULL, getRect());
-        }
-	}
-
 }

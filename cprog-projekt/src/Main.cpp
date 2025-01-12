@@ -40,9 +40,9 @@ int main (int argc, char** argv){
     engine::Sprite* background = engine::Sprite::getInstance(0,0,960,640,"/images/BG.png");
     engine::Sprite* clouds = engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png");
     engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
-    //game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
-    game::Platform* platform1 = game::Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
-    game::Platform* platform2 = game::Platform::getInstance(800, 160, 96, 16, "/images/bg.jpg", "Ground",false,1,112);
+    game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
+    game::Platform* platform1 = game::Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground",false,1,80);
+    game::Platform* platform2 = game::Platform::getInstance(800, 160, 96, 16, "/images/bg.jpg", "Ground",false,1,80);
 
     engine::Button* button = engine::Button:: getInstance(50,50,50,50,"/images/Button_Play.png");
     
@@ -52,7 +52,7 @@ int main (int argc, char** argv){
     engine::session.addComponent(background);
     engine::session.addComponent(clouds);
     engine::session.addComponent(map);
-    //engine::session.addComponent(coin);
+    engine::session.addComponent(coin);
     engine::session.addComponent(platform1);
     engine::session.addComponent(platform2);
     engine::session.addComponent(box);

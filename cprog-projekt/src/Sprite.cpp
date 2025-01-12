@@ -66,7 +66,7 @@ namespace engine
         }
         else{ // Remove animations
             for(Animation* anim : animationList){
-                engine::session.removeComponent(dynamic_cast<Component*>(anim));
+                engine::session.removeComponent(anim);
             }
         }
     }

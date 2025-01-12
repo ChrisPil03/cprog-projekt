@@ -30,7 +30,6 @@ namespace engine
         SDL_Rect destinationRect;
         std::vector<Collider2D*> tileColliders;
         bool collidersCreated = false;
-        bool pickupsCreated = false;
     };
 }
 

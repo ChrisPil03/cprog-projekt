@@ -99,7 +99,7 @@ namespace game
     }
 
     Player::~Player(){
-        engine::session.removeComponent(dynamic_cast<Component*>(collider));
-        engine::session.removeComponent(dynamic_cast<Component*>(rgdb));
+        engine::session.removeComponent(collider);
+        engine::session.removeComponent(rgdb);
     }
 }

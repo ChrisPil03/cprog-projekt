@@ -35,8 +35,8 @@ namespace game
     }
 
     Platform::~Platform(){
-        engine::session.removeComponent(dynamic_cast<Component*>(collider));
-        engine::session.removeComponent(dynamic_cast<Component*>(target1));
-        engine::session.removeComponent(dynamic_cast<Component*>(target2));
+        engine::session.removeComponent(collider);
+        engine::session.removeComponent(target1);
+        engine::session.removeComponent(target2);
     }
 }

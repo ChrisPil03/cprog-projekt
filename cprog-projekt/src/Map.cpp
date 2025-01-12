@@ -3,11 +3,7 @@
 #include "Constants.h"
 #include "System.h"
 #include "Session.h"
-#include <vector>
-#include <string>
 #include "Collider2D.h"
-#include "Game_Pickup.h"
-#include <iostream>
 
 
 namespace engine{
@@ -30,10 +26,6 @@ namespace engine{
                         temp-> setStatic(true);
                     }
                 }
-                if(tileID == -1 && !pickupsCreated){
-                    game::Pickup* coin = game::Pickup::getInstance(destinationRect.x,destinationRect.y,16,16,"/images/GoldCoin.png","Coin");
-                    engine::session.addComponent(coin);
-                }
                 destinationRect.x += (tileSideLength*scale);
             }
             destinationRect.x = 0;
@@ -41,7 +33,6 @@ namespace engine{
         }
         destinationRect.y = 0;
         collidersCreated = true;
-        pickupsCreated = true;
     }
 
     Map::~Map(){
@@ -49,7 +40,7 @@ namespace engine{
 
         // Delete colliders
         for (std::vector<Collider2D*>::iterator iter = tileColliders.begin(); iter != tileColliders.end();){
-            session.removeComponent(dynamic_cast<Component*>(*iter));
+            session.removeComponent(*iter);
             iter = tileColliders.erase(iter);
         }
            
