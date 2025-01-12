@@ -1,4 +1,6 @@
 #include "Game_Pickup.h"
+#include "Session.h"
+#include "Component.h"
 
 namespace game
 {
@@ -13,8 +15,6 @@ namespace game
     }
 
     Pickup::~Pickup(){
-        // std::cout<< "remove pickup collider"<< std::endl;
-        // session.removeComponent(collider);
-        // Why does it not work to remove collider here?
+        engine::session.removeComponent(dynamic_cast<Component*>(collider));
     }
 }

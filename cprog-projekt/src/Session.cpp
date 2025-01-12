@@ -90,10 +90,6 @@ namespace engine{
 
     const std::vector<Component*>& Session::getComponents() const { return components;}
 
-    Session::~Session(){
-
-    }
-
     Session session;
 }
 

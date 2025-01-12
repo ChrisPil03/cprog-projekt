@@ -18,7 +18,7 @@ namespace engine{
 		const bool keyDown(std::string key) const;
 		const std::vector<Component*>& getComponents() const;
 		void run();
-		~Session();
+		~Session(){}
 	private:
 		std::vector<Component*> components;
         //vector with scenes instead of component?

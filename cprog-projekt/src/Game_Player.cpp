@@ -5,6 +5,7 @@
 #include "RigidBody.h"
 #include "Session.h"
 #include "Game_Platform.h"
+#include "Component.h"
 
 #define Witdh {64}
 #define Height {64}
@@ -78,10 +79,9 @@ namespace game
     void Player::onCollision(Component* other){
         if(other->getTag() == "Coin"){
             engine::session.removeComponent(other->getParent());
-            engine::session.removeComponent(other);
         }
         if (other->getTag() == "Ground"){
-            if (Platform* platform = static_cast<Platform*>(other->getParent())){
+            if (Platform* platform = dynamic_cast<Platform*>(other->getParent())){
                 // Needed to not get onPlatform = true when under the platform
                 // Not guaranteed that collider is on top of platform with this check
                 if (collider->getColliderRect()->y < other->getColliderRect()->y && rgdb->isGrounded()){
@@ -99,7 +99,7 @@ namespace game
     }
 
     Player::~Player(){
-        engine::session.removeComponent(collider);
-        engine::session.removeComponent(rgdb);
+        engine::session.removeComponent(dynamic_cast<Component*>(collider));
+        engine::session.removeComponent(dynamic_cast<Component*>(rgdb));
     }
 }

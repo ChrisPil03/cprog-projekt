@@ -15,8 +15,6 @@ namespace engine{
         map(map), tileMap(IMG_LoadTexture(system.getRen(),(constants::gResPath + tileMap).c_str())),
         tileSideLength(sideLength), tiles(tileCount), scale(scale), tag(tag), destinationRect{0,0,tileSideLength*scale,tileSideLength*scale}
     {
-        //session.addComponent(this);
-
         for (int i = 0; i < tiles; i++){
             tileSourceRects[i+1] = new SDL_Rect {i*sideLength, 0, sideLength, sideLength};
         }
@@ -51,10 +49,13 @@ namespace engine{
 
         // Delete colliders
         for (std::vector<Collider2D*>::iterator iter = tileColliders.begin(); iter != tileColliders.end();){
-            session.removeComponent(*iter);
+            session.removeComponent(dynamic_cast<Component*>(*iter));
             iter = tileColliders.erase(iter);
         }
            
         // Delete SDL_Rect* in tileSourceRects
+        for (auto rect : tileSourceRects){
+            delete rect.second;
+        }
     }
 }

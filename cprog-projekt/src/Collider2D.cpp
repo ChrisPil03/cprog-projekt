@@ -18,7 +18,7 @@ namespace engine{
     Collider2D* Collider2D::hasCollided(std::string tagName){
         updateCollider();
         for (Component* c : session.getComponents()){ // only colliders, not comps
-            if(Collider2D* col = static_cast<Collider2D*>(c)){
+            if(Collider2D* col = dynamic_cast<Collider2D*>(c)){
                 std::string cTag = col->getTag();
                 if (cTag == tagName && col != this){
                     if(SDL_HasIntersection(&collider, col->getColliderRect())){
@@ -45,7 +45,7 @@ namespace engine{
 
     Component* Collider2D::getCollision(){
         for (Component* c : session.getComponents()){ 
-            if (Collider2D* col = static_cast<Collider2D*>(c)){
+            if (Collider2D* col = dynamic_cast<Collider2D*>(c)){
                 if (col != this && tag != c->getTag()){
                     if(SDL_HasIntersection(&collider, c->getColliderRect())){
                         return c;

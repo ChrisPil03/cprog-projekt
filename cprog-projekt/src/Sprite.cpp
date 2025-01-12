@@ -1,16 +1,15 @@
 #include "Sprite.h"
 #include "Constants.h"
 #include "System.h"
+#include "Session.h"
 #include "Animation.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
-#include <unordered_map>
-#include <iostream>
 
 namespace engine
 {
-    Sprite::Sprite(int x, int y, int w, int h, std::string txt) : rect { x,y,w,h }{
+    Sprite::Sprite(int x, int y, int w, int h, std::string txt) : rect { x,y,w,h }, currentAnimation(nullptr){
         texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + txt).c_str());
     }
 
@@ -62,8 +61,14 @@ namespace engine
     }
 
     Sprite::~Sprite(){
-        SDL_DestroyTexture(texture);
-        // ta bort animations
+        if(!isAnimated){
+            SDL_DestroyTexture(texture);
+        }
+        else{ // Remove animations
+            for(Animation* anim : animationList){
+                engine::session.removeComponent(dynamic_cast<Component*>(anim));
+            }
+        }
     }
 
     void Sprite::render(){
