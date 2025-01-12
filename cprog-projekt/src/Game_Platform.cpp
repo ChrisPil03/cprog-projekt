@@ -8,11 +8,11 @@ namespace game
     }
 
     Platform::Platform(int x, int y, int w, int h, std::string imagePath, std::string tag, bool horizontal, int colPos1, int colPos2) : 
-        Sprite(x,y,w,h,imagePath), collider(engine::Collider2D::getInstance(x,y,w,h,tag)), horizontalMovement(horizontal)
+        Sprite(x,y,w,h,imagePath), collider(engine::Collider2D::getInstance(x,y,w,h,tag)), horizontalMovement(horizontal), isControlled(false)
     {
         if (horizontal){
             target1 = engine::Collider2D::getInstance(x-colPos1,y,1, 1, "Target");
-            target2 = engine::Collider2D::getInstance(x+w+colPos1,y,1, 1, "Target");
+            target2 = engine::Collider2D::getInstance(x+w+colPos2,y,1, 1, "Target");
         }else{
             target1 = engine::Collider2D::getInstance(x,y-colPos1,1, 1, "Target");
             target2 = engine::Collider2D::getInstance(x,y+h+colPos2,1, 1, "Target");
@@ -23,19 +23,24 @@ namespace game
 
     void Platform::update(){  
         if (horizontalMovement){
-            getRect()->x += speedX;
+            if ((speedX > 0 && getRect()->x + getRect()->w <= target1->getColliderRect()->x) ||
+                (speedX < 0 && getRect()->x >= target2->getColliderRect()->x))
+            {
+                getRect()->x += speedX;
+            }
         }else{
-            if(canMove){
+            if ((speedY < 0 && getRect()->y >= target1->getColliderRect()->y) ||
+                (speedY > 0 && getRect()->y + getRect()->h <= target2->getColliderRect()->y))
+            {
                 getRect()->y += speedY;
-            }         
+            }
         }    
 
         if(collider->hasCollided("Target")){
-            hasCollidedWTarget = true;
-            speedX *= -1;
-            speedY *= -1;
-        } else{
-            hasCollidedWTarget = false;
+            if (!isControlled){
+                speedX *= -1;
+                speedY *= -1;
+            }
         }
     }
 

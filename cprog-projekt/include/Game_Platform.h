@@ -15,12 +15,10 @@ namespace game
         void update();
         const int getSpeedX(){ return speedX; }
         const int getSpeedY(){ return speedY; }
-        bool getCanMove(){return canMove;}
-        bool getHasCollidedWTarget(){return hasCollidedWTarget;}
         void setSpeedX(int speed){ speedX = speed; }
         void setSpeedY(int speed){ speedY = speed; }
         void setSpeed(int speedX, int speedY);
-        bool setCanMove(bool canMove){this->canMove = canMove;}
+        void setIsControlled(bool controlled){ isControlled = controlled; }
 
     private:
         Platform(int x, int y, int w, int h, std::string imagePath, std::string tag, bool horizontal, int colPos1, int colPos2);
@@ -30,8 +28,7 @@ namespace game
         int speedX = 0;
         int speedY = 0;
         bool horizontalMovement;
-        bool canMove = false;
-        bool hasCollidedWTarget = false;
+        bool isControlled;
     };
 }
 
