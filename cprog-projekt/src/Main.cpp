@@ -3,6 +3,7 @@
 #include "Game_Platform.h"
 #include "Game_Player.h"
 #include "Game_Box.h"
+#include "Game_Button.h"
 #include "Map.h"
 #include "Button.h"
 #include <iostream>
@@ -32,18 +33,20 @@ int main (int argc, char** argv){
         {18, 2, 2, 2, 2, 2, 2, 2, 2, 2,32, 5, 5,34, 2, 2, 2,32, 5, 5,34, 2, 2,16, 1, 1, 1, 1, 1, 1}
     };
 
+    
     game::Box* box = game::Box::getInstance(574,384,30,31);
     engine::Sprite* background = engine::Sprite::getInstance(0,0,960,640,"/images/BG.png");
     engine::Sprite* clouds = engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png");
-    engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
-    game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
     game::Platform* platform1 = game::Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground", false, 1, 80);
     game::Platform* platform2 = game::Platform::getInstance(832, 160, 96, 16, "/images/bg.jpg", "Ground", false, 1, 80);
     game::Platform* platform3 = game::Platform::getInstance(320, 128, 96, 16, "/images/bg.jpg", "Ground", true, 1, 192);
+    game::Button* gameButton = game::Button::getInstance(400,351, 30, 30, "/images/Box.png", platform1);
+    engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
+    game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
 
     engine::Button* button = engine::Button:: getInstance(50,50,50,50,"/images/Button_Play.png");
     
-    platform1->setSpeedY(1);
+    //platform1->setSpeedY(1);
     platform2->setSpeedY(1);
     platform3->setSpeedX(1);
 
@@ -51,10 +54,12 @@ int main (int argc, char** argv){
     engine::session.addComponent(clouds);
     engine::session.addComponent(map);
     engine::session.addComponent(coin);
+    engine::session.addComponent(gameButton);
     engine::session.addComponent(platform1);
     engine::session.addComponent(platform2);
     engine::session.addComponent(platform3);
     engine::session.addComponent(box);
+
 
 
     game::Player* bluePlayer = game::Player::getInstance(64,400, "A", "D", "W", "/images/BlueSlimeIdle.png", "/images/BlueSlimeJump.png", "/images/BlueSlimeFall.png");

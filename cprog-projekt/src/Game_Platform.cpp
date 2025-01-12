@@ -12,7 +12,7 @@ namespace game
     {
         if (horizontal){
             target1 = engine::Collider2D::getInstance(x-colPos1,y,1, 1, "Target");
-            target2 = engine::Collider2D::getInstance(x+w+colPos2,y,1, 1, "Target");
+            target2 = engine::Collider2D::getInstance(x+w+colPos1,y,1, 1, "Target");
         }else{
             target1 = engine::Collider2D::getInstance(x,y-colPos1,1, 1, "Target");
             target2 = engine::Collider2D::getInstance(x,y+h+colPos2,1, 1, "Target");
@@ -25,14 +25,25 @@ namespace game
         if (horizontalMovement){
             getRect()->x += speedX;
         }else{
-            getRect()->y += speedY;
+            if(canMove){
+                getRect()->y += speedY;
+            }         
         }    
 
         if(collider->hasCollided("Target")){
+            hasCollidedWTarget = true;
             speedX *= -1;
             speedY *= -1;
+        } else{
+            hasCollidedWTarget = false;
         }
     }
+
+    void Platform::setSpeed(int newSpeedX, int newSpeedY) {
+        speedX = newSpeedX;
+        speedY = newSpeedY;
+    }
+
 
     Platform::~Platform(){
         engine::session.removeComponent(collider);
