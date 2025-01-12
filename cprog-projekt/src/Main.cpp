@@ -19,8 +19,8 @@ int main (int argc, char** argv){
         {12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,10},
         {12, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,10},
         {19, 0, 0, 5, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,10},
-        {17, 3, 3, 3, 3, 3, 3, 3, 3, 3,50, 0, 0, 0,49, 3, 3, 3, 3, 3,31, 0, 0, 0, 0, 0, 0, 0,-1,15},
-        {12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,36,21,40, 3, 3, 3,50, 0, 0, 0,49,14},
+        {17, 3, 3, 3, 3, 3, 3, 3, 3,50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 3,31, 0, 0, 0, 0, 0, 0, 0,10},
+        {12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,36,21,63, 3, 3, 3,50, 0, 0, 0,10},
         {12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,10},
         {12, 0, 0, 0, 0, 0,-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,10},
         {12, 0,-1, 0,51, 5, 5, 5, 5, 5, 5, 5, 5, 7, 3,31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,15},
@@ -41,13 +41,15 @@ int main (int argc, char** argv){
     engine::Sprite* clouds = engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png");
     engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
     game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
-    game::Platform* platform1 = game::Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground",false,1,80);
-    game::Platform* platform2 = game::Platform::getInstance(800, 160, 96, 16, "/images/bg.jpg", "Ground",false,1,80);
+    game::Platform* platform1 = game::Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground", false, 1, 80);
+    game::Platform* platform2 = game::Platform::getInstance(832, 160, 96, 16, "/images/bg.jpg", "Ground", false, 1, 80);
+    game::Platform* platform3 = game::Platform::getInstance(320, 128, 96, 16, "/images/bg.jpg", "Ground", true, 1, 192);
 
     engine::Button* button = engine::Button:: getInstance(50,50,50,50,"/images/Button_Play.png");
     
     platform1->setSpeedY(1);
     platform2->setSpeedY(1);
+    platform3->setSpeedX(1);
 
     engine::session.addComponent(background);
     engine::session.addComponent(clouds);
@@ -55,6 +57,7 @@ int main (int argc, char** argv){
     engine::session.addComponent(coin);
     engine::session.addComponent(platform1);
     engine::session.addComponent(platform2);
+    engine::session.addComponent(platform3);
     engine::session.addComponent(box);
 
 

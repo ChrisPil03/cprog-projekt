@@ -12,7 +12,7 @@ namespace game
     {
         if (horizontal){
             target1 = engine::Collider2D::getInstance(x-colPos1,y,1, 1, "Target");
-            target2 = engine::Collider2D::getInstance(x+w+colPos1,y,1, 1, "Target");
+            target2 = engine::Collider2D::getInstance(x+w+colPos2,y,1, 1, "Target");
         }else{
             target1 = engine::Collider2D::getInstance(x,y-colPos1,1, 1, "Target");
             target2 = engine::Collider2D::getInstance(x,y+h+colPos2,1, 1, "Target");
