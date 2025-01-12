@@ -18,7 +18,7 @@ namespace game
             target2 = engine::Collider2D::getInstance(x,y+h+colPos2,1, 1, "Target");
         }
         collider->setParent(this);
-        collider->setJumpThrought(true);
+        //collider->setJumpThrought(true);
     }
 
     void Platform::update(){  
