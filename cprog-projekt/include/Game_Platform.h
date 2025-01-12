@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "Collider2D.h"
 #include "Session.h"
+#include "Component.h"
 
 namespace game
 {
@@ -22,6 +23,10 @@ namespace game
 
     private:
         Platform(int x, int y, int w, int h, std::string imagePath, std::string tag, bool horizontal, int colPos1, int colPos2);
+        void move();
+        void moveUp();
+        void changeDirection();
+        
         engine::Collider2D* collider;
         engine::Collider2D* target1;
         engine::Collider2D* target2;

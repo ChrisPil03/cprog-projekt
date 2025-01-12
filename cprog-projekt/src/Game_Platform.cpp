@@ -22,9 +22,21 @@ namespace game
     }
 
     void Platform::update(){  
+        move();
+
+        if(isControlled){
+            moveUp();
+        }
+
+        if(collider->hasCollided("Target") && !isControlled){
+            changeDirection();
+        }
+    }
+
+    void Platform::move(){
         if (horizontalMovement){
-            if ((speedX > 0 && getRect()->x + getRect()->w <= target1->getColliderRect()->x) ||
-                (speedX < 0 && getRect()->x >= target2->getColliderRect()->x))
+            if ((speedX > 0 && getRect()->x + getRect()->w <= target2->getColliderRect()->x) ||
+                (speedX < 0 && getRect()->x >= target1->getColliderRect()->x))
             {
                 getRect()->x += speedX;
             }
@@ -34,19 +46,20 @@ namespace game
             {
                 getRect()->y += speedY;
             }
-        }    
+        }  
+    }
 
-        if(isControlled){
-            if(speedY > 0){
-                speedY *= -1;
-            }
+    void Platform::moveUp(){
+        if(speedY > 0){
+            speedY *= -1;
         }
+    }
 
-        if(collider->hasCollided("Target")){
-            if (!isControlled){
-                speedX *= -1;
-                speedY *= -1;
-            }
+    void Platform::changeDirection(){
+        if(horizontalMovement){
+            speedX *= -1;
+        }else{
+            speedY *= -1;
         }
     }
 
