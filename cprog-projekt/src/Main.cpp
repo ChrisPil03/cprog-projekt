@@ -2,17 +2,12 @@
 #include "Game_Pickup.h"
 #include "Game_Platform.h"
 #include "Game_Player.h"
+#include "Game_Box.h"
 #include "Map.h"
 #include "Button.h"
 #include <iostream>
 
 int main (int argc, char** argv){
-
-    engine::Sprite* box = engine::Sprite::getInstance(574,384,30,31,"/images/Box.png");
-    engine::Collider2D* boxCol = engine::Collider2D::getInstance(574,384,30,31,"Box");
-    engine::RigidBody* boxRgbd = engine::RigidBody::getInstance(box, boxCol, "Ground");
-    boxCol->setParent(box);
-
 
     std::vector<std::vector<int>> tileMap = {
         {27,35, 0, 0, 0, 0, 0, 0, 0,36,21,21,21,21,21,21,21,21,35, 0, 0, 0, 0, 0,36,21,21,21,21,26},
@@ -37,6 +32,7 @@ int main (int argc, char** argv){
         {18, 2, 2, 2, 2, 2, 2, 2, 2, 2,32, 5, 5,34, 2, 2, 2,32, 5, 5,34, 2, 2,16, 1, 1, 1, 1, 1, 1}
     };
 
+    game::Box* box = game::Box::getInstance(574,384,30,31);
     engine::Sprite* background = engine::Sprite::getInstance(0,0,960,640,"/images/BG.png");
     engine::Sprite* clouds = engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png");
     engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
