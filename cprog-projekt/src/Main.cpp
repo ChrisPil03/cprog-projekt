@@ -32,7 +32,6 @@ int main (int argc, char** argv){
         {25, 5, 5, 5, 5, 5, 5, 5, 5, 5,41, 0, 0,42, 5, 5, 5,41, 0, 0,42, 5, 5,34, 2, 2,16, 1, 1, 1},
         {18, 2, 2, 2, 2, 2, 2, 2, 2, 2,32, 5, 5,34, 2, 2, 2,32, 5, 5,34, 2, 2,16, 1, 1, 1, 1, 1, 1}
     };
-
     
     game::Box* box = game::Box::getInstance(574,384,30,31);
     engine::Sprite* background = engine::Sprite::getInstance(0,0,960,640,"/images/BG.png");
@@ -45,9 +44,8 @@ int main (int argc, char** argv){
     engine::Map* map = engine::Map::getInstance(tileMap, "/images/TileMap.png",16,65,2, "Ground");
     game::Pickup* coin = game::Pickup::getInstance(300,512,16,16,"/images/GoldCoin.png","Coin");
 
-    engine::Button* button = engine::Button:: getInstance(50,50,50,50,"/images/Button_Play.png");
+    engine::Button* button = engine::Button::getInstance(50,50,50,50,"/images/Button_Play.png");
     
-    //platform1->setSpeedY(1);
     platform2->setSpeedY(1);
     platform3->setSpeedX(1);
 
@@ -61,8 +59,6 @@ int main (int argc, char** argv){
     engine::session.addComponent(platform2);
     engine::session.addComponent(platform3);
     engine::session.addComponent(box);
-
-
 
     game::Player* bluePlayer = game::Player::getInstance(64,400, "A", "D", "W", "/images/BlueSlimeIdle.png", "/images/BlueSlimeJump.png", "/images/BlueSlimeFall.png");
     game::Player* redPlayer = game::Player::getInstance(64,480, "Left", "Right", "Up", "/images/RedSlimeIdle.png", "/images/RedSlimeJump.png", "/images/RedSlimeFall.png");

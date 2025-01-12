@@ -15,8 +15,6 @@ namespace game {
     void Button::update(){
         if(collider->hasCollided("Player")){
             platform->setSpeed(0,1);
-        } else {
-            platform->setSpeed(0,-1);
         }
     }
 }

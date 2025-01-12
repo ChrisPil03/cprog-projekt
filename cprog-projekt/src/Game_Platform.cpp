@@ -36,6 +36,12 @@ namespace game
             }
         }    
 
+        if(isControlled){
+            if(speedY > 0){
+                speedY *= -1;
+            }
+        }
+
         if(collider->hasCollided("Target")){
             if (!isControlled){
                 speedX *= -1;
