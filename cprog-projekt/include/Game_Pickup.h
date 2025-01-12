@@ -11,11 +11,17 @@ namespace game
     public:
         static Pickup* getInstance(int x, int y, int w, int h, std::string imagePath, std::string tag);
         ~Pickup();
+        void update();
 
     private:
         Pickup(int x, int y, int w, int h, std::string imagePath, std::string tag);
+        void playMoveAnim();
 
         engine::Collider2D* collider;
+        int moveAnimSpeed;
+        int changeDirectionSpeed;
+        int speed;
+        int counter;
     };
 }
 

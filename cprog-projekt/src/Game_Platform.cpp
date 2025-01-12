@@ -68,7 +68,6 @@ namespace game
         speedY = newSpeedY;
     }
 
-
     Platform::~Platform(){
         engine::session.removeComponent(collider);
         engine::session.removeComponent(target1);

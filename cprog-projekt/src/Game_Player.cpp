@@ -77,7 +77,7 @@ namespace game
     }
 
     void Player::onCollision(Component* other){
-        if(other->getTag() == "Coin"){
+        if(other->getTag() == "Gem"){
             engine::session.removeComponent(other->getParent());
         }
         if (other->getTag() == "Ground"){
