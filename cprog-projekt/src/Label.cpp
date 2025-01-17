@@ -18,7 +18,6 @@ namespace engine
     }
 
     void Label::setText(std::string newText){
-        std::cout << "setText" << " " << newText << std::endl;
         text = newText;
         SDL_DestroyTexture(texture);
         createTexture();

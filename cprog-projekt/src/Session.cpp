@@ -15,7 +15,11 @@ namespace engine{
     }
 
     void Session::removeComponent(Component* c) {
-        removed.push_back(c);
+        if (!removingComponents){
+            removed.push_back(c);
+        }else{
+            childrenRemoved.push_back(c);
+        }
     }
 
     const bool Session::keyDown(std::string key) const{
@@ -47,34 +51,10 @@ namespace engine{
                 } // yttre switch
             } // inre while
 
-            for (Component* c : components){
-                c->update();
-            }
-
-            for (Component* c : added){
-                components.push_back(c);
-            }
-            added.clear();
-
-            for (Component* c : removed){
-                for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
-                    if (*iter == c){
-                        delete *iter;
-                        iter = components.erase(iter);
-                        std::cout<<"component removed"<< std::endl;
-                    }
-                    else{
-                        iter++;
-                    }
-                }
-            }
-            removed.clear();
-
-            SDL_RenderClear(system.getRen());
-            for (Component* c : components){
-                c->render();
-            }
-            SDL_RenderPresent(system.getRen());
+            updateComponents();
+            addComponents();
+            removeComponents();
+            renderComponents();
 
             int delay = nextTick - SDL_GetTicks();
             if (delay > 0){
@@ -83,6 +63,50 @@ namespace engine{
 
         } // yttre while
     } // run
+
+    void Session::updateComponents(){
+        for (Component* c : components){
+            c->update();
+        }
+    }
+
+    void Session::renderComponents(){
+        SDL_RenderClear(system.getRen());
+        for (Component* c : components){
+            c->render();
+        }
+        SDL_RenderPresent(system.getRen());
+    }
+
+    void Session::addComponents(){
+        for (Component* c : added){
+            components.push_back(c);
+        }
+        added.clear();
+    }
+
+    void Session::removeComponents(){
+        for (Component* c : removed){
+            removingComponents = true;
+            for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
+                if (*iter == c){
+                    delete *iter;
+                    iter = components.erase(iter);
+                    std::cout<<"component removed"<< std::endl;
+                }
+                else{
+                    iter++;
+                }
+            }
+        }
+        removingComponents = false;
+        removed.clear();
+        if (childrenRemoved.size() != 0){
+            for (Component* c : childrenRemoved){
+                removeComponent(c);
+            }
+        }
+    }
 
     void Session::setFps(int newFps){
         fps= newFps;

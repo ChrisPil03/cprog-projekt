@@ -20,12 +20,17 @@ namespace engine{
 		void run();
 		~Session(){}
 	private:
+		void updateComponents();
+		void renderComponents();
+		void addComponents();
+		void removeComponents();
+
 		std::vector<Component*> components;
-        //vector with scenes instead of component?
-        std::vector<Component*> added, removed;
+        std::vector<Component*> added, removed, childrenRemoved;
         int fps = 60;
 		const int tickInterval = 1000 / fps;
 		std::set<std::string> keysDown;
+		bool removingComponents = false;
 	};
 
     extern Session session;

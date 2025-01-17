@@ -32,7 +32,9 @@ namespace game
     }
 
     Pickup::~Pickup(){
-        std::cout << "Remove collider" << std::endl;
+        // set parent too nullptr becasue collider is a child and will be removed next frame
+        // if parent is not set to nullptr there will be one frame where parent is pointing to something unknown
+        collider->setParent(nullptr);
         engine::session.removeComponent(collider);
     }
 }

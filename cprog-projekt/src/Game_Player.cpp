@@ -83,8 +83,7 @@ namespace game
     }
 
     void Player::onCollision(Component* other){
-        if(other->getTag() == "Gem"){
-            std::cout << "Colliding with gem" << std::endl;
+        if(other->getTag() == "Gem" && other->getParent()){
             engine::session.removeComponent(other->getParent());
             GameManager::collectGem();
         }
