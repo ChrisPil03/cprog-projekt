@@ -10,9 +10,7 @@ namespace game
     }
 
     void GameManager::collectGem(){
-        std::cout << "collect gem" << std::endl;
         collectedGems++;
-        std::cout << "gem added" << std::endl;
         gemsCountLabel->setText(std::to_string(collectedGems));
     }
 }

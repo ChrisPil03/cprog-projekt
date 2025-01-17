@@ -20,11 +20,8 @@ namespace engine
     void Label::setText(std::string newText){
         std::cout << "setText" << " " << newText << std::endl;
         text = newText;
-        std::cout << "setText after text = newText" << std::endl;
         SDL_DestroyTexture(texture);
-        std::cout << "setText after destroy" << std::endl;
         createTexture();
-        std::cout << "end of setText" << std::endl;
     }
 
     void Label::createTexture(){

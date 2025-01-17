@@ -6,6 +6,7 @@
 #include "Game_Player.h"
 #include "Game_LevelGoal.h"
 #include "Game_Water.h"
+#include "Game_GameManager.h"
 #include "Map.h"
 #include "Label.h"
 #include "Session.h"
@@ -102,7 +103,8 @@ namespace game
         level_1.push_back(Pickup::getInstance(555,90,18,22,"/images/Gem.png","Gem"));
 
         // UI
-        level_1.push_back(engine::Label::getInstance(864, 32, 28, 32, "0"));
+        engine::Label* gemLabel = engine::Label::getInstance(864, 32, 28, 32, "0");
+        level_1.push_back(gemLabel);
         level_1.push_back(engine::Sprite::getInstance(900,36,18,22,"/images/Gem.png"));
 
         // Add all components to session
@@ -118,6 +120,9 @@ namespace game
         // Add players to session
         engine::session.addComponent(bluePlayer);
         engine::session.addComponent(redPlayer);
+
+        // GameManager
+        gameManager = GameManager::getInstance(gemLabel);
     }
 
     void SceneManager::clearScene(){
@@ -132,6 +137,9 @@ namespace game
             }
             engine::session.removeComponent(bluePlayer);
             engine::session.removeComponent(redPlayer);
+        }
+        if (gameManager){
+            delete gameManager;
         }
     }
 }

@@ -1,6 +1,7 @@
 #include "Game_Pickup.h"
 #include "Session.h"
 #include "Component.h"
+#include <iostream>
 
 namespace game
 {
@@ -31,6 +32,7 @@ namespace game
     }
 
     Pickup::~Pickup(){
+        std::cout << "Remove collider" << std::endl;
         engine::session.removeComponent(collider);
     }
 }

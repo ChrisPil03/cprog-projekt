@@ -20,6 +20,7 @@ namespace game
         std::vector<engine::Component*> level_1;
         engine::Component* bluePlayer;
         engine::Component* redPlayer;
+        engine::Component* gameManager;
     };
 }
 
