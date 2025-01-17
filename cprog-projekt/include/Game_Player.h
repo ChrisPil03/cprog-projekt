@@ -1,7 +1,7 @@
 #ifndef GAME_PLAYER_H
 #define GAME_PLAYER_H
 
-#include "Sprite.h"
+#include "AnimatedSprite.h"
 #include "Component.h"
 #include "Collider2D.h"
 #include "RigidBody.h"
@@ -9,7 +9,7 @@
 
 namespace game
 {
-    class Player : public engine::Sprite
+    class Player : public engine::AnimatedSprite
     {
     public:
         static Player* getInstance(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,

@@ -20,7 +20,7 @@ namespace game
 
     Player::Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,
     std::string idleAnimPath, std::string jumpAnimPath, std::string fallAnimPath):
-        Sprite(x, y, Witdh, Height, engine::Animation::getInstance("Idle", idleAnimPath, 32, 32, 6, 10, true)),
+        AnimatedSprite(x, y, Witdh, Height, engine::Animation::getInstance("Idle", idleAnimPath, 32, 32, 6, 10, true)),
         collider(engine::Collider2D::getInstance(x,y,40,32,"Player")),
         rgdb(engine::RigidBody::getInstance(this, collider, "Ground")),
         moveLeftKey(moveLeftKey), moveRightKey(moveRightKey), jumpKey(jumpKey)
