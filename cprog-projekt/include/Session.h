@@ -13,7 +13,7 @@ namespace engine{
 	public:
 		Session();
 		void addComponent(Component* c);
-        void removeComponent(Component* c); // boolean?
+        void removeComponent(Component* c);
         void setFps(const int newFps);
 		const bool keyDown(std::string key) const;
 		const std::vector<Component*>& getComponents() const;

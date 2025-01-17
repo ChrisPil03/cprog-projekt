@@ -38,6 +38,7 @@ namespace game
         std::string moveLeftKey;
         std::string moveRightKey;
         std::string jumpKey;
+        std::string color;
     };
 }
 
