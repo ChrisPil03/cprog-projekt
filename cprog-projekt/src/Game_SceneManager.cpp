@@ -4,6 +4,8 @@
 #include "Game_Pickup.h"
 #include "Game_Platform.h"
 #include "Game_Player.h"
+#include "Game_LevelGoal.h"
+#include "Game_Water.h"
 #include "Map.h"
 #include "Session.h"
 
@@ -14,6 +16,8 @@ namespace game
     }
 
     void SceneManager::loadMainMenu(){
+        clearScene();
+
         // background
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/BG.png"));
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png"));
@@ -25,6 +29,8 @@ namespace game
     }
 
     void SceneManager::loadLevel_1(){
+        clearScene();
+
         // level 1 map
         std::vector<std::vector<int>> tileMap = {
             {27,35, 0, 0, 0, 0, 0, 0, 0,36,21,21,21,21,21,21,21,21,35, 0, 0, 0, 0, 0,36,21,21,21,21,26},
@@ -53,8 +59,16 @@ namespace game
         level_1.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/BG.png"));
         level_1.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png"));
 
+        // goal
+        level_1.push_back(LevelGoal::getInstance(96,64,"Red"));
+        level_1.push_back(LevelGoal::getInstance(200,64,"Blue"));
+
+        // water
+        level_1.push_back(Water::getInstance(352,586,64,24,"Red"));
+        level_1.push_back(Water::getInstance(576,586,64,24,"Blue"));
+
         // box
-        level_1.push_back(game::Box::getInstance(574,384,30,31));
+        level_1.push_back(Box::getInstance(574,384,30,31));
 
         // platforms and buttons controlling platforms
         Platform* platform1 = Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground", false, 1, 78);
@@ -93,11 +107,26 @@ namespace game
 
         // The following needs to be done after adding everything to session. If not the players will be rendered behind everything else
         // players
-        bluePlayer = Player::getInstance(64,400, "A", "D", "W", "/images/BlueSlimeIdle.png", "/images/BlueSlimeJump.png", "/images/BlueSlimeFall.png");
-        redPlayer = Player::getInstance(64,480, "Left", "Right", "Up", "/images/RedSlimeIdle.png", "/images/RedSlimeJump.png", "/images/RedSlimeFall.png");
+        bluePlayer = Player::getInstance(64,400, "A", "D", "W", "Blue");
+        redPlayer = Player::getInstance(64,480, "Left", "Right", "Up", "Red");
 
         // Add players to session
         engine::session.addComponent(bluePlayer);
         engine::session.addComponent(redPlayer);
+    }
+
+    void SceneManager::clearScene(){
+        if (mainMenu.size() != 0){
+            for (engine::Component* c : mainMenu){
+                engine::session.removeComponent(c);
+            }
+        }
+        if (level_1.size() != 0){
+            for (engine::Component* c : level_1){
+                engine::session.removeComponent(c);
+            }
+            engine::session.removeComponent(bluePlayer);
+            engine::session.removeComponent(redPlayer);
+        }
     }
 }

@@ -14,15 +14,16 @@ namespace engine{
         void setGravity(int gravity) { this->gravity = gravity; }
         void setElasticity(int elasticity) { this->elasticity = elasticity; }
         void setAccelerateX(bool accelerate) { accelerateX = accelerate; }
-        void setAccelerationX(float acceleration) { accelerationX = acceleration; }
+        void setVelocityY(float velocity) { velocityY = velocity; }
+        void setVelocityX(float velocity) { velocityX = velocity; }
+        void setTargetVelocityX(int velocity) { targetVelocityX = velocity; }
+        const int getTargetVelocityX() { return targetVelocityX; }
+        const float getVelocityY() { return velocityY; }
+        const float getVelocityX() { return velocityX; }
         void update();
-        bool isGrounded(){ return grounded; }
+        const bool isGrounded(){ return grounded; }
         void setIsOnPlatform(bool value){ isOnPlatform = value;}
 
-        // Make get and set functions
-        float velocityY = 0;
-        float velocityX = 0;
-        int targetVelocityX = 0;
     private:
         RigidBody(Component* parent, Collider2D* collider, std::string groundTag);
 
@@ -32,6 +33,9 @@ namespace engine{
         void horizontalCollision(Collider2D* other, int lastXPos);
         void verticalCollision(Collider2D* other, int lastYPos, int lastXPos);
 
+        float velocityY;
+        float velocityX;
+        int targetVelocityX;
         int gravity = 9;
         int mass;
         int friction;

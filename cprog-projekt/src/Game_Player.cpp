@@ -6,34 +6,39 @@
 #include "Session.h"
 #include "Game_Platform.h"
 #include "Component.h"
-
-#define Witdh {64}
-#define Height {64}
+#include "Game_Water.h"
+#include <iostream>
 
 namespace game
 {
     Player* Player::getInstance(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,
-        std::string idleAnimPath, std::string jumpAnimPath, std::string fallAnimPath)
+        std::string color)
     {
-        return new Player(x,y,moveLeftKey,moveRightKey,jumpKey,idleAnimPath,jumpAnimPath,fallAnimPath);
+        return new Player(x,y,moveLeftKey,moveRightKey,jumpKey,color);
     }
 
     Player::Player(int x, int y, std::string moveLeftKey, std::string moveRightKey, std::string jumpKey,
-    std::string idleAnimPath, std::string jumpAnimPath, std::string fallAnimPath):
-        AnimatedSprite(x, y, Witdh, Height, engine::Animation::getInstance("Idle", idleAnimPath, 32, 32, 6, 10, true)),
+        std::string color) :
+        AnimatedSprite(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, engine::Animation::getInstance("Idle", (color == "Blue") ? BLUE_IDLE_ANIM : RED_IDLE_ANIM, 32, 32, 6, 10, true)),
         collider(engine::Collider2D::getInstance(x,y,40,32,"Player")),
         rgdb(engine::RigidBody::getInstance(this, collider, "Ground")),
-        moveLeftKey(moveLeftKey), moveRightKey(moveRightKey), jumpKey(jumpKey)
+        spawnPointX(x), spawnPointY(y),
+        moveLeftKey(moveLeftKey), moveRightKey(moveRightKey), jumpKey(jumpKey), color(color)
     {
         collider->setParent(this);
         rgdb->setElasticity(2);
         rgdb->setAccelerateX(true);
-        addAnimation(engine::Animation::getInstance("Jump", jumpAnimPath, 32, 32, 3, 1, false));
-        addAnimation(engine::Animation::getInstance("Fall", fallAnimPath, 32, 32, 3, 1, false));
+        if (color == "Blue"){
+            addAnimation(engine::Animation::getInstance("Jump", BLUE_JUMP_ANIM, 32, 32, 3, 1, false));
+            addAnimation(engine::Animation::getInstance("Fall", BLUE_FALL_ANIM, 32, 32, 3, 1, false));
+        }else{
+            addAnimation(engine::Animation::getInstance("Jump", RED_JUMP_ANIM, 32, 32, 3, 1, false));
+            addAnimation(engine::Animation::getInstance("Fall", RED_FALL_ANIM, 32, 32, 3, 1, false)); 
+        }
     }
 
     void Player::update(){
-        rgdb->targetVelocityX = 0;
+        rgdb->setTargetVelocityX(0);
 
         if(rgdb->isGrounded()){
             playAnimation("Idle");
@@ -46,7 +51,7 @@ namespace game
         if (onPlatform){
             getRect()->x += groundSpeedX;
         }
-        if (!rgdb->isGrounded() && rgdb->velocityY > 5){
+        if (!rgdb->isGrounded() && rgdb->getVelocityY() > 5){
             playAnimation("Fall");
         }
     }
@@ -54,7 +59,7 @@ namespace game
     void Player::handleInputs(){
         if (engine::session.keyDown(moveLeftKey)){
             relSpeed = -speed;
-            rgdb->targetVelocityX = relSpeed;
+            rgdb->setTargetVelocityX(relSpeed);
             if (!hasFlipped){
                 hasFlipped = true;
                 flipX();
@@ -62,7 +67,7 @@ namespace game
         }
         if (engine::session.keyDown(moveRightKey)){
             relSpeed = speed;
-            rgdb->targetVelocityX = relSpeed;
+            rgdb->setTargetVelocityX(relSpeed);
             if (hasFlipped){
                 hasFlipped = false;
                 flipX();
@@ -70,7 +75,7 @@ namespace game
         }
         if (rgdb->isGrounded()){
             if (engine::session.keyDown(jumpKey)){
-                rgdb->velocityY = jumpForce;
+                rgdb->setVelocityY(jumpForce);
                 playAnimation("Jump");
             }
         }
@@ -93,9 +98,24 @@ namespace game
                 groundSpeedX = 0;
             }
         }
-        if(other-> getTag() == "Box"){
+        if(other->getTag() == "Box"){
             other->getParent()->getRect()->x += relSpeed;
         }
+        if(other->getTag() == "Water"){
+            if (Water* water = dynamic_cast<Water*>(other->getParent())){
+                if (this->getColor() != water->getColor()){
+                    respawn();
+                }
+            }
+        }
+    }
+
+    void Player::respawn(){
+        rgdb->setTargetVelocityX(0);
+        rgdb->setVelocityX(0);
+        rgdb->setVelocityY(0);
+        getRect()->x = spawnPointX;
+        getRect()->y = spawnPointY;
     }
 
     Player::~Player(){

@@ -11,7 +11,10 @@ namespace engine
         return new RigidBody(parent,collider,groundTag);
     }
 
-    RigidBody::RigidBody(Component* parent, Collider2D* collider, std::string groundTag) : accelerationX(0.3f), accelerateX(false), collider(collider), groundTag(groundTag){
+    RigidBody::RigidBody(Component* parent, Collider2D* collider, std::string groundTag) :
+        velocityY(0), velocityX(0), targetVelocityX(0),
+        accelerationX(0.3f), accelerateX(false), collider(collider), groundTag(groundTag)
+    {
         session.addComponent(this);
         setParent(parent);
     }
