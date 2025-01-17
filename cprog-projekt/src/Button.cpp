@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include "System.h"
 #include "Sprite.h"
+#include <iostream>
 
 namespace engine{
 
@@ -25,9 +26,9 @@ namespace engine{
 	}
 	void Button::mouseUp(const SDL_Event& eve) {
 		SDL_Point p = { eve.button.x, eve.button.y };
-		if (SDL_PointInRect(&p, getRect()))
+		if (SDL_PointInRect(&p, getRect())){
 			execute(this);
-
+		}
 		isDown = false;
 	}
 }

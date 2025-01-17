@@ -9,20 +9,25 @@
 #include "Game_GameManager.h"
 #include "Map.h"
 #include "Label.h"
+#include "MemButton.h"
 #include "Session.h"
+#include <iostream>
 
 namespace game
 {
     SceneManager::SceneManager(){
-        loadLevel_1();
+        loadMainMenu();
+        //loadLevel_1();
     }
 
     void SceneManager::loadMainMenu(){
+        std::cout << "Loading main menu" << std::endl;
         clearScene();
 
         // background
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/BG.png"));
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png"));
+        mainMenu.push_back(engine::MemButton<SceneManager>::getInstance(200,200,200,200,"/images/Button_Play.png",this,&SceneManager::loadLevel_1));
 
         // Add main menu components to session
         for (engine::Component* c : mainMenu){
@@ -31,6 +36,7 @@ namespace game
     }
 
     void SceneManager::loadLevel_1(){
+        std::cout << "Loading level 1" << std::endl;
         clearScene();
 
         // level 1 map

@@ -109,7 +109,7 @@ namespace engine{
     }
 
     void Session::setFps(int newFps){
-        fps= newFps;
+        fps = newFps;
     }
 
     const std::vector<Component*>& Session::getComponents() const { return components;}
