@@ -26,8 +26,8 @@ namespace game
         std::string color;
         engine::Collider2D* collider;
 
-        static bool bluePlayerAtGoal;
-        static bool redPlayerAtGoal;
+        inline static bool bluePlayerAtGoal;
+        inline static bool redPlayerAtGoal;
     };
 }
 

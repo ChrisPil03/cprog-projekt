@@ -38,10 +38,10 @@ namespace game
                 }
             }
         }else{
-            if (bluePlayerAtGoal){
+            if (bluePlayerAtGoal && color == "Blue"){
                 bluePlayerAtGoal = false;
             }
-            else if (redPlayerAtGoal){
+            if (redPlayerAtGoal && color == "Red"){
                 redPlayerAtGoal = false;
             }
         }
