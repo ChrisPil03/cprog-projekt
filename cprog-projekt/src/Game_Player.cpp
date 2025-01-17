@@ -5,6 +5,7 @@
 #include "RigidBody.h"
 #include "Session.h"
 #include "Game_Platform.h"
+#include "Game_GameManager.h"
 #include "Component.h"
 #include "Game_Water.h"
 #include <iostream>
@@ -84,6 +85,7 @@ namespace game
     void Player::onCollision(Component* other){
         if(other->getTag() == "Gem"){
             engine::session.removeComponent(other->getParent());
+            GameManager::collectGem();
         }
         if (other->getTag() == "Ground"){
             if (Platform* platform = dynamic_cast<Platform*>(other->getParent())){

@@ -2,20 +2,22 @@
 #define GAMEMANAGER_H
 
 #include "Component.h"
+#include "Label.h"
 
 namespace game
 {
     class GameManager : public engine::Component
     {
     public:
-        static GameManager* getInstance(){ return new GameManager(); }
-        void collectGem(){ collectedGems++; }
-        const int& getCollectedGems(){ return collectedGems; }
-        void update();
-    private:
-        GameManager() : collectedGems(0){}
+        static GameManager* getInstance(engine::Label* lbl){ return new GameManager(lbl); }
+        static void collectGem();
+        int getCollectedGems() const { return collectedGems; }
 
-        int collectedGems;
+    private:
+        GameManager(engine::Label* lbl);
+
+        inline static int collectedGems;
+        inline static engine::Label* gemsCountLabel;
     };
 }
 
