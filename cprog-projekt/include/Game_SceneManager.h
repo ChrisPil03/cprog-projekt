@@ -32,6 +32,8 @@ namespace game
         Player* redPlayer;
         Water* blueWater;
         Water* redWater;
+        engine::AnimatedSprite* blueMenuSlime;
+        engine::AnimatedSprite* redMenuSlime;
 
     };
 }

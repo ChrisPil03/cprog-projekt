@@ -17,9 +17,16 @@ namespace game
     SceneManager::SceneManager(){
         if (!sceneManager){
             sceneManager = this;
-        }
 
-        loadMainMenu();
+            loadMainMenu();
+
+            blueMenuSlime = nullptr;
+            bluePlayer = nullptr;
+            blueWater = nullptr;
+            redMenuSlime = nullptr;
+            redPlayer = nullptr;
+            redWater = nullptr;
+        }
     }
 
     void SceneManager::loadLevelComplete(){
@@ -55,6 +62,13 @@ namespace game
         for (engine::Component* c : mainMenu){
             engine::session.addComponent(c);
         }
+
+        blueMenuSlime = engine::AnimatedSprite::getInstance(650,350,240,240,engine::Animation::getInstance("Idle","/images/BlueSlimeIdle.png", 32, 32, 6, 10, true));
+        blueMenuSlime->flipX();
+        redMenuSlime = engine::AnimatedSprite::getInstance(70,350,240,240,engine::Animation::getInstance("Idle","/images/RedSlimeIdle.png", 32, 32, 6, 10, true));
+
+        engine::session.addComponent(blueMenuSlime);
+        engine::session.addComponent(redMenuSlime);
     }
 
     void SceneManager::loadLevel_1(){
@@ -180,6 +194,10 @@ namespace game
                 engine::session.removeComponent(c);
             }
             mainMenu.clear();
+            engine::session.removeComponent(blueMenuSlime);
+            engine::session.removeComponent(redMenuSlime);
+            blueMenuSlime = nullptr;
+            redMenuSlime = nullptr;
         }
         if (level_1.size() != 0){
             for (engine::Component* c : level_1){
@@ -190,6 +208,10 @@ namespace game
             engine::session.removeComponent(redPlayer);
             engine::session.removeComponent(blueWater);
             engine::session.removeComponent(redWater);
+            bluePlayer = nullptr;
+            redPlayer = nullptr;
+            blueWater = nullptr;
+            redPlayer = nullptr;
             GameManager::gameManager->resetGems();
         }
         if(levelComplete.size() != 0){
