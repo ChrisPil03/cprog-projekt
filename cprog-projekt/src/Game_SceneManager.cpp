@@ -3,10 +3,8 @@
 #include "Game_Button.h"
 #include "Game_Pickup.h"
 #include "Game_Platform.h"
-#include "Game_Player.h"
 #include "Game_LevelGoal.h"
 #include "Game_Water.h"
-#include "Game_GameManager.h"
 #include "Map.h"
 #include "Label.h"
 #include "MemButton.h"
@@ -16,20 +14,37 @@
 namespace game
 {
     SceneManager::SceneManager(){
+        if (!sceneManager){
+            sceneManager = this;
+        }
+
         loadMainMenu();
-        //loadLevel_1();
+    }
+
+    void SceneManager::loadLevelComplete(){
+        std::cout << "Loading level complete UI" << std::endl;
+        // Buttons
+        levelComplete.push_back(engine::MemButton<SceneManager>::getInstance(550,230,180,180,"/images/Button_Replay.png",sceneManager,&SceneManager::loadLevel_1));
+        levelComplete.push_back(engine::MemButton<SceneManager>::getInstance(230,230,180,180,"/images/Button_ExitArrow.png",sceneManager,&SceneManager::loadMainMenu));
+
+        // Add level complete UI too session
+        for (engine::Component* c : levelComplete){
+            engine::session.addComponent(c);
+        }
     }
 
     void SceneManager::loadMainMenu(){
         std::cout << "Loading main menu" << std::endl;
         clearScene();
 
-        // background
+        // Background
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/BG.png"));
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png"));
-        mainMenu.push_back(engine::MemButton<SceneManager>::getInstance(200,200,200,200,"/images/Button_Play.png",this,&SceneManager::loadLevel_1));
 
-        // Add main menu components to session
+        // Buttons
+        mainMenu.push_back(engine::MemButton<SceneManager>::getInstance(390,230,180,180,"/images/Button_Play.png",sceneManager,&SceneManager::loadLevel_1));
+
+        // Add main menu components too session
         for (engine::Component* c : mainMenu){
             engine::session.addComponent(c);
         }
@@ -131,21 +146,43 @@ namespace game
         gameManager = GameManager::getInstance(gemLabel);
     }
 
+    void SceneManager::removeComponent(engine::Component* comp){
+        removeComponentFromVector(comp,level_1);
+    }
+
+    void SceneManager::removeComponentFromVector(engine::Component* comp,std::vector<engine::Component*>& vec){
+        for (std::vector<engine::Component*>::iterator iter = vec.begin(); iter != vec.end(); iter++){
+            if (*iter == comp){
+                engine::session.removeComponent(comp);
+                vec.erase(iter);
+                return;
+            }
+        }
+    }
+
     void SceneManager::clearScene(){
         if (mainMenu.size() != 0){
             for (engine::Component* c : mainMenu){
                 engine::session.removeComponent(c);
             }
+            mainMenu.clear();
         }
         if (level_1.size() != 0){
             for (engine::Component* c : level_1){
                 engine::session.removeComponent(c);
             }
+            level_1.clear();
             engine::session.removeComponent(bluePlayer);
             engine::session.removeComponent(redPlayer);
         }
+        if(levelComplete.size() != 0){
+            for (engine::Component* c : levelComplete){
+                engine::session.removeComponent(c);
+            }
+            levelComplete.clear();
+        }
         if (gameManager){
-            delete gameManager;
+            //delete gameManager;
         }
     }
 }

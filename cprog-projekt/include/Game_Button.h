@@ -12,6 +12,7 @@ namespace game {
     public:
         static Button* getInstance(int x, int y, int w, int h, std::string imagePath, Platform* platform);
         void update();
+        ~Button();
     private:
         Button(int x, int y, int w, int h, std::string imagePath, Platform* platform);
         engine::Collider2D* collider;

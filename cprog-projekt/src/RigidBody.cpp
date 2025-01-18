@@ -21,32 +21,34 @@ namespace engine
 
 //saves last position of parent, if collision is detected, parent is moved back, checks collision with ground.
     void RigidBody::update(){
-        const int lastYPos = getParent()->getRect()->y;
-        const int lastXPos = getParent()->getRect()->x;
-        updateVelocity();
-        setParentPosition();
-        Collider2D* col = collider->hasCollided(groundTag);
-        if (col){
-            // Need to call onCollision on the parent to be able to use onCollision to find collision with ground
-            // Becasue verticalCollision() / horizontalCollision() might update the position and then hasCollided is called again which
-            // updates the collider's position to not collide if there was a collision
-            // getCollision() in collider will not get a collision with ground when collider parent has a RigidBody
-            // without getParent()->onCollision(col);
-            getParent()->onCollision(col);
-            verticalCollision(col,lastYPos,lastXPos);
-
-            col = collider->hasCollided(groundTag);
+        if (getParent()){
+            const int lastYPos = getParent()->getRect()->y;
+            const int lastXPos = getParent()->getRect()->x;
+            updateVelocity();
+            setParentPosition();
+            Collider2D* col = collider->hasCollided(groundTag);
             if (col){
+                // Need to call onCollision on the parent to be able to use onCollision to find collision with ground
+                // Becasue verticalCollision() / horizontalCollision() might update the position and then hasCollided is called again which
+                // updates the collider's position to not collide if there was a collision
+                // getCollision() in collider will not get a collision with ground when collider parent has a RigidBody
+                // without getParent()->onCollision(col);
                 getParent()->onCollision(col);
-                horizontalCollision(col,lastXPos);
+                verticalCollision(col,lastYPos,lastXPos);
+
                 col = collider->hasCollided(groundTag);
                 if (col){
-                    // getParent()->onCollision(col); is not needed beacuse hasCollider() is not called again
-                    verticalCollision(col,lastYPos,lastXPos);
+                    getParent()->onCollision(col);
+                    horizontalCollision(col,lastXPos);
+                    col = collider->hasCollided(groundTag);
+                    if (col){
+                        // getParent()->onCollision(col); is not needed beacuse hasCollider() is not called again
+                        verticalCollision(col,lastYPos,lastXPos);
+                    }
                 }
+            }else{
+                grounded = false;
             }
-        }else{
-            grounded = false;
         }
     }
 

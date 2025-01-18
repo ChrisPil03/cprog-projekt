@@ -19,8 +19,6 @@ namespace engine{
         Button(int x, int y, int w, int h, std::string imagePath);
 
     private: 
-        std::string text;
-        SDL_Texture* txtTexture;
         bool isDown = false;
     };
 }

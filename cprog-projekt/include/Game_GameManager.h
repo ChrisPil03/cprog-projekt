@@ -6,12 +6,13 @@
 
 namespace game
 {
-    class GameManager : public engine::Component
+    class GameManager
     {
     public:
         static GameManager* getInstance(engine::Label* lbl){ return new GameManager(lbl); }
         static void collectGem();
-        int getCollectedGems() const { return collectedGems; }
+        static int getCollectedGems() { return collectedGems; }
+        ~GameManager(){}
 
     private:
         GameManager(engine::Label* lbl);

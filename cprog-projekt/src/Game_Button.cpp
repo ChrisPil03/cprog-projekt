@@ -1,4 +1,5 @@
 #include "Game_Button.h"
+#include "Session.h"
 
 namespace game {
 
@@ -16,5 +17,9 @@ namespace game {
         if(collider->hasCollided("Player")){
             platform->setSpeed(0,1);
         }
+    }
+
+    Button::~Button(){
+        engine::session.removeComponent(collider);
     }
 }

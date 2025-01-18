@@ -8,6 +8,7 @@
 #include "Game_GameManager.h"
 #include "Component.h"
 #include "Game_Water.h"
+#include "Game_SceneManager.h"
 #include <iostream>
 
 namespace game
@@ -84,7 +85,7 @@ namespace game
 
     void Player::onCollision(Component* other){
         if(other->getTag() == "Gem" && other->getParent()){
-            engine::session.removeComponent(other->getParent());
+            SceneManager::sceneManager->removeComponent(other->getParent());
             GameManager::collectGem();
         }
         if (other->getTag() == "Ground"){

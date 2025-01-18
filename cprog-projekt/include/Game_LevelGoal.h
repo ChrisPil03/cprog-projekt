@@ -26,6 +26,7 @@ namespace game
         std::string color;
         engine::Collider2D* collider;
 
+        bool levelComplete;
         inline static bool bluePlayerAtGoal;
         inline static bool redPlayerAtGoal;
     };

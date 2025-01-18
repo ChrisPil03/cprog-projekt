@@ -20,21 +20,23 @@ namespace engine{
 
     //moves sourcerect, when counter is evenly divisible by speed the rendered part of the spritesheet is moved to the next, if you are at the end of the spritesheet it will reset to 0.
     void Animation::render(){
-        if (playAnimation){
-            counter++;
-            if (counter % speed == 0){ 
-                frameRect.x = frameRect.w * currentFrame;
-                currentFrame++;
-                if (currentFrame == frames){
-                    loop ? currentFrame = 0 : currentFrame = frames - 1;
-                }      
-            }
-            SDL_RenderCopyEx(system.getRen(), spriteSheet, &frameRect, getParent()->getRect(), 0, nullptr, directionX);
-        } else{
-            // when animation stops playing the counters are reset, next time the animation plays it will start fresh 
-            if (currentFrame != 0){
-                currentFrame = 0;
-                counter = 0;
+        if (getParent()){
+            if (playAnimation){
+                counter++;
+                if (counter % speed == 0){ 
+                    frameRect.x = frameRect.w * currentFrame;
+                    currentFrame++;
+                    if (currentFrame == frames){
+                        loop ? currentFrame = 0 : currentFrame = frames - 1;
+                    }      
+                }
+                SDL_RenderCopyEx(system.getRen(), spriteSheet, &frameRect, getParent()->getRect(), 0, nullptr, directionX);
+            } else{
+                // when animation stops playing the counters are reset, next time the animation plays it will start fresh 
+                if (currentFrame != 0){
+                    currentFrame = 0;
+                    counter = 0;
+                }
             }
         }
     }

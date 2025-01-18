@@ -11,9 +11,7 @@ namespace engine{
     Button::Button (int x, int y, int w, int h,std::string imagePath)
     : Sprite(x,y,w,h,imagePath){}
 
-    Button::~Button(){
-        SDL_DestroyTexture(txtTexture);
-    }
+    Button::~Button(){}
 
     Button* Button::getInstance(int x, int y, int w, int h, std::string imagePath){
         return new Button(x,y,w,h,imagePath);

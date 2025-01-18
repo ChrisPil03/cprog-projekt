@@ -39,10 +39,10 @@ namespace engine{
         SDL_DestroyTexture(tileMap);
 
         // Delete colliders
-        for (std::vector<Collider2D*>::iterator iter = tileColliders.begin(); iter != tileColliders.end();){
-            session.removeComponent(*iter);
-            iter = tileColliders.erase(iter);
+        for (Collider2D* c : tileColliders){
+            session.removeComponent(c);
         }
+        tileColliders.clear();
            
         // Delete SDL_Rect* in tileSourceRects
         for (auto rect : tileSourceRects){
