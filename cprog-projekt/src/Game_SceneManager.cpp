@@ -96,10 +96,10 @@ namespace game
         level_1.push_back(platform1);
         level_1.push_back(platform2);
         level_1.push_back(platform3);
-        level_1.push_back(game::Button::getInstance(320,368, 16, 16, "/images/Box.png", platform1));
-        level_1.push_back(game::Button::getInstance(192,240, 16, 16, "/images/Box.png", platform1));
-        level_1.push_back(game::Button::getInstance(580,272, 16, 16, "/images/Box.png", platform2));
-        level_1.push_back(game::Button::getInstance(768,144, 16, 16, "/images/Box.png", platform2));
+        level_1.push_back(game::Button::getInstance(320,368, 16, 16, platform1));
+        level_1.push_back(game::Button::getInstance(192,240, 16, 16, platform1));
+        level_1.push_back(game::Button::getInstance(580,272, 16, 16, platform2));
+        level_1.push_back(game::Button::getInstance(768,144, 16, 16, platform2));
         platform3->setSpeedX(1);
 
         // map

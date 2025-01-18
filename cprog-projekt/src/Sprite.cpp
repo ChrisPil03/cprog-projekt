@@ -23,6 +23,10 @@ namespace engine
         }
     }
 
+    void Sprite::changeTexture(std::string imagePath){
+        texture = IMG_LoadTexture(system.getRen(), (constants::gResPath + imagePath).c_str());
+    }
+
     Sprite::~Sprite(){
         SDL_DestroyTexture(texture);
     }

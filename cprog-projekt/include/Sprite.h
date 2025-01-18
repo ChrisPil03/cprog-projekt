@@ -13,6 +13,7 @@ namespace engine{
         static Sprite* getInstance(int x, int y, int w, int h, std::string texture);
         void render();
         void flipX();
+        void changeTexture(std::string imagePath);
         SDL_Rect* getRect() { return &rect;}
         void mouseDown(const SDL_Event&) {}
 		void mouseUp(const SDL_Event&) {}
