@@ -26,7 +26,6 @@ namespace game
         void removeComponentFromVector(engine::Component*,std::vector<engine::Component*>&);
         
         std::vector<engine::Component*> mainMenu, level_1, levelComplete;
-        GameManager* gameManager;
 
         // Needed because layer order has not been implemented
         // Objects with animations has to be added seperatly to reder them infront of everything else

@@ -10,7 +10,7 @@
 #include "MemButton.h"
 #include "Session.h"
 #include "SoundManager.h"
-#include <iostream>
+//#include <iostream>
 
 namespace game
 {
@@ -23,7 +23,8 @@ namespace game
     }
 
     void SceneManager::loadLevelComplete(){
-        std::cout << "Loading level complete UI" << std::endl;
+        // std::cout << "Loading level complete UI" << std::endl;
+
         // Buttons
         levelComplete.push_back(engine::MemButton<SceneManager>::getInstance(550,230,180,180,"/images/Button_Replay.png",sceneManager,&SceneManager::loadLevel_1));
         levelComplete.push_back(engine::MemButton<SceneManager>::getInstance(230,230,180,180,"/images/Button_ExitArrow.png",sceneManager,&SceneManager::loadMainMenu));
@@ -35,7 +36,8 @@ namespace game
     }
 
     void SceneManager::loadMainMenu(){
-        std::cout << "Loading main menu" << std::endl;
+        // std::cout << "Loading main menu" << std::endl;
+
         clearScene();
 
         //Play menu music
@@ -56,7 +58,8 @@ namespace game
     }
 
     void SceneManager::loadLevel_1(){
-        std::cout << "Loading level 1" << std::endl;
+        // std::cout << "Loading level 1" << std::endl;
+
         clearScene();
 
         // Play level music
@@ -132,13 +135,12 @@ namespace game
         level_1.push_back(gemLabel);
         level_1.push_back(engine::Sprite::getInstance(900,36,18,22,"/images/Gem.png"));
 
+        GameManager::gameManager->setGemLabel(gemLabel);
+
         // Add all components to session
         for (engine::Component* c : level_1){
             engine::session.addComponent(c);
         }
-
-        // GameManager
-        gameManager = GameManager::getInstance(gemLabel);
 
         // The following needs to be done after adding everything to session. If not they will be rendered behind everything else
         // players
@@ -156,6 +158,8 @@ namespace game
         engine::session.addComponent(redWater);
     }
 
+    // Is called when something is deleted during playtime istead of session.removeComponent
+    // Used in Game_Player.cpp onCollision()
     void SceneManager::removeComponent(engine::Component* comp){
         removeComponentFromVector(comp,level_1);
     }
@@ -186,15 +190,13 @@ namespace game
             engine::session.removeComponent(redPlayer);
             engine::session.removeComponent(blueWater);
             engine::session.removeComponent(redWater);
+            GameManager::gameManager->resetGems();
         }
         if(levelComplete.size() != 0){
             for (engine::Component* c : levelComplete){
                 engine::session.removeComponent(c);
             }
             levelComplete.clear();
-        }
-        if (gameManager){
-            //delete gameManager;
         }
     }
 }

@@ -86,7 +86,7 @@ namespace game
     void Player::onCollision(Component* other){
         if(other->getTag() == "Gem" && other->getParent()){
             SceneManager::sceneManager->removeComponent(other->getParent());
-            GameManager::collectGem();
+            GameManager::gameManager->collectGem();
         }
         if (other->getTag() == "Ground"){
             if (Platform* platform = dynamic_cast<Platform*>(other->getParent())){

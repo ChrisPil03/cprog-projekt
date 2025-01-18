@@ -9,16 +9,19 @@ namespace game
     class GameManager
     {
     public:
-        static GameManager* getInstance(engine::Label* lbl){ return new GameManager(lbl); }
-        static void collectGem();
-        static int getCollectedGems() { return collectedGems; }
+        static GameManager* getInstance();
+        void collectGem();
+        int getCollectedGems() const { return collectedGems; }
+        void resetGems();
+        void setGemLabel(engine::Label* lbl) { gemsCountLabel = lbl; }
         ~GameManager(){}
 
+        inline static GameManager* gameManager = nullptr;
     private:
-        GameManager(engine::Label* lbl);
+        GameManager();
 
-        inline static int collectedGems;
-        inline static engine::Label* gemsCountLabel;
+        int collectedGems;
+        engine::Label* gemsCountLabel;
     };
 }
 

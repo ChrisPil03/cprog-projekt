@@ -90,9 +90,9 @@ namespace engine{
 
     void Session::removeComponents(){
         for (Component* c : removed){
-            if (!removingComponents){
-                std::cout << "Total Components; " << components.size() << " Components to remove: " << removed.size() << std::endl;
-            }
+            // if (!removingComponents){
+            //     std::cout << "Total Components; " << components.size() << " Components to remove: " << removed.size() << std::endl;
+            // }
             removingComponents = true;
             for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
                 if (*iter == c){
@@ -105,9 +105,9 @@ namespace engine{
             }
         }
         removed.clear();
-        if (removingComponents){
-            std::cout << "Total Components left; " << components.size() << " Components to remove: " << removed.size() << std::endl;
-        }
+        // if (removingComponents){
+        //     std::cout << "Total Components left; " << components.size() << " Components to remove: " << removed.size() << std::endl;
+        // }
         removingComponents = false;
         if (childrenRemoved.size() != 0){
             for (Component* c : childrenRemoved){

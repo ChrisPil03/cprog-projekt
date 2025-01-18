@@ -1,7 +1,6 @@
 #include "Label.h"
 #include <SDL2/SDL_ttf.h>
 #include "System.h"
-#include <iostream>
 
 namespace engine
 {
