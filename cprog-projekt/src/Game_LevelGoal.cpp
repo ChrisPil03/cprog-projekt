@@ -12,10 +12,10 @@ namespace game
     }
 
     LevelGoal::LevelGoal(int x, int y, std::string color) :
-        Sprite(x,y,GOAL_WIDTH,GOAL_HEIGHT, (color == "Blue") ? BLUE_GOAL : RED_GOAL),
-        color(color), collider(engine::Collider2D::getInstance(x,y,GOAL_WIDTH,GOAL_HEIGHT,GOAL_TAG)),
-        levelComplete(false)
+        Sprite(x,y,GOAL_WIDTH,GOAL_HEIGHT, (color == "Blue") ? BLUE_GOAL_CLOSED : RED_GOAL_CLOSED),
+        color(color), collider(engine::Collider2D::getInstance(x,y,GOAL_WIDTH,GOAL_HEIGHT,GOAL_TAG))
     {
+        levelComplete = false;
         collider->setParent(this);
         bluePlayerAtGoal = false;
         redPlayerAtGoal = false;
@@ -36,8 +36,10 @@ namespace game
                 if (this->getColor() == player->getColor()){
                     if (color == "Blue"){
                         bluePlayerAtGoal = true;
+                        changeTexture(BLUE_GOAL_OPEN);
                     }else{
                         redPlayerAtGoal = true;
+                        changeTexture(RED_GOAL_OPEN);
                     }
                     if(bluePlayerAtGoal && redPlayerAtGoal && !levelComplete && color == "Blue"){
                         completeLevel();
@@ -47,9 +49,15 @@ namespace game
         }else{
             if (bluePlayerAtGoal && color == "Blue"){
                 bluePlayerAtGoal = false;
+                if(!levelComplete){
+                    changeTexture(BLUE_GOAL_CLOSED);
+                }
             }
             if (redPlayerAtGoal && color == "Red"){
                 redPlayerAtGoal = false;
+                if(!levelComplete){
+                    changeTexture(RED_GOAL_CLOSED);
+                }
             }
         }
     }

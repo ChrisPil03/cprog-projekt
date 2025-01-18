@@ -4,8 +4,10 @@
 #include "Sprite.h"
 #include "Collider2D.h"
 
-#define BLUE_GOAL "/images/bg.jpg"
-#define RED_GOAL "/images/Box.png"
+#define BLUE_GOAL_CLOSED "/images/BlueDoor_Closed.png"
+#define BLUE_GOAL_OPEN "/images/BlueDoor_Open.png"
+#define RED_GOAL_CLOSED "/images/RedDoor_Closed.png"
+#define RED_GOAL_OPEN "/images/RedDoor_Open.png"
 #define GOAL_TAG "Goal"
 #define GOAL_WIDTH 48
 #define GOAL_HEIGHT 64
@@ -26,7 +28,7 @@ namespace game
         std::string color;
         engine::Collider2D* collider;
 
-        bool levelComplete;
+        inline static bool levelComplete;
         inline static bool bluePlayerAtGoal;
         inline static bool redPlayerAtGoal;
     };
