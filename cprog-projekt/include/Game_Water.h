@@ -1,16 +1,16 @@
 #ifndef WATER_H
 #define WATER_H
 
-#include "Sprite.h"
+#include "AnimatedSprite.h"
 #include "Collider2D.h"
 
-#define BLUE_WATER "/images/bg.jpg"
-#define RED_WATER "/images/Box.png"
+#define BLUE_WATER "/images/BlueWater.png"
+#define RED_WATER "/images/RedWater.png"
 #define TAG "Water"
 
 namespace game
 {
-    class Water : public engine::Sprite
+    class Water : public engine::AnimatedSprite
     {
     public:
         static Water* getInstance(int x, int y, int w, int h, std::string color);

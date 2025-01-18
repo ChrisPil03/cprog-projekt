@@ -86,10 +86,6 @@ namespace game
         level_1.push_back(LevelGoal::getInstance(96,64,"Red"));
         level_1.push_back(LevelGoal::getInstance(200,64,"Blue"));
 
-        // water
-        level_1.push_back(Water::getInstance(352,586,64,24,"Red"));
-        level_1.push_back(Water::getInstance(576,586,64,24,"Blue"));
-
         // box
         level_1.push_back(Box::getInstance(574,384,30,31));
 
@@ -133,17 +129,23 @@ namespace game
             engine::session.addComponent(c);
         }
 
-        // The following needs to be done after adding everything to session. If not the players will be rendered behind everything else
+        // GameManager
+        gameManager = GameManager::getInstance(gemLabel);
+
+        // The following needs to be done after adding everything to session. If not they will be rendered behind everything else
         // players
         bluePlayer = Player::getInstance(64,400, "A", "D", "W", "Blue");
         redPlayer = Player::getInstance(64,480, "Left", "Right", "Up", "Red");
 
-        // Add players to session
+        // water
+        blueWater = Water::getInstance(352,586,64,24,"Red");
+        redWater = Water::getInstance(576,586,64,24,"Blue");
+
+        // Add players and water to session
         engine::session.addComponent(bluePlayer);
         engine::session.addComponent(redPlayer);
-
-        // GameManager
-        gameManager = GameManager::getInstance(gemLabel);
+        engine::session.addComponent(blueWater);
+        engine::session.addComponent(redWater);
     }
 
     void SceneManager::removeComponent(engine::Component* comp){
@@ -174,6 +176,8 @@ namespace game
             level_1.clear();
             engine::session.removeComponent(bluePlayer);
             engine::session.removeComponent(redPlayer);
+            engine::session.removeComponent(blueWater);
+            engine::session.removeComponent(redWater);
         }
         if(levelComplete.size() != 0){
             for (engine::Component* c : levelComplete){

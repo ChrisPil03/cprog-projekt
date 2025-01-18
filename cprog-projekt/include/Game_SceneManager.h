@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Game_GameManager.h"
 #include "Game_Player.h"
+#include "Game_Water.h"
 #include <vector>
 
 namespace game
@@ -25,9 +26,15 @@ namespace game
         void removeComponentFromVector(engine::Component*,std::vector<engine::Component*>&);
         
         std::vector<engine::Component*> mainMenu, level_1, levelComplete;
+        GameManager* gameManager;
+
+        // Needed because layer order has not been implemented
+        // Objects with animations has to be added seperatly to reder them infront of everything else
         Player* bluePlayer;
         Player* redPlayer;
-        GameManager* gameManager;
+        Water* blueWater;
+        Water* redWater;
+
     };
 }
 

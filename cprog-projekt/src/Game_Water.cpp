@@ -8,7 +8,8 @@ namespace game
     }
 
     Water::Water(int x, int y, int w, int h, std::string color) :
-        Sprite(x,y,w,h, (color == "Blue") ? BLUE_WATER : RED_WATER),
+        AnimatedSprite(x,y,w,h, (color == "Blue") ?
+        engine::Animation::getInstance("Waves",BLUE_WATER,32,12,10,10,true) : engine::Animation::getInstance("Waves",RED_WATER,32,12,10,10,true)),
         color(color),
         collider(engine::Collider2D::getInstance(x,y,w,h,TAG))
     {
