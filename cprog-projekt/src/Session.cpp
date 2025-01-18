@@ -48,9 +48,9 @@ namespace engine{
                 } // yttre switch
             } // inre while
 
-            updateComponents();
             addComponents();
             removeComponents();
+            updateComponents();
             renderComponents();
 
             int delay = nextTick - SDL_GetTicks();
