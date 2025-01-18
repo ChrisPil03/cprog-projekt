@@ -42,20 +42,26 @@ namespace game
                     if(bluePlayerAtGoal && redPlayerAtGoal && !levelComplete && color == "Blue"){
                         completeLevel();
                     }
+                }else{
+                    closeDoors();
                 }
             }
         }else{
-            if (bluePlayerAtGoal && color == "Blue"){
-                bluePlayerAtGoal = false;
-                if(!levelComplete){
-                    changeTexture(BLUE_GOAL_CLOSED);
-                }
+            closeDoors();
+        }
+    }
+
+    void LevelGoal::closeDoors(){
+        if (bluePlayerAtGoal && color == "Blue"){
+            bluePlayerAtGoal = false;
+            if(!levelComplete){
+                changeTexture(BLUE_GOAL_CLOSED);
             }
-            if (redPlayerAtGoal && color == "Red"){
-                redPlayerAtGoal = false;
-                if(!levelComplete){
-                    changeTexture(RED_GOAL_CLOSED);
-                }
+        }
+        if (redPlayerAtGoal && color == "Red"){
+            redPlayerAtGoal = false;
+            if(!levelComplete){
+                changeTexture(RED_GOAL_CLOSED);
             }
         }
     }

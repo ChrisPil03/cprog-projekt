@@ -25,6 +25,7 @@ namespace game
         ~LevelGoal();
     private:
         LevelGoal(int x, int y, std::string color);
+        void closeDoors();
         std::string color;
         engine::Collider2D* collider;
 
