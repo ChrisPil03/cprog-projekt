@@ -40,6 +40,7 @@ namespace game
         // Background
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/BG.png"));
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png"));
+        mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/Title.png"));
 
         // Buttons
         mainMenu.push_back(engine::MemButton<SceneManager>::getInstance(390,230,180,180,"/images/Button_Play.png",sceneManager,&SceneManager::loadLevel_1));
