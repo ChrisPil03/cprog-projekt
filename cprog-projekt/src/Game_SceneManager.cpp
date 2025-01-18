@@ -90,9 +90,9 @@ namespace game
         level_1.push_back(Box::getInstance(574,384,30,31));
 
         // platforms and buttons controlling platforms
-        Platform* platform1 = Platform::getInstance(32, 256, 96, 16, "/images/bg.jpg", "Ground", false, 1, 78);
-        Platform* platform2 = Platform::getInstance(832, 160, 96, 16, "/images/bg.jpg", "Ground", false, 1, 78);
-        Platform* platform3 = Platform::getInstance(320, 128, 96, 16, "/images/bg.jpg", "Ground", true, 1, 192);
+        Platform* platform1 = Platform::getInstance(32, 256, 96, 16, "/images/Platform.png", "Ground", false, 1, 78);
+        Platform* platform2 = Platform::getInstance(832, 160, 96, 16, "/images/Platform.png", "Ground", false, 1, 78);
+        Platform* platform3 = Platform::getInstance(320, 128, 96, 16, "/images/Platform.png", "Ground", true, 1, 192);
         level_1.push_back(platform1);
         level_1.push_back(platform2);
         level_1.push_back(platform3);
