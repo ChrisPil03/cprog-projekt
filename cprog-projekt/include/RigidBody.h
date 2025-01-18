@@ -3,9 +3,9 @@
 
 #include "Component.h"
 #include "Collider2D.h"
-#include <string>
 
-namespace engine{
+namespace engine
+{
     class RigidBody : public Component
     {
     public:

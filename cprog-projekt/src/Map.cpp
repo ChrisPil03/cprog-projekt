@@ -3,7 +3,6 @@
 #include "Constants.h"
 #include "System.h"
 #include "Session.h"
-#include "Collider2D.h"
 
 
 namespace engine{

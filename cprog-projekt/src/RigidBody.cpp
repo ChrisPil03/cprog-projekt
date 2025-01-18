@@ -1,9 +1,5 @@
 #include "RigidBody.h"
 #include "Session.h"
-#include "Collider2D.h"
-#include <iostream>
-#include <string>
-#include "Component.h"
 
 namespace engine
 {

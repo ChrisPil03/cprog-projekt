@@ -2,7 +2,6 @@
 #define SCENEMANAGER_H
 
 #include "Component.h"
-#include "Game_GameManager.h"
 #include "Game_Player.h"
 #include "Game_Water.h"
 #include <vector>

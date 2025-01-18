@@ -2,10 +2,8 @@
 #define GAME_PLAYER_H
 
 #include "AnimatedSprite.h"
-#include "Component.h"
 #include "Collider2D.h"
 #include "RigidBody.h"
-#include <string>
 
 #define PLAYER_WIDTH 64
 #define PLAYER_HEIGHT 64

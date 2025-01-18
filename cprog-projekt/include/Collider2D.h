@@ -2,10 +2,9 @@
 #define COLLIDER2D_H
 
 #include "Component.h"
-#include <SDL2/SDL.h>
-#include <string>
 
-namespace engine{
+namespace engine
+{
     class Collider2D : public Component
     {
     public:

@@ -1,9 +1,8 @@
 #include "Collider2D.h"
 #include "session.h"
-#include <string>
-#include <iostream>
 
-namespace engine{
+namespace engine
+{
     Collider2D* Collider2D::getInstance(int x, int y, int w, int h, std::string tagName){
         return new Collider2D(x,y,w,h,tagName);
     }

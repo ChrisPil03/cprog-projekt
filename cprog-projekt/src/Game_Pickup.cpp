@@ -1,7 +1,5 @@
 #include "Game_Pickup.h"
 #include "Session.h"
-#include "Component.h"
-#include <iostream>
 
 namespace game
 {

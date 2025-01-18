@@ -4,8 +4,6 @@
 #include "Component.h"
 #include <vector>
 #include <map>
-#include <SDL2/SDL.h>
-#include <string>
 #include <Collider2D.h>
 
 namespace engine

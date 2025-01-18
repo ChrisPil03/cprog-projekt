@@ -4,7 +4,6 @@
 #include "Sprite.h"
 #include "Collider2D.h"
 #include "Session.h"
-#include "Component.h"
 
 namespace game
 {

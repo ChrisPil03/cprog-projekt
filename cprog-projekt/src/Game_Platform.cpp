@@ -1,5 +1,4 @@
 #include "Game_Platform.h"
-#include "Component.h"
 
 namespace game
 {
@@ -18,7 +17,6 @@ namespace game
             target2 = engine::Collider2D::getInstance(x,y+h+colPos2,1, 1, "Target");
         }
         collider->setParent(this);
-        //collider->setJumpThrought(true);
     }
 
     void Platform::update(){  

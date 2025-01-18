@@ -3,8 +3,6 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #include "System.h"
-#include "Sprite.h"
-#include <iostream>
 
 namespace engine{
 

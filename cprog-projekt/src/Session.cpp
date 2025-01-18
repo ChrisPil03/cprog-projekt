@@ -1,10 +1,7 @@
 #include "Constants.h"
 #include "Session.h"
-#include "Component.h"
 #include "System.h"
-#include <SDL2/SDL.h>
-#include <string>
-#include <iostream>
+//#include <iostream>
 
 namespace engine{
 

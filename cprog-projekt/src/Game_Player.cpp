@@ -1,15 +1,9 @@
 #include "Game_Player.h"
-
-#include "Animation.h"
-#include "Collider2D.h"
-#include "RigidBody.h"
-#include "Session.h"
 #include "Game_Platform.h"
 #include "Game_GameManager.h"
-#include "Component.h"
 #include "Game_Water.h"
 #include "Game_SceneManager.h"
-#include <iostream>
+#include "Session.h"
 
 namespace game
 {

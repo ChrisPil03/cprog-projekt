@@ -1,7 +1,6 @@
 #ifndef GAMEMANAGER_H
 #define GAMEMANAGER_H
 
-#include "Component.h"
 #include "Label.h"
 
 namespace game

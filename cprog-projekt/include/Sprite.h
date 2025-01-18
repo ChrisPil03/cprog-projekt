@@ -1,12 +1,11 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include <SDL2/SDL.h>
 #include "Component.h"
 #include <vector>
-#include <string>
 
-namespace engine{
+namespace engine
+{
     class Sprite : public Component
     {
     public:

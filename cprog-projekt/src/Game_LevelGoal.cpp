@@ -1,6 +1,5 @@
 #include "Game_LevelGoal.h"
 #include "Session.h"
-#include "Collider2D.h"
 #include "Game_Player.h"
 #include "Game_SceneManager.h"
 

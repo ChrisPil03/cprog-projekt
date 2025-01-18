@@ -2,7 +2,6 @@
 #define ANIMATION_H
 
 #include "Component.h"
-#include <string>
 
 namespace engine{
     class Animation : public Component
@@ -12,7 +11,7 @@ namespace engine{
         ~Animation();
         void render();
         void flipX();
-        const std::string getName() { return animationName; } // const!!!!
+        std::string getName() const { return animationName; }
         void play(bool play) { playAnimation =  play; }
     private:
         std::string animationName;

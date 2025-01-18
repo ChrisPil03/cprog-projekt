@@ -7,7 +7,8 @@
 
 #define IMAGE_PATH {"/images/Box.png"}
 
-namespace game{
+namespace game
+{
     class Box : public engine::Sprite
     {
     public:

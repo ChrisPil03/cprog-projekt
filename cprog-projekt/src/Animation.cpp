@@ -2,7 +2,6 @@
 #include "System.h"
 #include "Constants.h"
 #include "Session.h"
-#include <string>
 #include <SDL2/SDL_image.h>
  
 namespace engine{

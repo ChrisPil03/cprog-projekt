@@ -4,7 +4,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-namespace engine {
+namespace engine
+{
 	class System
 	{
 	public:

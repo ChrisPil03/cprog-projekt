@@ -3,11 +3,10 @@
 
 #include <vector>
 #include "Component.h"
-#include <SDL2/SDL.h>
 #include <set>
-#include <string>
 
-namespace engine{
+namespace engine
+{
 	class Session
 	{
 	public:
