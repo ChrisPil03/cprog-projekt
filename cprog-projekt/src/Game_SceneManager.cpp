@@ -9,6 +9,7 @@
 #include "Label.h"
 #include "MemButton.h"
 #include "Session.h"
+#include "SoundManager.h"
 #include <iostream>
 
 namespace game
@@ -37,6 +38,9 @@ namespace game
         std::cout << "Loading main menu" << std::endl;
         clearScene();
 
+        //Play menu music
+        engine::SoundManager::soundManager->playSound("MenuMusic", true);
+
         // Background
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/BG.png"));
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/clouds.png"));
@@ -54,6 +58,9 @@ namespace game
     void SceneManager::loadLevel_1(){
         std::cout << "Loading level 1" << std::endl;
         clearScene();
+
+        // Play level music
+        engine::SoundManager::soundManager->playSound("LevelMusic", true);
 
         // level 1 map
         std::vector<std::vector<int>> tileMap = {
