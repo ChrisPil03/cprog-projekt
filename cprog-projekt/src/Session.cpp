@@ -18,9 +18,6 @@ namespace engine{
         if (!removingComponents){
             removed.push_back(c);
         }else{
-            // set parent too nullptr becasue c is a child and will be removed next frame
-            // if parent is not set to nullptr there will be one frame where parent is pointing to something unknown
-            c->setParent(nullptr);
             childrenRemoved.push_back(c);
         }
     }
@@ -89,32 +86,34 @@ namespace engine{
     }
 
     void Session::removeComponents(){
-        for (Component* c : removed){
-            // if (!removingComponents){
-            //     std::cout << "Total Components; " << components.size() << " Components to remove: " << removed.size() << std::endl;
+        while (removed.size() != 0){
+            for (Component* c : removed){
+                // if (!removingComponents){
+                //     std::cout << "Total Components; " << components.size() << " Components to remove: " << removed.size() << std::endl;
+                // }
+                removingComponents = true;
+                for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
+                    if (*iter == c){
+                        delete *iter;
+                        iter = components.erase(iter);
+                    }
+                    else{
+                        iter++;
+                    }
+                }
+            }
+            removed.clear();
+            // if (removingComponents){
+            //     std::cout << "Total Components left; " << components.size() << " Components to remove: " << removed.size() << std::endl;
             // }
-            removingComponents = true;
-            for (std::vector<Component*>::iterator iter = components.begin(); iter != components.end();){
-                if (*iter == c){
-                    delete *iter;
-                    iter = components.erase(iter);
-                }
-                else{
-                    iter++;
+            removingComponents = false;
+            if (childrenRemoved.size() != 0){
+                for (Component* c : childrenRemoved){
+                    removeComponent(c);
                 }
             }
+            childrenRemoved.clear();
         }
-        removed.clear();
-        // if (removingComponents){
-        //     std::cout << "Total Components left; " << components.size() << " Components to remove: " << removed.size() << std::endl;
-        // }
-        removingComponents = false;
-        if (childrenRemoved.size() != 0){
-            for (Component* c : childrenRemoved){
-                removeComponent(c);
-            }
-        }
-        childrenRemoved.clear();
     }
 
     void Session::setFps(int newFps){

@@ -3,7 +3,6 @@
 #include "Collider2D.h"
 #include "Game_Player.h"
 #include "Game_SceneManager.h"
-#include <iostream>
 
 namespace game
 {
@@ -63,7 +62,6 @@ namespace game
     }
 
     void LevelGoal::completeLevel(){
-        std::cout << "Level complete" << std::endl;
         levelComplete = true;
         SceneManager::sceneManager->loadLevelComplete();
     }

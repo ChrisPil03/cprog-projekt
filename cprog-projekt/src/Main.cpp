@@ -14,8 +14,6 @@ int main (int argc, char** argv){
     game::SceneManager* sm = game::SceneManager::getInstance();
 
     engine::session.run();
-    
-    std::cout << "After run" << std::endl;
 
     delete gm;
     delete sm;
