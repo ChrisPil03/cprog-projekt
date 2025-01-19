@@ -35,6 +35,7 @@ namespace game
         // Buttons
         levelComplete.push_back(engine::MemButton<SceneManager>::getInstance(550,230,180,180,"/images/Button_Replay.png",sceneManager,&SceneManager::loadLevel_1));
         levelComplete.push_back(engine::MemButton<SceneManager>::getInstance(230,230,180,180,"/images/Button_ExitArrow.png",sceneManager,&SceneManager::loadMainMenu));
+        levelComplete.push_back(engine::Label::getInstance(330,130,300,100,"LEVEL COMPLETE!"));
 
         // Add level complete UI too session
         for (engine::Component* c : levelComplete){
@@ -44,11 +45,10 @@ namespace game
 
     void SceneManager::loadMainMenu(){
         // std::cout << "Loading main menu" << std::endl;
-
-        clearScene();
-
         //Play menu music
         engine::SoundManager::soundManager->playSound("MenuMusic", true);
+
+        clearScene();
 
         // Background
         mainMenu.push_back(engine::Sprite::getInstance(0,0,960,640,"/images/BG.png"));
@@ -73,11 +73,10 @@ namespace game
 
     void SceneManager::loadLevel_1(){
         // std::cout << "Loading level 1" << std::endl;
-
-        clearScene();
-
         // Play level music
         engine::SoundManager::soundManager->playSound("LevelMusic", true);
+        
+        clearScene();
 
         // level 1 map
         std::vector<std::vector<int>> tileMap = {
